@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Theme tokens. `--ink` doubles as the tint source for hairlines, glass
+ * surfaces and grid lines, so flipping these values flips the whole UI:
+ * white ink on a near-black ground in dark mode, near-black ink on an
+ * off-white ground in light mode. The theme class is set on <html> by the
+ * inline theme-script before first paint.
+ */
+:root,
+:root.light {
+  color-scheme: light;
+  --bg: 249 249 251;
+  --surface: 255 255 255;
+  --ink: 17 19 27;
+  --glow-red: 255 59 48 / 0.07;
+  --glow-orange: 255 149 0 / 0.06;
+}
+
+:root.dark {
+  color-scheme: dark;
+  --bg: 9 10 15;
+  --surface: 13 15 22;
+  --ink: 255 255 255;
+  --glow-red: 255 59 48 / 0.14;
+  --glow-orange: 255 149 0 / 0.12;
+}
+
+@layer base {
+  * {
+    @apply border-ink/10;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    /* keep decorative blur/glow layers from ever creating a sideways scroll */
+    overflow-x: hidden;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-bg text-ink/75 antialiased;
+    overflow-x: hidden;
+    max-width: 100%;
+    background-image: radial-gradient(
+        60rem 40rem at 12% -10%,
+        rgb(var(--glow-red)),
+        transparent 60%
+      ),
+      radial-gradient(
+        55rem 40rem at 100% 0%,
+        rgb(var(--glow-orange)),
+        transparent 55%
+      );
+    background-attachment: fixed;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    @apply bg-brand-orange/30 text-ink;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-ink/10 bg-ink/[0.035] backdrop-blur-xl;
+    box-shadow: 0 1px 2px rgb(var(--ink) / 0.04),
+      0 12px 30px -18px rgb(var(--ink) / 0.12);
+  }
+
+  .glass-strong {
+    @apply border border-ink/10 bg-ink/[0.05] backdrop-blur-2xl;
+    box-shadow: 0 1px 2px rgb(var(--ink) / 0.05),
+      0 20px 45px -22px rgb(var(--ink) / 0.16);
+  }
+
+  :root.dark .glass {
+    @apply bg-ink/[0.06];
+    box-shadow: none;
+  }
+
+  :root.dark .glass-strong {
+    @apply bg-ink/[0.08];
+    box-shadow: none;
+  }
+
+  .gradient-text {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+
+  .gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* purely decorative — must never intercept clicks on inputs/controls inside */
+    pointer-events: none;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      130deg,
+      rgba(255, 59, 48, 0.9),
+      rgba(255, 149, 0, 0.7),
+      rgb(var(--ink) / 0.05)
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.4;
+    transition: opacity 0.35s ease;
+  }
+
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+
+  .grid-backdrop {
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--ink) / 0.045) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgb(var(--ink) / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 70% 60% at 50% 40%,
+      #000 40%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 70% 60% at 50% 40%,
+      #000 40%,
+      transparent 100%
+    );
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* consistent vertical rhythm that tightens up on small screens */
+  .section-y {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 22px rgba(255, 120, 60, 0.4);
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
