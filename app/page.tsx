@@ -9,7 +9,6 @@ import { Engagement } from "@/components/sections/Engagement";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Contact } from "@/components/sections/Contact";
 import { SplashScreen } from "@/components/ui/SplashScreen";
-
 export default function HomePage() {
   return (
     <>
