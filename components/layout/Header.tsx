@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, CalendarClock, ArrowUpRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { CTAButton } from "@/components/ui/CTAButton";
@@ -9,7 +10,30 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { openCalendly } from "@/lib/calendly";
 import { NAV_LINKS } from "@/lib/data";
 
+function navHash(href: string) {
+  return href.includes("#") ? `#${href.split("#")[1]}` : "";
+}
+
+/** Route pages that should keep a home-section nav item selected. */
+function routeNavHash(pathname: string): string | null {
+  if (pathname.startsWith("/services")) return "#services";
+  return null;
+}
+
+function isNavActive(
+  href: string,
+  pathname: string,
+  scrollHash: string,
+): boolean {
+  const hash = navHash(href);
+  const fromRoute = routeNavHash(pathname);
+  if (fromRoute) return hash === fromRoute;
+  if (pathname === "/") return scrollHash === hash;
+  return false;
+}
+
 export function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeHash, setActiveHash] = useState("");
@@ -21,16 +45,27 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scroll-spy: highlight whichever nav link's section is currently
-  // crossing the vertical center band of the viewport.
   useEffect(() => {
+    if (pathname !== "/") {
+      setActiveHash("");
+      return;
+    }
+
+    const applyHash = () => {
+      if (window.location.hash) setActiveHash(window.location.hash);
+    };
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+
     const sections = NAV_LINKS.map((link) => {
       const id = link.href.includes("#")
         ? link.href.split("#")[1]
         : link.href.replace(/^\//, "");
       return document.getElementById(id);
     }).filter((el): el is HTMLElement => el !== null);
-    if (sections.length === 0) return;
+    if (sections.length === 0) {
+      return () => window.removeEventListener("hashchange", applyHash);
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -42,8 +77,11 @@ export function Header() {
     );
 
     sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("hashchange", applyHash);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -85,8 +123,8 @@ export function Header() {
           </a>
 
           <nav className="hidden items-center rounded-full bg-ink/[0.035] p-1 lg:flex">
-            {NAV_LINKS.map((link) => {
-              const isActive = activeHash === `#${link.href.split("#")[1]}`;
+          {NAV_LINKS.map((link) => {
+            const isActive = isNavActive(link.href, pathname, activeHash);
               return (
                 <a
                   key={link.href}
@@ -149,7 +187,7 @@ export function Header() {
             <div className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-[1.75rem] border border-ink/10 bg-bg/90 p-3 shadow-[0_24px_60px_-28px_rgb(var(--ink)/0.45)] backdrop-blur-2xl">
               <div className="flex flex-col gap-1 p-1">
                 {NAV_LINKS.map((link, i) => {
-                  const isActive = activeHash === `#${link.href.split("#")[1]}`;
+                  const isActive = isNavActive(link.href, pathname, activeHash);
                   return (
                     <motion.a
                       key={link.href}

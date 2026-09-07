@@ -23,6 +23,20 @@ export interface Service {
   accent: string;
 }
 
+export interface ServiceDetailBlock {
+  title: string;
+  body: string;
+}
+
+/** Extra sections rendered on `/services/[slug]`. */
+export interface ServicePageContent {
+  problem: string;
+  challenges: ServiceDetailBlock[];
+  method: ServiceDetailBlock[];
+  useCases: ServiceDetailBlock[];
+  stack: string[];
+}
+
 export interface ProcessStep {
   index: number;
   title: string;
