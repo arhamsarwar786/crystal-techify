@@ -27,8 +27,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-space-grotesk)", "var(--font-inter)", "sans-serif"],
+        sans: ["var(--font-sans)", "Outfit", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Michroma", "sans-serif"],
       },
       backgroundImage: {
         "brand-gradient": "linear-gradient(120deg, #FF3B30 0%, #FF9500 100%)",
@@ -60,6 +60,17 @@ const config: Config = {
           from: { transform: "rotate(0deg)" },
           to: { transform: "rotate(360deg)" },
         },
+        "orb-drift": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)", opacity: "0.35" },
+          "33%": { transform: "translate(3%, -6%) scale(1.08)", opacity: "0.6" },
+          "66%": { transform: "translate(-4%, 4%) scale(0.96)", opacity: "0.75" },
+        },
+        "scan-line": {
+          "0%": { transform: "translateY(-20%)", opacity: "0" },
+          "10%": { opacity: "0.5" },
+          "90%": { opacity: "0.5" },
+          "100%": { transform: "translateY(120%)", opacity: "0" },
+        },
       },
       animation: {
         marquee: "marquee 32s linear infinite",
@@ -68,6 +79,8 @@ const config: Config = {
         float: "float 7s ease-in-out infinite",
         "gradient-x": "gradient-x 6s ease infinite",
         "spin-slow": "spin-slow 26s linear infinite",
+        "orb-drift": "orb-drift 14s ease-in-out infinite",
+        "scan-line": "scan-line 8s ease-in-out infinite",
       },
     },
   },

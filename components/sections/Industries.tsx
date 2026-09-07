@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { INDUSTRIES } from "@/lib/data";
 
 export function Industries() {
@@ -11,36 +12,62 @@ export function Industries() {
       id="industries"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <div className="section-shell">
+      <BrandBackdrop className="opacity-60" />
+      <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Industries"
+          eyebrow="Industries we serve in"
           title={
             <>
-              Domain fluency across{" "}
-              <span className="gradient-text">regulated and complex</span>{" "}
-              sectors
+              Domain fluency from retail to{" "}
+              <span className="gradient-text">blockchain</span>
             </>
           }
         />
 
         <Reveal
           stagger
-          className="mt-10 grid grid-cols-2 gap-2.5 sm:mt-12 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4"
+          className="mt-10 grid grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {INDUSTRIES.map((industry) => (
-            <motion.div
-              key={industry.name}
-              variants={revealItem}
-              className="glass gradient-border group flex items-center gap-2.5 rounded-xl p-3 transition-colors hover:bg-ink/[0.08] sm:gap-3 sm:p-4"
-            >
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-ink/5 text-brand-orange transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10">
-                <industry.icon className="h-4 w-4 sm:h-5 sm:w-5" />
-              </span>
-              <span className="min-w-0 text-[13px] font-medium leading-tight text-ink/75 sm:text-sm">
-                {industry.name}
-              </span>
-            </motion.div>
-          ))}
+          {INDUSTRIES.map((industry) => {
+            const featured = industry.name === "On Demand Services";
+            return (
+              <motion.div
+                key={industry.name}
+                variants={revealItem}
+                className={`group flex flex-col gap-3 rounded-xl p-4 transition-colors sm:p-5 ${
+                  featured
+                    ? "bg-brand-red text-white shadow-glow-sm"
+                    : "glass gradient-border hover:bg-ink/[0.08]"
+                }`}
+              >
+                <span
+                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg transition-transform duration-300 group-hover:scale-110 ${
+                    featured
+                      ? "bg-white/15 text-white"
+                      : "bg-ink/5 text-brand-red"
+                  }`}
+                >
+                  <industry.icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <span
+                    className={`block text-sm font-semibold ${
+                      featured ? "text-white" : "text-ink"
+                    }`}
+                  >
+                    {industry.name}
+                  </span>
+                  <p
+                    className={`mt-1.5 text-[13px] leading-relaxed ${
+                      featured ? "text-white/85" : "text-ink/60"
+                    }`}
+                  >
+                    {industry.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </Reveal>
       </div>
     </section>

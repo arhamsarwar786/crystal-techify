@@ -17,11 +17,14 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { COMPANY } from "@/lib/data";
 
 const PROJECT_TYPES = [
-  "AI / Machine Learning",
-  "SaaS or product build",
-  "Mobile / web app",
-  "Web3 / blockchain",
-  "UI/UX design",
+  "Artificial Intelligence",
+  "SaaS",
+  "Mobile development",
+  "Design",
+  "E-commerce",
+  "Web3",
+  "CMS",
+  "Digital marketing",
   "Staff augmentation",
   "Not sure yet — let's talk",
 ];
@@ -174,9 +177,12 @@ export function Contact() {
   };
 
   const fieldClass = (field: keyof FormState) =>
-    `w-full rounded-xl border bg-ink/[0.03] px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-ink/35 focus:border-brand-orange/60 ${
+    `peer w-full rounded-xl border bg-ink/[0.03] px-4 pb-2 pt-5 text-sm text-ink outline-none transition-colors placeholder:text-transparent focus:border-brand-orange/60 ${
       errors[field] ? "border-brand-red/70" : "border-ink/12"
     }`;
+
+  const floatingLabelClass =
+    "pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-ink/45 transition-all duration-200 peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:text-brand-orange peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:text-ink/55";
 
   return (
     <section
@@ -189,14 +195,14 @@ export function Contact() {
       />
       <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Start a Conversation"
+          eyebrow="Get Started"
           title={
             <>
-              Tell us what you&apos;re building —{" "}
-              <span className="gradient-text">we&apos;ll take it from there</span>
+              Open for collaboration and{" "}
+              <span className="gradient-text">partnership</span>
             </>
           }
-          description="A real engineer reads every message. Expect a reply within one business day, not a drip campaign."
+          description="Let’s innovate together. Contact us to explore partnership possibilities — a real engineer reads every message."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-12">
@@ -360,89 +366,123 @@ export function Contact() {
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="grid gap-4">
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="grid gap-1.5 text-sm">
-                      <span className="font-medium text-ink/75">Name</span>
-                      <input
-                        type="text"
-                        value={form.name}
-                        onChange={update("name")}
-                        autoComplete="name"
-                        className={fieldClass("name")}
-                        placeholder="Jane Doe"
-                      />
+                    <div className="grid gap-1.5">
+                      <div className="relative">
+                        <input
+                          id="field-name"
+                          type="text"
+                          value={form.name}
+                          onChange={update("name")}
+                          autoComplete="name"
+                          className={fieldClass("name")}
+                          placeholder=" "
+                        />
+                        <label htmlFor="field-name" className={floatingLabelClass}>
+                          Name
+                        </label>
+                      </div>
                       {errors.name && (
                         <span className="text-xs text-brand-red">
                           {errors.name}
                         </span>
                       )}
-                    </label>
-                    <label className="grid gap-1.5 text-sm">
-                      <span className="font-medium text-ink/75">Email</span>
-                      <input
-                        type="email"
-                        value={form.email}
-                        onChange={update("email")}
-                        autoComplete="email"
-                        className={fieldClass("email")}
-                        placeholder="jane@company.com"
-                      />
+                    </div>
+                    <div className="grid gap-1.5">
+                      <div className="relative">
+                        <input
+                          id="field-email"
+                          type="email"
+                          value={form.email}
+                          onChange={update("email")}
+                          autoComplete="email"
+                          className={fieldClass("email")}
+                          placeholder=" "
+                        />
+                        <label htmlFor="field-email" className={floatingLabelClass}>
+                          Email
+                        </label>
+                      </div>
                       {errors.email && (
                         <span className="text-xs text-brand-red">
                           {errors.email}
                         </span>
                       )}
-                    </label>
+                    </div>
                   </div>
 
-                  <label className="grid gap-1.5 text-sm">
-                    <span className="font-medium text-ink/75">
-                      Company{" "}
-                      <span className="font-normal text-ink/40">(optional)</span>
-                    </span>
+                  <div className="relative">
                     <input
+                      id="field-company"
                       type="text"
                       value={form.company}
                       onChange={update("company")}
                       autoComplete="organization"
                       className={fieldClass("company")}
-                      placeholder="Acme Inc."
+                      placeholder=" "
                     />
-                  </label>
+                    <label htmlFor="field-company" className={floatingLabelClass}>
+                      Company <span className="font-normal text-ink/40">(optional)</span>
+                    </label>
+                  </div>
 
-                  <label className="grid gap-1.5 text-sm">
+                  <div className="grid gap-1.5 text-sm">
                     <span className="font-medium text-ink/75">
                       What do you need?
                     </span>
-                    <select
-                      value={form.projectType}
-                      onChange={update("projectType")}
-                      className={fieldClass("projectType")}
-                    >
-                      {PROJECT_TYPES.map((type) => (
-                        <option key={type} value={type} className="bg-surface text-ink">
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                    <div className="flex flex-wrap gap-2">
+                      {PROJECT_TYPES.map((type) => {
+                        const isActive = form.projectType === type;
+                        return (
+                          <button
+                            key={type}
+                            type="button"
+                            onClick={() =>
+                              setForm((prev) => ({ ...prev, projectType: type }))
+                            }
+                            className={`relative rounded-full border px-3.5 py-2 text-xs font-medium transition-all duration-200 sm:text-[13px] ${
+                              isActive
+                                ? "border-transparent text-obsidian"
+                                : "border-ink/12 bg-ink/[0.03] text-ink/65 hover:border-brand-orange/30 hover:text-ink"
+                            }`}
+                          >
+                            {isActive && (
+                              <motion.span
+                                layoutId="project-type-pill"
+                                className="absolute inset-0 rounded-full bg-brand-gradient shadow-glow-sm"
+                                transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                              />
+                            )}
+                            <span className="relative z-10">{type}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
 
-                  <label className="grid gap-1.5 text-sm">
-                    <span className="font-medium text-ink/75">
-                      A bit about the project
-                    </span>
-                    <textarea
-                      value={form.message}
-                      onChange={update("message")}
-                      rows={4}
-                      className={`${fieldClass("message")} resize-y`}
-                      placeholder="Where you are now, what you're trying to ship, and any timeline that matters."
-                    />
+                  <div className="grid gap-1.5">
+                    <div className="relative">
+                      <textarea
+                        id="field-message"
+                        value={form.message}
+                        onChange={update("message")}
+                        rows={4}
+                        className={`${fieldClass("message")} resize-y`}
+                        placeholder=" "
+                      />
+                      <label htmlFor="field-message" className={floatingLabelClass}>
+                        A bit about the project
+                      </label>
+                    </div>
+                    <p className="text-xs text-ink/40">
+                      Where you are now, what you&apos;re trying to ship, and any
+                      timeline that matters.
+                    </p>
                     {errors.message && (
                       <span className="text-xs text-brand-red">
                         {errors.message}
                       </span>
                     )}
-                  </label>
+                  </div>
 
                   <button
                     type="submit"

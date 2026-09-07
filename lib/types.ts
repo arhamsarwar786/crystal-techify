@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import type { IconType } from "react-icons";
 
 export interface NavLink {
   label: string;
@@ -12,10 +13,13 @@ export interface TrustMetric {
 }
 
 export interface Service {
+  slug: string;
   icon: LucideIcon;
   title: string;
   description: string;
+  overview: string;
   capabilities: string[];
+  deliverables: string[];
   accent: string;
 }
 
@@ -27,10 +31,11 @@ export interface ProcessStep {
 }
 
 export type PortfolioCategory =
-  | "AI & Data"
-  | "Web & Mobile"
-  | "Platforms"
-  | "Sustainability";
+  | "Mobility"
+  | "Legal"
+  | "Real Estate"
+  | "Analytics"
+  | "Architecture";
 
 export interface PortfolioItem {
   name: string;
@@ -39,6 +44,8 @@ export interface PortfolioItem {
   summary: string;
   outcome: string;
   tags: string[];
+  timeline: string;
+  teamSize: string;
 }
 
 export interface EngagementModel {
@@ -59,4 +66,31 @@ export interface Testimonial {
 export interface Industry {
   icon: LucideIcon;
   name: string;
+  description: string;
+}
+
+export interface TechStackItem {
+  name: string;
+  icon: IconType;
+  /** Real brand hex, shown on hover. Omitted for marks that are themselves
+   * monochrome (e.g. Next.js, Rust) — those already track the ink token. */
+  color?: string;
+}
+
+export interface MissionPoint {
+  index: string;
+  title: string;
+  description: string;
+}
+
+export interface Advantage {
+  index: string;
+  title: string;
+  description: string;
+}
+
+export interface JourneyMilestone {
+  title: string;
+  description: string;
+  icon: LucideIcon;
 }

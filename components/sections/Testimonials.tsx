@@ -36,7 +36,7 @@ export function Testimonials() {
       />
       <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Testimonials"
+          eyebrow="Client Feedback"
           title={
             <>
               Trusted by founders and{" "}
@@ -70,7 +70,9 @@ export function Testimonials() {
                       {current.name}
                     </span>
                     <span className="block text-xs text-ink/55">
-                      {current.role} · {current.company}
+                      {current.role === current.company
+                        ? current.company
+                        : `${current.role} · ${current.company}`}
                     </span>
                   </span>
                 </footer>

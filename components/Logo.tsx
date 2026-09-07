@@ -51,33 +51,40 @@ export function Logo({
     );
   }
 
-  const mark = (
-    <Image
-      src="/brand/mark.png"
-      alt={variant === "mark" ? "Crystal Techify" : ""}
-      width={512}
-      height={530}
-      priority={priority}
-      style={{ height: markSize, width: "auto" }}
-      className="shrink-0"
-    />
-  );
-
   if (variant === "mark") {
-    return <span className={className}>{mark}</span>;
+    return (
+      <Image
+        src="/brand/mark.png"
+        alt="Crystal Techify"
+        width={512}
+        height={530}
+        priority={priority}
+        style={{ height: markSize, width: "auto" }}
+        className={`shrink-0 ${className ?? ""}`}
+      />
+    );
   }
 
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className ?? ""}`}>
-      {mark}
-      <span className="flex flex-col leading-none">
-        <span className="font-display text-[15px] font-semibold tracking-[0.16em] text-ink">
-          CRYSTAL
-        </span>
-        <span className="gradient-text font-display text-[10px] font-medium tracking-[0.44em]">
-          TECHIFY
-        </span>
-      </span>
+    <span className={`inline-flex shrink-0 ${className ?? ""}`}>
+      <Image
+        src="/brand/logo.svg"
+        alt="Crystal Techify"
+        width={383}
+        height={130}
+        priority={priority}
+        unoptimized
+        className="h-9 w-auto max-w-[168px] dark:hidden sm:h-11 sm:max-w-[210px]"
+      />
+      <Image
+        src="/brand/logo2.svg"
+        alt="Crystal Techify"
+        width={378}
+        height={130}
+        priority={priority}
+        unoptimized
+        className="hidden h-9 w-auto max-w-[168px] dark:block sm:h-11 sm:max-w-[210px]"
+      />
     </span>
   );
 }

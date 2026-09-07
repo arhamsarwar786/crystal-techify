@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { SERVICES } from "@/lib/data";
 
@@ -13,31 +15,28 @@ export function Services() {
       id="services"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <div className="section-shell">
+      <BrandBackdrop className="opacity-60" />
+      <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Core Services"
+          eyebrow="Services we offer"
           title={
             <>
-              Build the whole thing, or slot into the{" "}
-              <span className="gradient-text">part you need</span>
+              From AI to staff augmentation —{" "}
+              <span className="gradient-text">the full stack</span>
             </>
           }
-          description="First prototype to production AI — we cover every layer of the stack, and we're comfortable owning as much or as little of it as makes sense."
+          description="Artificial Intelligence, SaaS, Mobile, Design, E-commerce, Web3, CMS, Digital Marketing, and Staff Augmentation."
         />
 
         <Reveal
           stagger
           className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
         >
-          {SERVICES.map((service, i) => (
-            <motion.div
-              key={service.title}
-              variants={revealItem}
-              className={i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}
-            >
-              <a
-                href="#contact"
-                aria-label={`Talk to us about ${service.title}`}
+          {SERVICES.map((service) => (
+            <motion.div key={service.title} variants={revealItem}>
+              <Link
+                href={`/services/${service.slug}`}
+                aria-label={`Learn more about ${service.title}`}
                 className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60"
               >
               <TiltCard className="glass gradient-border h-full p-5 sm:p-6">
@@ -59,7 +58,7 @@ export function Services() {
                     {service.capabilities.map((cap) => (
                       <li
                         key={cap}
-                        className="rounded-full border border-ink/10 bg-ink/5 px-2.5 py-1 text-xs text-ink/60"
+                        className="rounded-full border border-ink/10 bg-ink/5 px-2.5 py-1 text-xs text-ink/60 transition-all duration-200 hover:-translate-y-0.5 hover:scale-105 hover:border-brand-orange/40 hover:text-ink hover:shadow-glow-sm"
                       >
                         {cap}
                       </li>
@@ -67,12 +66,12 @@ export function Services() {
                   </ul>
 
                   <div className="mt-auto flex items-center gap-1.5 pt-6 text-sm font-medium text-brand-orange transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
-                    Talk to us about this
+                    Learn more
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </div>
               </TiltCard>
-              </a>
+              </Link>
             </motion.div>
           ))}
         </Reveal>

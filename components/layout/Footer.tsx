@@ -1,6 +1,16 @@
-import { Github, Linkedin, Mail, MapPin, Phone, ShieldCheck, Twitter } from "lucide-react";
+import {
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  Twitter,
+} from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { CalendlyCTAButton } from "@/components/ui/CalendlyCTAButton";
 import {
   COMPANY,
   LEGAL_LINKS,
@@ -17,20 +27,46 @@ const SOCIAL_ICONS = {
 
 export function Footer() {
   return (
-    <footer className="relative mt-20 border-t border-ink/10 bg-bg/60 sm:mt-24">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-brand-gradient opacity-60" />
-      <div className="section-shell py-12 sm:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 sm:gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
+    <footer className="relative mt-20 overflow-hidden sm:mt-24">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(42rem_24rem_at_12%_-10%,rgb(var(--glow-red)),transparent_60%),radial-gradient(36rem_22rem_at_90%_0%,rgb(var(--glow-orange)),transparent_55%)]"
+      />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-brand-gradient opacity-70" />
+
+      <div className="section-shell relative py-12 sm:py-16">
+        <div className="gradient-border overflow-hidden rounded-[1.75rem] bg-ink/[0.03] p-6 sm:p-8 lg:p-10">
+          <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+            <div className="max-w-xl">
+              <p className="text-[10px] font-display font-normal uppercase tracking-[0.22em] text-brand-orange">
+                Start a conversation
+              </p>
+              <h2 className="mt-3 text-2xl sm:text-3xl">
+                Ready to build something that lasts?
+              </h2>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/55">
+                Tell us about the product, the constraint, or the idea. We will
+                map a clear path from first call to launch.
+              </p>
+            </div>
+            <CalendlyCTAButton>Book a Consultation</CalendlyCTAButton>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-10 sm:grid-cols-2 sm:gap-12 lg:mt-16 lg:grid-cols-[1.5fr_1fr_1fr_1.15fr]">
           <div>
             <Logo variant="lockup" className="w-[150px]" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink/55">
               {COMPANY.tagline}
             </p>
-            <p className="mt-3 text-sm text-ink/45">
-              Built in {COMPANY.location.replace(", USA", "")}. Shipping
-              worldwide.
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/5 px-3 py-1.5 text-xs text-ink/50">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-orange opacity-40" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-orange" />
+              </span>
+              Built in {COMPANY.location.replace(", USA", "")} · shipping worldwide
             </p>
-            <div className="mt-6 flex gap-3">
+            <div className="mt-6 flex gap-2.5">
               {SOCIAL_LINKS.map((s) => {
                 const Icon = SOCIAL_ICONS[s.label];
                 return (
@@ -40,7 +76,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${COMPANY.name} on ${s.label}`}
-                    className="grid h-9 w-9 place-items-center rounded-lg border border-ink/10 bg-ink/5 text-ink/60 transition-colors hover:border-brand-orange/40 hover:text-ink"
+                    className="grid h-10 w-10 place-items-center rounded-full border border-ink/10 bg-ink/5 text-ink/55 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-orange/50 hover:text-ink hover:shadow-glow-sm"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
@@ -50,17 +86,18 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/45">
+            <h3 className="font-display text-[10px] font-normal uppercase tracking-[0.22em] text-ink/45">
               Navigate
             </h3>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-4 space-y-1">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-ink/60 transition-colors hover:text-ink"
+                    className="group inline-flex items-center gap-1.5 py-1.5 text-sm text-ink/60 transition-colors hover:text-ink"
                   >
                     {link.label}
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-70" />
                   </a>
                 </li>
               ))}
@@ -68,50 +105,54 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/45">
+            <h3 className="font-display text-[10px] font-normal uppercase tracking-[0.22em] text-ink/45">
               Services
             </h3>
-            <ul className="mt-4 space-y-2.5">
-              {SERVICES.slice(0, 5).map((s) => (
+            <ul className="mt-4 space-y-1">
+              {SERVICES.slice(0, 6).map((s) => (
                 <li key={s.title}>
-                  <a
-                    href="#services"
-                    className="text-sm leading-snug text-ink/55 transition-colors hover:text-ink"
+                  <Link
+                    href={`/services/${s.slug}`}
+                    className="group inline-flex items-center gap-1.5 py-1.5 text-sm leading-snug text-ink/55 transition-colors hover:text-ink"
                   >
                     {s.title}
-                  </a>
+                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-70" />
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/45">
+            <h3 className="font-display text-[10px] font-normal uppercase tracking-[0.22em] text-ink/45">
               Contact
             </h3>
-            <ul className="mt-4 space-y-3 text-sm text-ink/60">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
-                <span>
-                  {COMPANY.location}
-                  <br />& Global Delivery Centers
-                </span>
+            <ul className="mt-4 space-y-2.5">
+              <li>
+                <div className="flex items-start gap-3 rounded-2xl border border-ink/10 bg-ink/[0.03] px-3.5 py-3">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
+                  <span className="text-sm text-ink/60">
+                    {COMPANY.location}
+                    <br />
+                    <span className="text-ink/40">& Global Delivery Centers</span>
+                  </span>
+                </div>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="h-4 w-4 shrink-0 text-brand-orange" />
+              <li>
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="transition-colors hover:text-ink"
+                  className="flex items-center gap-3 rounded-2xl border border-ink/10 bg-ink/[0.03] px-3.5 py-3 text-sm text-ink/60 transition-colors hover:border-brand-orange/30 hover:text-ink"
                 >
+                  <Mail className="h-4 w-4 shrink-0 text-brand-orange" />
                   {COMPANY.email}
                 </a>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="h-4 w-4 shrink-0 text-brand-orange" />
+              <li>
                 <a
                   href={COMPANY.phoneHref}
-                  className="transition-colors hover:text-ink"
+                  className="flex items-center gap-3 rounded-2xl border border-ink/10 bg-ink/[0.03] px-3.5 py-3 text-sm text-ink/60 transition-colors hover:border-brand-orange/30 hover:text-ink"
                 >
+                  <Phone className="h-4 w-4 shrink-0 text-brand-orange" />
                   {COMPANY.phone}
                 </a>
               </li>
@@ -133,7 +174,7 @@ export function Footer() {
                 {link.label}
               </Link>
             ))}
-            <span className="inline-flex items-center gap-1.5 text-ink/40">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-ink/5 px-2.5 py-1 text-ink/45">
               <ShieldCheck className="h-3.5 w-3.5 text-brand-orange" />
               ISO/IEC 27001:2013
             </span>

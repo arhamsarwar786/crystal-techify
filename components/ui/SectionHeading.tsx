@@ -23,13 +23,13 @@ export function SectionHeading({
       }
     >
       <Reveal>
-        <span className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/60 backdrop-blur sm:px-3.5 sm:text-xs sm:tracking-[0.22em]">
+        <span className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/5 px-3 py-1.5 font-display text-[10px] font-normal uppercase tracking-[0.22em] text-ink/60 backdrop-blur sm:px-3.5 sm:text-[11px] sm:tracking-[0.26em]">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-gradient" />
           {eyebrow}
         </span>
       </Reveal>
       <Reveal delay={0.05}>
-        <h2 className="mt-4 text-[1.6rem] font-semibold leading-tight sm:mt-5 sm:text-4xl md:text-[2.75rem]">
+        <h2 className="mt-4 text-[1.45rem] leading-snug sm:mt-5 sm:text-[2.15rem] md:text-[2.55rem]">
           {title}
         </h2>
       </Reveal>

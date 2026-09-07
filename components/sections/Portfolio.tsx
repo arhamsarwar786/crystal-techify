@@ -1,8 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Clock, Users } from "lucide-react";
 import { useMemo, useState } from "react";
+import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { PORTFOLIO_CATEGORIES, PORTFOLIO_ITEMS } from "@/lib/data";
@@ -25,16 +26,16 @@ export function Portfolio() {
       id="portfolio"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <div className="section-shell">
+      <BrandBackdrop className="opacity-60" />
+      <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Case Studies"
+          eyebrow="Our Work"
           title={
             <>
-              Real products, shipped for{" "}
-              <span className="gradient-text">real clients</span>
+              Our <span className="gradient-text">portfolio</span>
             </>
           }
-          description="A selection of platforms, tools, and experiences engineered end-to-end by our teams."
+          description="Case studies from mobility, legal tech, real estate, transit analytics, and architecture — shipped with small specialist teams."
         />
 
         <div className="mt-8 flex flex-wrap justify-center gap-2 sm:mt-10">
@@ -98,23 +99,32 @@ export function Portfolio() {
                   </p>
 
                   <p className="mt-3 text-sm leading-relaxed text-ink/60">
+                    <span className="font-medium text-ink/80">Solution: </span>
                     {project.summary}
                   </p>
 
-                  <div className="mt-4 rounded-xl border border-ink/10 bg-ink/[0.03] p-3">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-ink/40">
-                      Outcome
-                    </p>
-                    <p className="mt-1 text-sm text-ink/70">
-                      {project.outcome}
-                    </p>
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <div className="rounded-xl border border-ink/10 bg-ink/[0.03] p-3">
+                      <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-ink/40">
+                        <Clock className="h-3 w-3 text-brand-orange" />
+                        Timeline
+                      </p>
+                      <p className="mt-1 text-sm text-ink/75">{project.timeline}</p>
+                    </div>
+                    <div className="rounded-xl border border-ink/10 bg-ink/[0.03] p-3">
+                      <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-ink/40">
+                        <Users className="h-3 w-3 text-brand-orange" />
+                        Team Size
+                      </p>
+                      <p className="mt-1 text-sm text-ink/75">{project.teamSize}</p>
+                    </div>
                   </div>
 
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <li
                         key={tag}
-                        className="rounded-full bg-ink/5 px-2.5 py-1 text-xs text-ink/55"
+                        className="rounded-full bg-ink/5 px-2.5 py-1 text-xs text-ink/55 transition-all duration-200 hover:-translate-y-0.5 hover:scale-105 hover:bg-ink/10 hover:text-ink hover:shadow-glow-sm"
                       >
                         {tag}
                       </li>

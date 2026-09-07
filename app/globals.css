@@ -36,13 +36,15 @@
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     /* keep decorative blur/glow layers from ever creating a sideways scroll */
     overflow-x: hidden;
     scroll-padding-top: 5.5rem;
   }
 
   body {
-    @apply bg-bg text-ink/75 antialiased;
+    @apply bg-bg font-sans text-[15px] leading-relaxed text-ink/75 antialiased sm:text-base;
+    letter-spacing: 0.01em;
     overflow-x: hidden;
     max-width: 100%;
     background-image: radial-gradient(
@@ -63,14 +65,49 @@
     @apply bg-brand-orange/30 text-ink;
   }
 
+  /*
+   * Michroma only ships 400. Fake bold looks muddy, so headings stay
+   * regular weight and get presence from size + tracking instead.
+   */
   h1,
   h2,
   h3,
-  h4 {
-    @apply font-display text-ink;
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-normal text-ink;
+    font-synthesis: none;
+    letter-spacing: 0.06em;
+    line-height: 1.28;
     text-wrap: balance;
     overflow-wrap: break-word;
   }
+
+  h1 {
+    letter-spacing: 0.045em;
+    line-height: 1.22;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+
+  /*
+   * Low-opacity ink text (body copy, captions) reads fine on a near-black
+   * dark background but loses contrast on the off-white light background.
+   * Bump it up in light mode only — dark mode is untouched.
+   */
+  :root.light .text-ink\/35 { color: rgb(var(--ink) / 0.56); }
+  :root.light .text-ink\/40 { color: rgb(var(--ink) / 0.58); }
+  :root.light .text-ink\/45 { color: rgb(var(--ink) / 0.6); }
+  :root.light .text-ink\/55 { color: rgb(var(--ink) / 0.68); }
+  :root.light .text-ink\/60 { color: rgb(var(--ink) / 0.72); }
+  :root.light .text-ink\/65 { color: rgb(var(--ink) / 0.76); }
+  :root.light .text-ink\/70 { color: rgb(var(--ink) / 0.8); }
+  :root.light .text-ink\/75 { color: rgb(var(--ink) / 0.83); }
 }
 
 @layer components {
@@ -130,26 +167,6 @@
     opacity: 1;
   }
 
-  .grid-backdrop {
-    background-image: linear-gradient(
-        to right,
-        rgb(var(--ink) / 0.045) 1px,
-        transparent 1px
-      ),
-      linear-gradient(to bottom, rgb(var(--ink) / 0.045) 1px, transparent 1px);
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(
-      ellipse 70% 60% at 50% 40%,
-      #000 40%,
-      transparent 100%
-    );
-    mask-image: radial-gradient(
-      ellipse 70% 60% at 50% 40%,
-      #000 40%,
-      transparent 100%
-    );
-  }
-
   .section-shell {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
@@ -157,6 +174,11 @@
   /* consistent vertical rhythm that tightens up on small screens */
   .section-y {
     @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .font-display {
+    font-family: var(--font-display), Michroma, sans-serif;
+    font-synthesis: none;
   }
 }
 

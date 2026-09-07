@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PROCESS_STEPS } from "@/lib/data";
@@ -22,26 +23,28 @@ export function Process() {
     offset: ["start 65%", "end 55%"],
   });
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const [activeStep, setActiveStep] = useState<number | null>(null);
 
   return (
     <section
       id="process"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
+      <BrandBackdrop className="opacity-50" />
       <div
         aria-hidden
         className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-red/10 blur-[120px] sm:h-96 sm:w-96 sm:blur-[140px]"
       />
       <div className="section-shell relative">
         <SectionHeading
-          eyebrow="How We Deliver"
+          eyebrow="Our Process"
           title={
             <>
-              Our 8-step software{" "}
-              <span className="gradient-text">engineering process</span>
+              Eight steps from discovery to{" "}
+              <span className="gradient-text">maintenance</span>
             </>
           }
-          description="A disciplined path from ambiguity to a maintained product — transparent at every milestone."
+          description="A disciplined path from requirements to a maintained product — transparent at every milestone."
         />
 
         <div
@@ -67,12 +70,24 @@ export function Process() {
                       : "lg:flex-row-reverse lg:pr-10 lg:text-right"
                   }`}
                 >
-                  <div className="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-ink/10 bg-bg shadow-glow-sm sm:h-14 sm:w-14 sm:rounded-2xl">
-                    <step.icon className="h-5 w-5 text-brand-orange sm:h-6 sm:w-6" />
+                  <motion.div
+                    onViewportEnter={() => setActiveStep(step.index)}
+                    viewport={{ margin: "-45% 0px -45% 0px" }}
+                    className={`relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-xl border bg-bg transition-all duration-500 sm:h-14 sm:w-14 sm:rounded-2xl ${
+                      activeStep === step.index
+                        ? "border-brand-orange/50 shadow-glow"
+                        : "border-ink/10 shadow-glow-sm"
+                    }`}
+                  >
+                    <step.icon
+                      className={`h-5 w-5 transition-colors duration-500 sm:h-6 sm:w-6 ${
+                        activeStep === step.index ? "text-brand-orange" : "text-brand-orange/70"
+                      }`}
+                    />
                     <span className="absolute -right-1.5 -top-1.5 grid h-5 w-5 place-items-center rounded-full bg-brand-gradient text-[10px] font-bold text-obsidian sm:h-6 sm:w-6 sm:text-[11px]">
                       {step.index}
                     </span>
-                  </div>
+                  </motion.div>
                   <div className="glass gradient-border min-w-0 flex-1 rounded-xl p-4 sm:rounded-2xl sm:p-5">
                     <h3 className="text-[15px] font-semibold text-ink sm:text-base">
                       {step.title}

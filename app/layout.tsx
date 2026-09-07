@@ -1,41 +1,48 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Michroma, Outfit } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { themeScript } from "@/components/theme/theme-script";
+import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { COMPANY } from "@/lib/data";
 
-const inter = Inter({
+/** Same geometric DNA as the Crystal Techify wordmark (Eurostile / Microgramma). */
+const display = Michroma({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-display",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+/** Readable geometric sans for body, forms, and UI density. */
+const sans = Outfit({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://crystaltechify.com"),
   title: {
-    default: "Crystal Techify — AI & Advanced Software Engineering",
+    default: "Crystal Techify — AI & Advanced Software Solutions",
     template: "%s | Crystal Techify",
   },
   description:
-    "Premier Dublin, Ohio-based AI & advanced software engineering firm. 500+ projects delivered worldwide by the top 3% of global talent.",
+    "Premier technology company in Dublin, Ohio. AI, SaaS, mobile, Web3, e-commerce, and staff augmentation. 500+ projects completed worldwide.",
   keywords: [
-    "AI engineering",
-    "software development",
-    "generative AI consulting",
-    "blockchain",
-    "SaaS development",
+    "Artificial Intelligence",
+    "SaaS",
+    "mobile development",
+    "Web3",
+    "e-commerce",
     "staff augmentation",
     "Dublin Ohio",
+    "Crystal Techify",
   ],
   openGraph: {
-    title: "Crystal Techify — AI & Advanced Software Engineering",
+    title: "Crystal Techify — AI & Advanced Software Solutions",
     description:
       "Empowering businesses to weave the future of software, seamlessly together.",
     type: "website",
@@ -60,19 +67,30 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${display.variable} ${sans.variable}`}
       suppressHydrationWarning
     >
       <head>
         {/* Resolve the theme before first paint — prevents a flash of the wrong palette */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <link
+          rel="stylesheet"
+          href="https://assets.calendly.com/assets/external/widget.css"
+        />
       </head>
       <body className="min-h-screen font-sans">
         {/* No-JS safety net: reveal animations render hidden until hydrated */}
         <noscript>
           <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <SmoothScroll />
+          {children}
+        </ThemeProvider>
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );
