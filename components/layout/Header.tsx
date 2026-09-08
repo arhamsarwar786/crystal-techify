@@ -4,39 +4,60 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, CalendarClock, ArrowUpRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { AuthStatus } from "@/components/layout/AuthStatus";
 import { openCalendly } from "@/lib/calendly";
 import { NAV_LINKS } from "@/lib/data";
 
-function navHash(href: string) {
-  return href.includes("#") ? `#${href.split("#")[1]}` : "";
-}
+const HASH_TO_PATH: Record<string, string> = {
+  about: "/about",
+  services: "/services",
+  industries: "/industries",
+  process: "/process",
+  "case-studies": "/case-studies",
+};
 
-/** Route pages that should keep a home-section nav item selected. */
-function routeNavHash(pathname: string): string | null {
-  if (pathname.startsWith("/services")) return "#services";
-  return null;
+const HOME_SECTION_IDS = [
+  "about",
+  "services",
+  "industries",
+  "process",
+  "case-studies",
+  "testimonials",
+];
+
+function navHash(href: string): string | null {
+  const i = href.indexOf("#");
+  return i >= 0 ? href.slice(i + 1) : null;
 }
 
 function isNavActive(
   href: string,
   pathname: string,
-  scrollHash: string,
+  activeHash: string | null,
 ): boolean {
+  if (href === "/careers") {
+    return pathname === "/careers" || pathname.startsWith("/careers/");
+  }
   const hash = navHash(href);
-  const fromRoute = routeNavHash(pathname);
-  if (fromRoute) return hash === fromRoute;
-  if (pathname === "/") return scrollHash === hash;
-  return false;
+  if (!hash) {
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
+  const detail = HASH_TO_PATH[hash];
+  if (detail && (pathname === detail || pathname.startsWith(`${detail}/`))) {
+    return true;
+  }
+  return pathname === "/" && activeHash === hash;
 }
 
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [activeHash, setActiveHash] = useState("");
+  const [activeHash, setActiveHash] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -47,40 +68,21 @@ export function Header() {
 
   useEffect(() => {
     if (pathname !== "/") {
-      setActiveHash("");
+      setActiveHash(null);
       return;
     }
-
-    const applyHash = () => {
-      if (window.location.hash) setActiveHash(window.location.hash);
+    const onScroll = () => {
+      const y = window.scrollY + 140;
+      let current: string | null = null;
+      for (const id of HOME_SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) current = id;
+      }
+      setActiveHash(current);
     };
-    applyHash();
-    window.addEventListener("hashchange", applyHash);
-
-    const sections = NAV_LINKS.map((link) => {
-      const id = link.href.includes("#")
-        ? link.href.split("#")[1]
-        : link.href.replace(/^\//, "");
-      return document.getElementById(id);
-    }).filter((el): el is HTMLElement => el !== null);
-    if (sections.length === 0) {
-      return () => window.removeEventListener("hashchange", applyHash);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveHash(`#${entry.target.id}`);
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("hashchange", applyHash);
-    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
   useEffect(() => {
@@ -94,74 +96,66 @@ export function Header() {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      initial={false}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="fixed inset-x-0 top-0 z-50"
     >
       <div className="section-shell pt-3 sm:pt-4">
         <div
-          className={`relative flex items-center justify-between gap-3 rounded-full px-2 py-1.5 transition-all duration-300 sm:px-2.5 sm:py-2 ${
+          className={`relative flex items-center gap-3 px-2 py-1.5 transition-all duration-300 sm:px-3 sm:py-2 ${
             scrolled || open
-              ? "border border-ink/10 bg-bg/75 shadow-[0_8px_40px_-18px_rgb(var(--ink)/0.28)] backdrop-blur-2xl"
-              : "border border-ink/10 bg-bg/40 backdrop-blur-xl"
+              ? "rounded-2xl border border-ink/[0.08] bg-bg/80 shadow-[0_12px_40px_-24px_rgb(var(--ink)/0.55)] backdrop-blur-xl"
+              : "rounded-2xl border border-transparent bg-transparent"
           }`}
         >
-          <span
-            aria-hidden
-            className={`pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-brand-orange/50 to-transparent transition-opacity duration-300 ${
-              scrolled || open ? "opacity-100" : "opacity-40"
-            }`}
-          />
-
-          <a
+          <Link
             href="/"
             aria-label="Crystal Techify home"
-            className="relative z-10 flex min-w-0 shrink items-center rounded-full py-1 pl-2 pr-1"
+            className="relative z-10 flex min-w-0 shrink-0 items-center py-0.5"
           >
             <Logo priority />
-          </a>
+          </Link>
 
-          <nav className="hidden items-center rounded-full bg-ink/[0.035] p-1 lg:flex">
-          {NAV_LINKS.map((link) => {
-            const isActive = isNavActive(link.href, pathname, activeHash);
+          <nav className="hidden min-w-0 flex-1 items-center justify-center xl:flex">
+            {NAV_LINKS.map((link) => {
+              const isActive = isNavActive(link.href, pathname, activeHash);
               return (
                 <a
                   key={link.href}
                   href={link.href}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative rounded-full px-3 py-1.5 font-display text-[11px] tracking-[0.14em] transition-colors hover:text-ink ${
-                    isActive
-                      ? "text-ink"
-                      : "text-ink/55"
+                  className={`relative px-2.5 py-1.5 font-display text-[10px] tracking-[0.08em] transition-colors hover:text-ink lg:px-3 ${
+                    isActive ? "text-ink" : "text-ink/50"
                   }`}
                 >
+                  {link.label}
                   {isActive && (
-                    <motion.span
-                      layoutId="nav-active-pill"
-                      className="absolute inset-0 rounded-full bg-bg shadow-sm ring-1 ring-ink/10"
-                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-3 -bottom-0.5 h-px bg-brand-gradient"
                     />
                   )}
-                  <span className="relative">{link.label}</span>
                 </a>
               );
             })}
           </nav>
 
-          <div className="relative z-10 hidden items-center gap-1.5 lg:flex">
-            <ThemeToggle className="h-10 w-10 rounded-full" />
+          <div className="relative z-10 ml-auto hidden shrink-0 items-center gap-1 xl:flex">
+            <AuthStatus />
+            <ThemeToggle className="h-9 w-9 rounded-full border-ink/[0.08] bg-transparent" />
             <CTAButton
               onClick={openCalendly}
-              className="!px-5 !py-2.5 text-[11px]"
+              className="!px-4 !py-2 text-[10px]"
             >
-              <CalendarClock className="h-4 w-4" />
+              <CalendarClock className="h-3.5 w-3.5" />
               Book a Consultation
             </CTAButton>
           </div>
 
-          <div className="relative z-10 flex items-center gap-1.5 lg:hidden">
-            <ThemeToggle className="h-10 w-10 rounded-full" />
+          <div className="relative z-10 ml-auto flex items-center gap-1 xl:hidden">
+            <AuthStatus compact />
+            <ThemeToggle className="h-9 w-9 rounded-full border-ink/[0.08] bg-transparent" />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -182,7 +176,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22 }}
-            className="section-shell mt-2 lg:hidden"
+            className="section-shell mt-2 xl:hidden"
           >
             <div className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-[1.75rem] border border-ink/10 bg-bg/90 p-3 shadow-[0_24px_60px_-28px_rgb(var(--ink)/0.45)] backdrop-blur-2xl">
               <div className="flex flex-col gap-1 p-1">

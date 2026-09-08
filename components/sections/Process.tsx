@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { useRef, useState } from "react";
-import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PROCESS_STEPS } from "@/lib/data";
@@ -16,7 +15,7 @@ const stepVariant: Variants = {
   },
 };
 
-export function Process() {
+export function Process({ detailHref }: { detailHref?: string }) {
   const railRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: railRef,
@@ -30,7 +29,6 @@ export function Process() {
       id="process"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <BrandBackdrop className="opacity-50" />
       <div
         aria-hidden
         className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-red/10 blur-[120px] sm:h-96 sm:w-96 sm:blur-[140px]"
@@ -38,6 +36,7 @@ export function Process() {
       <div className="section-shell relative">
         <SectionHeading
           eyebrow="Our Process"
+          detailHref={detailHref}
           title={
             <>
               Eight steps from discovery to{" "}

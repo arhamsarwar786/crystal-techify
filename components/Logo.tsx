@@ -74,7 +74,7 @@ export function Logo({
         height={130}
         priority={priority}
         unoptimized
-        className="h-9 w-auto max-w-[168px] dark:hidden sm:h-11 sm:max-w-[210px]"
+        className="h-8 w-auto max-w-[140px] dark:hidden sm:h-9 sm:max-w-[164px]"
       />
       <Image
         src="/brand/logo2.svg"
@@ -83,7 +83,7 @@ export function Logo({
         height={130}
         priority={priority}
         unoptimized
-        className="hidden h-9 w-auto max-w-[168px] dark:block sm:h-11 sm:max-w-[210px]"
+        className="hidden h-8 w-auto max-w-[140px] dark:block sm:h-9 sm:max-w-[164px]"
       />
     </span>
   );

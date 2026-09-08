@@ -3,12 +3,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Clock, Users } from "lucide-react";
 import { useMemo, useState } from "react";
-import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { PORTFOLIO_CATEGORIES, PORTFOLIO_ITEMS } from "@/lib/data";
 
-export function Portfolio() {
+export function Portfolio({ detailHref }: { detailHref?: string }) {
   const [active, setActive] = useState<(typeof PORTFOLIO_CATEGORIES)[number]>(
     "All",
   );
@@ -23,13 +22,13 @@ export function Portfolio() {
 
   return (
     <section
-      id="portfolio"
+      id="case-studies"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <BrandBackdrop className="opacity-60" />
       <div className="section-shell relative">
         <SectionHeading
           eyebrow="Our Work"
+          detailHref={detailHref}
           title={
             <>
               Our <span className="gradient-text">portfolio</span>
@@ -74,10 +73,8 @@ export function Portfolio() {
                 transition={{ duration: 0.35 }}
               >
                 <a
-                  href={`mailto:info@crystaltechify.com?subject=${encodeURIComponent(
-                    `Project like "${project.name}"`,
-                  )}`}
-                  aria-label={`Start a project like ${project.name}`}
+                  href={`/case-studies/${project.slug}`}
+                  aria-label={`Read case study: ${project.name}`}
                   className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60"
                 >
                 <TiltCard
@@ -97,6 +94,18 @@ export function Portfolio() {
                   <p className="text-xs font-medium uppercase tracking-wider text-brand-orange">
                     {project.client}
                   </p>
+                  {project.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={project.image}
+                      alt=""
+                      className="mt-4 h-40 w-full rounded-xl object-cover"
+                    />
+                  ) : (
+                    <p className="mt-4 rounded-xl border border-dashed border-ink/15 px-3 py-6 text-center text-xs text-ink/40">
+                      Cover image forthcoming
+                    </p>
+                  )}
 
                   <p className="mt-3 text-sm leading-relaxed text-ink/60">
                     <span className="font-medium text-ink/80">Solution: </span>

@@ -19,7 +19,7 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const STORAGE_KEY = "ct-theme";
+const STORAGE_KEY = "ct-theme-v2";
 
 function readInitialTheme(): Theme {
   if (typeof document === "undefined") return "dark";
@@ -54,22 +54,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(theme === "dark" ? "light" : "dark");
   }, [theme, setTheme]);
 
-  // Follow the OS preference only while the user hasn't made an explicit choice.
   useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = (event: MediaQueryListEvent) => {
-      let stored: string | null = null;
-      try {
-        stored = localStorage.getItem(STORAGE_KEY);
-      } catch {
-        /* ignore */
-      }
-      if (stored !== "light" && stored !== "dark") {
-        applyTheme(event.matches ? "dark" : "light");
-      }
-    };
-    media.addEventListener("change", onChange);
-    return () => media.removeEventListener("change", onChange);
+    document.documentElement.classList.add("app-hydrated");
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem(STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+    if (stored !== "light" && stored !== "dark") {
+      applyTheme("dark");
+    }
   }, [applyTheme]);
 
   const value = useMemo(

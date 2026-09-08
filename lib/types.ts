@@ -52,6 +52,7 @@ export type PortfolioCategory =
   | "Architecture";
 
 export interface PortfolioItem {
+  slug: string;
   name: string;
   client: string;
   category: PortfolioCategory;
@@ -60,6 +61,10 @@ export interface PortfolioItem {
   tags: string[];
   timeline: string;
   teamSize: string;
+  /** Cover / gallery image in /public. Omit until the asset is supplied. */
+  image?: string;
+  /** Case-study PDF in /public. Omit until the asset is supplied. */
+  pdf?: string;
 }
 
 export interface EngagementModel {
@@ -78,9 +83,17 @@ export interface Testimonial {
 }
 
 export interface Industry {
+  slug: string;
   icon: LucideIcon;
   name: string;
   description: string;
+}
+
+export interface IndustryPageContent {
+  overview: string;
+  challenges: ServiceDetailBlock[];
+  approach: ServiceDetailBlock[];
+  outcomes: string[];
 }
 
 export interface TechStackItem {

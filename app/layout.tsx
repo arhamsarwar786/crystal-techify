@@ -67,7 +67,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable}`}
+      className={`${display.variable} ${sans.variable} dark`}
       suppressHydrationWarning
     >
       <head>
@@ -79,10 +79,12 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen font-sans">
-        {/* No-JS safety net: reveal animations render hidden until hydrated */}
-        <noscript>
-          <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
+        {/* If the app bundle never loads, keep motion's SSR opacity:0 from hiding the page */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `html:not(.app-hydrated) [style*="opacity:0"],html:not(.app-hydrated) [style*="opacity: 0"]{opacity:1!important;transform:none!important;filter:none!important}`,
+          }}
+        />
         <ThemeProvider>
           <SmoothScroll />
           {children}

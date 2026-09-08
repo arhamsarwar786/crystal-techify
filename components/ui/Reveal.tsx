@@ -49,7 +49,7 @@ export function Reveal({
   stagger = false,
   id,
 }: RevealProps) {
-  const { ref, shown } = useReveal();
+  const { ref } = useReveal();
 
   return (
     <motion.div
@@ -57,8 +57,8 @@ export function Reveal({
       id={id}
       className={className}
       variants={stagger ? group(delay) : single(delay, y)}
-      initial="hidden"
-      animate={shown ? "visible" : "hidden"}
+      initial={false}
+      animate="visible"
     >
       {children}
     </motion.div>

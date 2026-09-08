@@ -60,7 +60,7 @@ interface Composed {
   href: string;
 }
 
-export function Contact() {
+export function Contact({ detailHref }: { detailHref?: string }) {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>(
     {},
@@ -196,6 +196,7 @@ export function Contact() {
       <div className="section-shell relative">
         <SectionHeading
           eyebrow="Get Started"
+          detailHref={detailHref}
           title={
             <>
               Open for collaboration and{" "}

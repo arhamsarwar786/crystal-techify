@@ -43,7 +43,7 @@ export function Hero() {
       <div className="section-shell relative flex flex-1 flex-col justify-center">
         <motion.div
           variants={container}
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="mx-auto max-w-3xl text-center"
         >
@@ -80,7 +80,7 @@ export function Hero() {
               Book a Consultation
             </CTAButton>
             <CTAButton
-              href="#portfolio"
+              href="/#case-studies"
               variant="outline"
               className="w-full sm:w-auto"
             >
@@ -99,7 +99,7 @@ export function Hero() {
 
         <motion.div
           variants={container}
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="mx-auto mt-6 grid w-full max-w-4xl grid-cols-2 gap-2 sm:mt-8 sm:gap-3 lg:grid-cols-4"
         >
@@ -120,13 +120,13 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={false}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
           className="mt-5 hidden justify-center sm:mt-6 sm:flex"
         >
           <a
-            href="#about"
+            href="/#about"
             aria-label="Scroll to explore"
             className="grid h-8 w-8 place-items-center rounded-full border border-ink/10 text-ink/40 transition-colors hover:border-brand-orange/40 hover:text-ink"
           >

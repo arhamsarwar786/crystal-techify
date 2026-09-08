@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { PageShell } from "@/components/layout/PageShell";
 
 interface LegalPageProps {
   title: string;
@@ -13,9 +12,8 @@ interface LegalPageProps {
 
 export function LegalPage({ title, updated, intro, children }: LegalPageProps) {
   return (
-    <>
-      <Header />
-      <main className="section-shell pb-24 pt-36 sm:pt-40">
+    <PageShell>
+      <div className="section-shell pb-24 pt-36 sm:pt-40">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-sm text-ink/55 transition-colors hover:text-ink"
@@ -31,9 +29,8 @@ export function LegalPage({ title, updated, intro, children }: LegalPageProps) {
         </p>
 
         <div className="legal-prose mt-10 max-w-2xl space-y-8">{children}</div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </PageShell>
   );
 }
 

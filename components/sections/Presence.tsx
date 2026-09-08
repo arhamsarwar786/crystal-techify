@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
-import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { CountUp } from "@/components/ui/CountUp";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -17,16 +16,16 @@ const PRESENCE_STATS = [
   },
 ];
 
-export function Presence() {
+export function Presence({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="presence"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <BrandBackdrop className="opacity-70" />
       <div className="section-shell relative">
         <SectionHeading
           eyebrow="Overview"
+          detailHref={detailHref}
           title={
             <>
               Our global{" "}

@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check, ArrowUpRight } from "lucide-react";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { PageShell } from "@/components/layout/PageShell";
 import { Contact } from "@/components/sections/Contact";
 import { CalendlyCTAButton } from "@/components/ui/CalendlyCTAButton";
-import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TiltCard } from "@/components/ui/TiltCard";
@@ -38,14 +36,11 @@ export default function ServicePage({ params }: ServicePageProps) {
   const otherServices = SERVICES.filter((s) => s.slug !== service.slug);
 
   return (
-    <>
-      <Header />
-      <main>
+    <PageShell>
         <section
           id="services"
           className="relative scroll-mt-24 overflow-hidden pb-14 pt-32 sm:pb-16 sm:pt-40"
         >
-          <BrandBackdrop />
           <div
             aria-hidden
             className="absolute left-1/2 top-24 h-80 w-80 -translate-x-1/2 rounded-full bg-brand-red/20 blur-[100px] sm:h-[32rem] sm:w-[32rem] sm:blur-[130px]"
@@ -53,7 +48,7 @@ export default function ServicePage({ params }: ServicePageProps) {
 
           <div className="section-shell relative">
             <Link
-              href="/#services"
+              href="/services"
               className="inline-flex items-center gap-2 text-sm text-ink/55 transition-colors hover:text-ink"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -107,7 +102,6 @@ export default function ServicePage({ params }: ServicePageProps) {
         {page && (
           <>
             <section className="relative overflow-hidden py-16 sm:py-20">
-              <BrandBackdrop className="opacity-50" />
               <div className="section-shell relative">
                 <SectionHeading
                   eyebrow="Where this work starts"
@@ -171,7 +165,6 @@ export default function ServicePage({ params }: ServicePageProps) {
             </section>
 
             <section className="relative overflow-hidden py-16 sm:py-20">
-              <BrandBackdrop className="opacity-40" />
               <div className="section-shell relative">
                 <SectionHeading
                   eyebrow="Typical work"
@@ -290,9 +283,7 @@ export default function ServicePage({ params }: ServicePageProps) {
         </section>
 
         <Contact />
-      </main>
-      <Footer />
-    </>
+    </PageShell>
   );
 }
 

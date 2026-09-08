@@ -103,8 +103,9 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Services", href: "/#services" },
   { label: "Industries", href: "/#industries" },
   { label: "Process", href: "/#process" },
-  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Case Studies", href: "/#case-studies" },
   { label: "Testimonials", href: "/#testimonials" },
+  { label: "Careers", href: "/careers" },
 ];
 
 export const TRUST_METRICS: TrustMetric[] = [
@@ -422,48 +423,56 @@ export const PROCESS_STEPS: ProcessStep[] = [
 
 export const INDUSTRIES: Industry[] = [
   {
+    slug: "e-commerce",
     icon: ShoppingCart,
     name: "E-Commerce",
     description:
       "Empowering industries from technology to manufacture with our expert services.",
   },
   {
+    slug: "healthcare",
     icon: HeartPulse,
     name: "Healthcare",
     description:
       "Offering comprehensive healthcare IT solutions from secure data storage.",
   },
   {
+    slug: "edtech",
     icon: GraduationCap,
     name: "EdTech",
     description:
       "Delivering tailored EdTech solutions for seamless online learning.",
   },
   {
+    slug: "food-grocery",
     icon: UtensilsCrossed,
     name: "Food & Grocery",
     description:
       "Enhancing the food and grocery sector with efficient supply chain management.",
   },
   {
+    slug: "real-estate",
     icon: Building2,
     name: "Real Estate",
     description:
       "Empowering real estate professionals with cutting-edge tools for lead generation.",
   },
   {
+    slug: "retail",
     icon: Store,
     name: "Retail",
     description:
       "We empower the retail industry through seamless e-commerce solutions and innovative digital strategies.",
   },
   {
+    slug: "blockchain",
     icon: Blocks,
     name: "Blockchain",
     description:
       "Delivering innovative blockchain services including private and public development.",
   },
   {
+    slug: "on-demand-services",
     icon: Smartphone,
     name: "On Demand Services",
     description:
@@ -473,6 +482,7 @@ export const INDUSTRIES: Industry[] = [
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
+    slug: "ev-last-mile-mobility",
     name: "EV-Powered Last-Mile Mobility Solutions",
     client: "SW Industries",
     category: "Mobility",
@@ -485,6 +495,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     teamSize: "2 Specialists",
   },
   {
+    slug: "visas-pt-legal",
     name: "Legal Consultation Platform for Immigration & Tax Services",
     client: "Visas.pt",
     category: "Legal",
@@ -497,6 +508,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     teamSize: "2 Specialists",
   },
   {
+    slug: "parker-co-real-estate",
     name: "Real Estate Search and Home Valuation Platform",
     client: "Parker & Co.",
     category: "Real Estate",
@@ -509,6 +521,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     teamSize: "2 Specialists",
   },
   {
+    slug: "ptva-transit-dashboard",
     name: "Public Transit and Personal Vehicles Analysis Dashboard",
     client: "PTVA",
     category: "Analytics",
@@ -521,6 +534,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     teamSize: "3 Specialists",
   },
   {
+    slug: "serreva-glass-house",
     name: "Custom Glass House Design and Construction",
     client: "Serreva",
     category: "Architecture",

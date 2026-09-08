@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TESTIMONIALS } from "@/lib/data";
 
-export function Testimonials() {
+export function Testimonials({ accent = false }: { accent?: boolean }) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [mounted, setMounted] = useState(false);
@@ -28,26 +28,48 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className={`relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24 ${
+        accent ? "bg-[#FF5322]" : ""
+      }`}
     >
-      <div
-        aria-hidden
-        className="absolute left-1/2 top-1/2 h-64 w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-orange/10 blur-[120px] sm:h-80 sm:w-[40rem] sm:blur-[150px]"
-      />
+      {!accent && (
+        <div
+          aria-hidden
+          className="absolute left-1/2 top-1/2 h-64 w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-orange/10 blur-[120px] sm:h-80 sm:w-[40rem] sm:blur-[150px]"
+        />
+      )}
       <div className="section-shell relative">
         <SectionHeading
           eyebrow="Client Feedback"
+          tone={accent ? "brand" : "default"}
           title={
-            <>
-              Trusted by founders and{" "}
-              <span className="gradient-text">operators</span>
-            </>
+            accent ? (
+              <>
+                Trusted by founders and{" "}
+                <span className="text-black">operators</span>
+              </>
+            ) : (
+              <>
+                Trusted by founders and{" "}
+                <span className="gradient-text">operators</span>
+              </>
+            )
           }
         />
 
         <div className="relative mx-auto mt-12 max-w-3xl sm:mt-14">
-          <div className="glass-strong gradient-border relative min-h-[16rem] overflow-hidden rounded-2xl p-6 sm:min-h-[19rem] sm:rounded-3xl sm:p-10">
-            <Quote className="h-8 w-8 text-brand-orange/50 sm:h-9 sm:w-9" />
+          <div
+            className={`relative min-h-[16rem] rounded-2xl p-6 sm:min-h-[19rem] sm:rounded-3xl sm:p-10 ${
+              accent
+                ? "bg-white"
+                : "glass-strong gradient-border"
+            }`}
+          >
+            <Quote
+              className={`h-8 w-8 sm:h-9 sm:w-9 ${
+                accent ? "text-[#FF5322]" : "text-brand-orange/50"
+              }`}
+            />
             <AnimatePresence mode="wait" initial={false} custom={direction}>
               <motion.blockquote
                 key={index}
@@ -58,18 +80,36 @@ export function Testimonials() {
                 transition={{ duration: 0.4 }}
                 className="mt-3 sm:mt-4"
               >
-                <p className="text-base leading-relaxed text-ink/85 sm:text-xl">
+                <p
+                  className={`text-base leading-relaxed sm:text-xl ${
+                    accent ? "text-black" : "text-ink/85"
+                  }`}
+                >
                   “{current.quote}”
                 </p>
                 <footer className="mt-5 flex items-center gap-3 sm:mt-6">
-                  <span className="grid h-11 w-11 place-items-center rounded-full bg-brand-gradient text-sm font-bold text-obsidian">
+                  <span
+                    className={`grid h-11 w-11 place-items-center rounded-full text-sm font-bold ${
+                      accent
+                        ? "bg-[#FF5322] text-white"
+                        : "bg-brand-gradient text-obsidian"
+                    }`}
+                  >
                     {current.initials}
                   </span>
                   <span>
-                    <span className="block text-sm font-semibold text-ink">
+                    <span
+                      className={`block text-sm font-semibold ${
+                        accent ? "text-black" : "text-ink"
+                      }`}
+                    >
                       {current.name}
                     </span>
-                    <span className="block text-xs text-ink/55">
+                    <span
+                      className={`block text-xs ${
+                        accent ? "text-black/55" : "text-ink/55"
+                      }`}
+                    >
                       {current.role === current.company
                         ? current.company
                         : `${current.role} · ${current.company}`}
@@ -85,7 +125,11 @@ export function Testimonials() {
               type="button"
               onClick={() => paginate(-1)}
               aria-label="Previous testimonial"
-              className="grid h-11 w-11 place-items-center rounded-full border border-ink/10 bg-ink/5 text-ink/70 transition-colors hover:text-ink"
+              className={`grid h-11 w-11 place-items-center rounded-full border transition-colors ${
+                accent
+                  ? "border-black/20 bg-black/10 text-black hover:bg-black/20"
+                  : "border-ink/10 bg-ink/5 text-ink/70 hover:text-ink"
+              }`}
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -104,8 +148,12 @@ export function Testimonials() {
                   <span
                     className={`block h-1.5 rounded-full transition-all ${
                       i === index
-                        ? "w-6 bg-brand-gradient"
-                        : "w-1.5 bg-ink/20 hover:bg-ink/40"
+                        ? accent
+                          ? "w-6 bg-black"
+                          : "w-6 bg-brand-gradient"
+                        : accent
+                          ? "w-1.5 bg-white/50 hover:bg-white"
+                          : "w-1.5 bg-ink/20 hover:bg-ink/40"
                     }`}
                   />
                 </button>
@@ -115,7 +163,11 @@ export function Testimonials() {
               type="button"
               onClick={() => paginate(1)}
               aria-label="Next testimonial"
-              className="grid h-11 w-11 place-items-center rounded-full border border-ink/10 bg-ink/5 text-ink/70 transition-colors hover:text-ink"
+              className={`grid h-11 w-11 place-items-center rounded-full border transition-colors ${
+                accent
+                  ? "border-black/20 bg-black/10 text-black hover:bg-black/20"
+                  : "border-ink/10 bg-ink/5 text-ink/70 hover:text-ink"
+              }`}
             >
               <ChevronRight className="h-5 w-5" />
             </button>

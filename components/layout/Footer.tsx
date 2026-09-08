@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { CalendlyCTAButton } from "@/components/ui/CalendlyCTAButton";
+import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import {
   COMPANY,
   LEGAL_LINKS,
@@ -28,6 +29,7 @@ const SOCIAL_ICONS = {
 export function Footer() {
   return (
     <footer className="relative mt-20 overflow-hidden sm:mt-24">
+      <BrandBackdrop />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(42rem_24rem_at_12%_-10%,rgb(var(--glow-red)),transparent_60%),radial-gradient(36rem_22rem_at_90%_0%,rgb(var(--glow-orange)),transparent_55%)]"
@@ -92,13 +94,13 @@ export function Footer() {
             <ul className="mt-4 space-y-1">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="group inline-flex items-center gap-1.5 py-1.5 text-sm text-ink/60 transition-colors hover:text-ink"
                   >
                     {link.label}
                     <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-70" />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

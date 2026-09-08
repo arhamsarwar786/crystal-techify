@@ -5,20 +5,19 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { SERVICES } from "@/lib/data";
 
-export function Services() {
+export function Services({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="services"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <BrandBackdrop className="opacity-60" />
       <div className="section-shell relative">
         <SectionHeading
           eyebrow="Services we offer"
+          detailHref={detailHref}
           title={
             <>
               From AI to staff augmentation —{" "}
@@ -36,8 +35,8 @@ export function Services() {
             <motion.div key={service.title} variants={revealItem}>
               <Link
                 href={`/services/${service.slug}`}
-                aria-label={`Learn more about ${service.title}`}
-                className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60"
+                aria-label={`View details: ${service.title}`}
+                className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60"
               >
               <TiltCard className="glass gradient-border h-full p-5 sm:p-6">
                 <div className="flex h-full flex-col">
@@ -65,8 +64,8 @@ export function Services() {
                     ))}
                   </ul>
 
-                  <div className="mt-auto flex items-center gap-1.5 pt-6 text-sm font-medium text-brand-orange transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
-                    Learn more
+                  <div className="mt-auto flex items-center gap-1.5 pt-6 text-sm font-medium text-brand-orange">
+                    View details
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </div>

@@ -9,7 +9,7 @@ import { TiltCard } from "@/components/ui/TiltCard";
 import { openCalendly } from "@/lib/calendly";
 import { AUDIT_DELIVERABLES, ENGAGEMENT_MODELS, TECHNICAL_AUDIT } from "@/lib/data";
 
-export function Engagement() {
+export function Engagement({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="solutions"
@@ -18,6 +18,7 @@ export function Engagement() {
       <div className="section-shell">
         <SectionHeading
           eyebrow="Engagement Models"
+          detailHref={detailHref}
           title={
             <>
               Work with us the way that{" "}
@@ -34,7 +35,7 @@ export function Engagement() {
           {ENGAGEMENT_MODELS.map((model) => (
             <motion.div key={model.title} variants={revealItem}>
               <a
-                href="#contact"
+                href="/contact"
                 aria-label={`Ask about the ${model.title} model`}
                 className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60"
               >

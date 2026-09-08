@@ -1,21 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ADVANTAGES } from "@/lib/data";
 
-export function Advantages() {
+export function Advantages({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="advantages"
       className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <BrandBackdrop className="opacity-70" />
       <div className="section-shell relative">
         <SectionHeading
           eyebrow="Why Crystal Techify"
+          detailHref={detailHref}
           title={
             <>
               Advantages of choosing{" "}
