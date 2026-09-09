@@ -46,7 +46,7 @@ export function Footer() {
               <h2 className="mt-3 text-2xl sm:text-3xl">
                 Ready to build something that lasts?
               </h2>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/55">
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/75 sm:text-base">
                 Tell us about the product, the constraint, or the idea. We will
                 map a clear path from first call to launch.
               </p>
@@ -58,10 +58,10 @@ export function Footer() {
         <div className="mt-12 grid gap-10 sm:grid-cols-2 sm:gap-12 lg:mt-16 lg:grid-cols-[1.5fr_1fr_1fr_1.15fr]">
           <div>
             <Logo variant="lockup" className="w-[150px]" />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink/55">
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink/75">
               {COMPANY.tagline}
             </p>
-            <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/5 px-3 py-1.5 text-xs text-ink/50">
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-3 py-1.5 text-xs text-ink/70 sm:text-sm">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-orange opacity-40" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-orange" />
@@ -78,7 +78,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${COMPANY.name} on ${s.label}`}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-ink/10 bg-ink/5 text-ink/55 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-orange/50 hover:text-ink hover:shadow-glow-sm"
+                    className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-orange/50 hover:text-ink hover:shadow-glow-sm"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
@@ -88,7 +88,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-display text-[10px] font-normal uppercase tracking-[0.22em] text-ink/45">
+            <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-ink/70">
               Navigate
             </h3>
             <ul className="mt-4 space-y-1">
@@ -96,7 +96,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group inline-flex items-center gap-1.5 py-1.5 text-sm text-ink/60 transition-colors hover:text-ink"
+                    className="group inline-flex min-h-11 items-center gap-1.5 py-1.5 text-sm text-ink/80 transition-colors hover:text-ink"
                   >
                     {link.label}
                     <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-70" />
@@ -107,7 +107,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-display text-[10px] font-normal uppercase tracking-[0.22em] text-ink/45">
+            <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-ink/70">
               Services
             </h3>
             <ul className="mt-4 space-y-1">
@@ -115,7 +115,7 @@ export function Footer() {
                 <li key={s.title}>
                   <Link
                     href={`/services/${s.slug}`}
-                    className="group inline-flex items-center gap-1.5 py-1.5 text-sm leading-snug text-ink/55 transition-colors hover:text-ink"
+                    className="group inline-flex min-h-11 items-center gap-1.5 py-1.5 text-sm leading-snug text-ink/80 transition-colors hover:text-ink"
                   >
                     {s.title}
                     <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-70" />
@@ -126,24 +126,24 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-display text-[10px] font-normal uppercase tracking-[0.22em] text-ink/45">
+            <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-ink/70">
               Contact
             </h3>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <div className="flex items-start gap-3 rounded-2xl border border-ink/10 bg-ink/[0.03] px-3.5 py-3">
+                <div className="flex items-start gap-3 rounded-2xl border border-ink/15 bg-ink/[0.04] px-3.5 py-3">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
-                  <span className="text-sm text-ink/60">
+                  <span className="text-sm text-ink/80">
                     {COMPANY.location}
                     <br />
-                    <span className="text-ink/40">& Global Delivery Centers</span>
+                    <span className="text-ink/60">& Global Delivery Centers</span>
                   </span>
                 </div>
               </li>
               <li>
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="flex items-center gap-3 rounded-2xl border border-ink/10 bg-ink/[0.03] px-3.5 py-3 text-sm text-ink/60 transition-colors hover:border-brand-orange/30 hover:text-ink"
+                  className="flex min-h-12 items-center gap-3 rounded-2xl border border-ink/15 bg-ink/[0.04] px-3.5 py-3 text-sm text-ink/80 transition-colors hover:border-brand-orange/30 hover:text-ink"
                 >
                   <Mail className="h-4 w-4 shrink-0 text-brand-orange" />
                   {COMPANY.email}
@@ -152,7 +152,7 @@ export function Footer() {
               <li>
                 <a
                   href={COMPANY.phoneHref}
-                  className="flex items-center gap-3 rounded-2xl border border-ink/10 bg-ink/[0.03] px-3.5 py-3 text-sm text-ink/60 transition-colors hover:border-brand-orange/30 hover:text-ink"
+                  className="flex min-h-12 items-center gap-3 rounded-2xl border border-ink/15 bg-ink/[0.04] px-3.5 py-3 text-sm text-ink/80 transition-colors hover:border-brand-orange/30 hover:text-ink"
                 >
                   <Phone className="h-4 w-4 shrink-0 text-brand-orange" />
                   {COMPANY.phone}
@@ -162,7 +162,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink/10 pt-6 text-center text-xs text-ink/40 sm:mt-14 sm:flex-row sm:text-left">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink/10 pt-6 text-center text-sm text-ink/65 sm:mt-14 sm:flex-row sm:text-left">
           <p>
             © {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
           </p>
@@ -171,12 +171,12 @@ export function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="transition-colors hover:text-ink/70"
+                className="transition-colors hover:text-ink"
               >
                 {link.label}
               </Link>
             ))}
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-ink/5 px-2.5 py-1 text-ink/45">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-ink/5 px-2.5 py-1 text-ink/75">
               <ShieldCheck className="h-3.5 w-3.5 text-brand-orange" />
               ISO/IEC 27001:2013
             </span>

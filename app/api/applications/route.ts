@@ -1,8 +1,13 @@
-import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import {
+  answersFromForm,
+  missingRequiredAnswers,
+  parseQuestions,
+} from "@/lib/job-questions";
 import { requireUser } from "@/lib/session";
+import { saveCv } from "@/lib/storage";
 
 export async function POST(request: Request) {
   const session = requireUser();
@@ -31,6 +36,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Job not found" }, { status: 404 });
   }
 
+  const questions = parseQuestions(job.questions);
+  const answers = answersFromForm(questions, form);
+  if (missingRequiredAnswers(answers)) {
+    return NextResponse.json(
+      { error: "Please answer all required questions" },
+      { status: 400 },
+    );
+  }
+
   const existing = await prisma.application.findFirst({
     where: { userId: session.id, jobId },
   });
@@ -42,12 +56,9 @@ export async function POST(request: Request) {
   }
 
   const ext = path.extname(file.name || "").slice(0, 8) || ".bin";
-  const dir = path.join(process.cwd(), "data", "uploads");
-  await mkdir(dir, { recursive: true });
   const filename = `${session.id}-${jobId}-${Date.now()}${ext}`;
-  const cvPath = path.join(dir, filename);
   const buf = Buffer.from(await file.arrayBuffer());
-  await writeFile(cvPath, buf);
+  const cvPath = await saveCv(filename, buf);
 
   const application = await prisma.application.create({
     data: {
@@ -56,6 +67,7 @@ export async function POST(request: Request) {
       phone,
       coverNote,
       cvPath,
+      answers: JSON.stringify(answers),
     },
   });
 

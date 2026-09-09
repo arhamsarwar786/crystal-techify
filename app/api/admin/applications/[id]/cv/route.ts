@@ -1,8 +1,7 @@
-import { readFile } from "fs/promises";
-import path from "path";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
+import { readCv } from "@/lib/storage";
 
 interface Ctx {
   params: { id: string };
@@ -18,20 +17,16 @@ export async function GET(_request: Request, { params }: Ctx) {
   if (!application) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  const filePath = path.resolve(application.cvPath);
-  const uploadsRoot = path.resolve(process.cwd(), "data/uploads");
-  if (!filePath.startsWith(uploadsRoot)) {
-    return NextResponse.json({ error: "Invalid path" }, { status: 400 });
-  }
-  try {
-    const buf = await readFile(filePath);
-    return new NextResponse(buf, {
-      headers: {
-        "Content-Type": "application/octet-stream",
-        "Content-Disposition": `attachment; filename="${path.basename(filePath)}"`,
-      },
-    });
-  } catch {
+
+  const file = await readCv(application.cvPath);
+  if (!file) {
     return NextResponse.json({ error: "File missing" }, { status: 404 });
   }
+
+  return new NextResponse(file.body, {
+    headers: {
+      "Content-Type": "application/octet-stream",
+      "Content-Disposition": `attachment; filename="${file.filename}"`,
+    },
+  });
 }

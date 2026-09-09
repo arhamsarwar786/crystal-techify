@@ -182,7 +182,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
     }`;
 
   const floatingLabelClass =
-    "pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-ink/45 transition-all duration-200 peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:text-brand-orange peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:text-ink/55";
+    "pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-ink/60 transition-all duration-200 peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:text-brand-orange peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:text-ink/70";
 
   return (
     <section
@@ -210,11 +210,11 @@ export function Contact({ detailHref }: { detailHref?: string }) {
           {/* Left — the human details */}
           <Reveal className="flex flex-col gap-6">
             <div className="glass gradient-border rounded-2xl p-6">
-              <span className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/5 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-ink/65">
+              <span className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-3 py-1.5 text-xs font-medium text-ink/80">
                 <Clock className="h-3.5 w-3.5 text-brand-orange" />
                 Free · 90 minutes
               </span>
-              <p className="mt-4 text-sm leading-relaxed text-ink/65">
+              <p className="mt-4 text-sm leading-relaxed text-ink/80">
                 Book a working session with our principal engineers. No slide
                 deck, no obligation — just a straight read on where your platform
                 stands and what we&apos;d do next.
@@ -231,7 +231,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                     <Mail className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="block text-xs uppercase tracking-wider text-ink/45">
+                    <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
                       Email
                     </span>
                     <span className="block text-sm font-medium text-ink">
@@ -249,7 +249,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                     <Phone className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="block text-xs uppercase tracking-wider text-ink/45">
+                    <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
                       Call
                     </span>
                     <span className="block text-sm font-medium text-ink">
@@ -263,7 +263,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   <MapPin className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block text-xs uppercase tracking-wider text-ink/45">
+                  <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
                     Where we are
                   </span>
                   <span className="block text-sm font-medium text-ink">
@@ -443,7 +443,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                             className={`relative rounded-full border px-3.5 py-2 text-xs font-medium transition-all duration-200 sm:text-[13px] ${
                               isActive
                                 ? "border-transparent text-obsidian"
-                                : "border-ink/12 bg-ink/[0.03] text-ink/65 hover:border-brand-orange/30 hover:text-ink"
+                                : "border-ink/20 bg-ink/[0.04] text-ink/80 hover:border-brand-orange/30 hover:text-ink"
                             }`}
                           >
                             {isActive && (
@@ -474,7 +474,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                         A bit about the project
                       </label>
                     </div>
-                    <p className="text-xs text-ink/40">
+                    <p className="text-sm text-ink/70">
                       Where you are now, what you&apos;re trying to ship, and any
                       timeline that matters.
                     </p>
@@ -495,7 +495,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     )}
                   </button>
-                  <p className="text-center text-xs text-ink/40">
+                  <p className="text-center text-sm text-ink/70">
                     {WEB3FORMS_KEY
                       ? "Goes straight to our inbox. We reply within one business day."
                       : "Opens a pre-filled email — nothing is sent until you press send."}

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PageShell } from "@/components/layout/PageShell";
 import { ApplyForm } from "@/components/careers/ApplyForm";
 import { splitLines } from "@/lib/jobs";
+import { parseQuestions } from "@/lib/job-questions";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/session";
 
@@ -17,7 +18,7 @@ function Section({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="mt-10">
       <h2 className="text-xl">{title}</h2>
-      <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-ink/70">
+      <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-ink/80">
         {items.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -30,6 +31,7 @@ export default async function JobPage({ params }: PageProps) {
   const job = await prisma.job.findUnique({ where: { slug: params.slug } });
   if (!job || !job.active) notFound();
   const session = getSession();
+  const questions = parseQuestions(job.questions);
 
   const paragraphs = job.description
     .split(/\n\n+/)
@@ -40,30 +42,30 @@ export default async function JobPage({ params }: PageProps) {
     <PageShell>
       <section className="relative overflow-hidden pb-20 pt-32 sm:pt-40">
         <div className="section-shell relative mx-auto max-w-3xl">
-          <Link href="/careers" className="text-sm text-ink/55 hover:text-ink">
+          <Link href="/careers" className="text-sm font-medium text-ink/80 hover:text-ink">
             ← All roles
           </Link>
           {job.department ? (
-            <p className="mt-6 font-display text-[10px] uppercase tracking-[0.22em] text-brand-orange">
+            <p className="mt-6 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-brand-orange">
               {job.department}
             </p>
           ) : null}
           <h1 className="mt-3 text-3xl sm:text-4xl">{job.title}</h1>
-          <div className="mt-4 flex flex-wrap gap-2 text-xs text-ink/60">
-            <span className="rounded-full border border-ink/10 px-3 py-1">
+          <div className="mt-4 flex flex-wrap gap-2 text-sm text-ink/75">
+            <span className="rounded-full border border-ink/15 px-3 py-1">
               {job.location}
             </span>
-            <span className="rounded-full border border-ink/10 px-3 py-1">
+            <span className="rounded-full border border-ink/15 px-3 py-1">
               {job.employmentType}
             </span>
             {job.salaryRange ? (
-              <span className="rounded-full border border-ink/10 px-3 py-1">
+              <span className="rounded-full border border-ink/15 px-3 py-1">
                 {job.salaryRange}
               </span>
             ) : null}
           </div>
 
-          <div className="mt-8 space-y-4 text-sm leading-relaxed text-ink/70">
+          <div className="mt-8 space-y-4 text-sm leading-relaxed text-ink/80 sm:text-base">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -77,16 +79,21 @@ export default async function JobPage({ params }: PageProps) {
           <Section title="Nice to have" items={splitLines(job.niceToHave)} />
           <Section title="Benefits" items={splitLines(job.benefits)} />
 
-          <div className="mt-12 rounded-2xl border border-ink/10 bg-ink/[0.03] p-5 sm:p-6">
+          <div className="mt-12 rounded-2xl border border-ink/15 bg-ink/[0.04] p-5 sm:p-6">
             <h2 className="text-xl">Apply</h2>
-            <p className="mt-2 text-sm text-ink/55">
-              Logged-in candidates can submit a CV for this role. One
-              application per account.
+            <p className="mt-2 text-sm leading-relaxed text-ink/75">
+              Logged-in candidates can submit a CV for this role
+              {questions.length
+                ? `, including ${questions.length} required question${
+                    questions.length === 1 ? "" : "s"
+                  }`
+                : ""}
+              . One application per account.
             </p>
             {session ? (
-              <ApplyForm jobId={job.id} />
+              <ApplyForm jobId={job.id} questions={questions} />
             ) : (
-              <p className="mt-3 text-sm text-ink/60">
+              <p className="mt-3 text-sm leading-relaxed text-ink/75">
                 <Link
                   href={`/login?next=${encodeURIComponent(`/careers/${job.slug}`)}`}
                   className="text-brand-orange"

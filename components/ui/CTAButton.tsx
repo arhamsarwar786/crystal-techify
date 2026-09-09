@@ -61,11 +61,11 @@ export function CTAButton({
 }: CTAButtonProps) {
   const magnet = useMagnetic();
   const base =
-    "group relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-display text-[12px] font-normal tracking-[0.12em] transition-[background-color,box-shadow,border-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60";
+    "group relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold tracking-[0.02em] transition-[background-color,box-shadow,border-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60";
 
   const variantClass =
     variant === "outline"
-      ? `${base} gradient-border border border-ink/15 bg-ink/5 text-ink backdrop-blur hover:bg-ink/10 hover:shadow-glow-sm ${className ?? ""}`
+      ? `${base} gradient-border border border-ink/25 bg-ink/[0.08] text-ink backdrop-blur hover:bg-ink/15 hover:shadow-glow-sm ${className ?? ""}`
       : `${base} overflow-hidden bg-brand-gradient bg-[length:200%_100%] text-obsidian hover:animate-gradient-x hover:shadow-glow ${className ?? ""}`;
 
   const content =

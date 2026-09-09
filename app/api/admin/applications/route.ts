@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { parseAnswers } from "@/lib/job-questions";
 import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
@@ -15,5 +16,10 @@ export async function GET() {
       job: { select: { title: true, slug: true, id: true } },
     },
   });
-  return NextResponse.json({ applications });
+  return NextResponse.json({
+    applications: applications.map((application) => ({
+      ...application,
+      answers: parseAnswers(application.answers),
+    })),
+  });
 }

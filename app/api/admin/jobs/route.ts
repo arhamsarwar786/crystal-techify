@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { jobWriteData, type JobPayload } from "@/lib/job-write";
+import { parseQuestions } from "@/lib/job-questions";
 import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
@@ -13,6 +14,10 @@ function slugify(title: string) {
     .slice(0, 60);
 }
 
+function withQuestions<T extends { questions: string }>(job: T) {
+  return { ...job, questions: parseQuestions(job.questions) };
+}
+
 export async function GET() {
   if (!requireAdmin()) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -21,7 +26,7 @@ export async function GET() {
     orderBy: { createdAt: "desc" },
     include: { _count: { select: { applications: true } } },
   });
-  return NextResponse.json({ jobs });
+  return NextResponse.json({ jobs: jobs.map(withQuestions) });
 }
 
 export async function POST(request: Request) {
@@ -40,5 +45,5 @@ export async function POST(request: Request) {
   const job = await prisma.job.create({
     data: { ...jobWriteData(body, "create"), slug },
   });
-  return NextResponse.json({ job });
+  return NextResponse.json({ job: withQuestions(job) });
 }

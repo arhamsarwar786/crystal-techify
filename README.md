@@ -9,23 +9,41 @@ Ohio-based AI & advanced software engineering firm.
 | ---------- | ---------------------------------------- |
 | Framework  | Next.js 14 (App Router, RSC)             |
 | Language   | TypeScript                              |
+| Database   | PostgreSQL + Prisma                      |
+| Uploads    | Local `data/uploads` or Vercel Blob      |
 | Styling    | Tailwind CSS + custom glassmorphism utils |
 | Animation  | Framer Motion                           |
 | Icons      | Lucide React                           |
-| Fonts      | Inter + Space Grotesk (`next/font`)     |
+| Fonts      | Michroma + Poppins (`next/font`)        |
 
 ## Getting started
 
 ```bash
+cp .env.example .env
 pnpm install
-pnpm dev         # http://localhost:3000
-pnpm build       # production build
-pnpm start       # serve the build
+pnpm db:up          # Docker Postgres on localhost:5433
+pnpm db:migrate     # apply Prisma migrations
+pnpm db:seed        # admin + sample jobs
+pnpm dev            # http://localhost:3000
 ```
+
+Admin login after seed: `admin@crystaltechify.com` / `changeme`.
 
 Optional: copy [`.env.example`](.env.example) to `.env.local` and add a
 `NEXT_PUBLIC_WEB3FORMS_KEY` to enable direct contact-form submissions (see
 **Contact form** below).
+
+## Database and file uploads (Vercel)
+
+The Next.js app (frontend + API), Postgres, and CV files all run on Vercel:
+
+| What | Where in Vercel | Env |
+| --- | --- | --- |
+| Site + API | the Next.js project | — |
+| Database | **Storage → Create → Neon** | `DATABASE_URL`, `DATABASE_URL_UNPOOLED` (injected) |
+| CVs | **Storage → Create → Blob** | `BLOB_READ_WRITE_TOKEN` (injected) |
+
+Also set `AUTH_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD`. Local Docker Postgres is only for development.
 
 ## Structure
 

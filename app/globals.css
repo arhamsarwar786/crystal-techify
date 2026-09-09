@@ -43,8 +43,8 @@
   }
 
   body {
-    @apply bg-bg font-sans text-[15px] leading-relaxed text-ink/75 antialiased sm:text-base;
-    letter-spacing: 0.01em;
+    @apply bg-bg font-sans text-base leading-relaxed text-ink/90 antialiased;
+    letter-spacing: 0.005em;
     overflow-x: hidden;
     max-width: 100%;
     background-image: radial-gradient(
@@ -77,15 +77,25 @@
   h6 {
     @apply font-display font-normal text-ink;
     font-synthesis: none;
-    letter-spacing: 0.06em;
-    line-height: 1.28;
+    letter-spacing: 0.03em;
+    line-height: 1.32;
     text-wrap: balance;
     overflow-wrap: break-word;
   }
 
   h1 {
-    letter-spacing: 0.045em;
-    line-height: 1.22;
+    letter-spacing: 0.02em;
+    line-height: 1.26;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(255 149 0 / 0.7);
+    outline-offset: 2px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: rgb(var(--ink) / 0.5);
   }
 
   button,
@@ -96,40 +106,52 @@
   }
 
   /*
-   * Low-opacity ink text (body copy, captions) reads fine on a near-black
-   * dark background but loses contrast on the off-white light background.
-   * Bump it up in light mode only — dark mode is untouched.
+   * Low-opacity ink utilities fail WCAG on both palettes — faint grey on
+   * near-black, and washed grey on off-white. Lift them in both themes.
    */
+  :root.dark .text-ink\/30 { color: rgb(var(--ink) / 0.52); }
+  :root.dark .text-ink\/35 { color: rgb(var(--ink) / 0.56); }
+  :root.dark .text-ink\/40 { color: rgb(var(--ink) / 0.6); }
+  :root.dark .text-ink\/45 { color: rgb(var(--ink) / 0.66); }
+  :root.dark .text-ink\/50 { color: rgb(var(--ink) / 0.72); }
+  :root.dark .text-ink\/55 { color: rgb(var(--ink) / 0.78); }
+  :root.dark .text-ink\/60 { color: rgb(var(--ink) / 0.82); }
+  :root.dark .text-ink\/65 { color: rgb(var(--ink) / 0.86); }
+  :root.dark .text-ink\/70 { color: rgb(var(--ink) / 0.9); }
+  :root.dark .text-ink\/75 { color: rgb(var(--ink) / 0.92); }
+
+  :root.light .text-ink\/30 { color: rgb(var(--ink) / 0.52); }
   :root.light .text-ink\/35 { color: rgb(var(--ink) / 0.56); }
   :root.light .text-ink\/40 { color: rgb(var(--ink) / 0.58); }
-  :root.light .text-ink\/45 { color: rgb(var(--ink) / 0.6); }
-  :root.light .text-ink\/55 { color: rgb(var(--ink) / 0.68); }
-  :root.light .text-ink\/60 { color: rgb(var(--ink) / 0.72); }
-  :root.light .text-ink\/65 { color: rgb(var(--ink) / 0.76); }
-  :root.light .text-ink\/70 { color: rgb(var(--ink) / 0.8); }
-  :root.light .text-ink\/75 { color: rgb(var(--ink) / 0.83); }
+  :root.light .text-ink\/45 { color: rgb(var(--ink) / 0.62); }
+  :root.light .text-ink\/50 { color: rgb(var(--ink) / 0.66); }
+  :root.light .text-ink\/55 { color: rgb(var(--ink) / 0.7); }
+  :root.light .text-ink\/60 { color: rgb(var(--ink) / 0.74); }
+  :root.light .text-ink\/65 { color: rgb(var(--ink) / 0.78); }
+  :root.light .text-ink\/70 { color: rgb(var(--ink) / 0.82); }
+  :root.light .text-ink\/75 { color: rgb(var(--ink) / 0.86); }
 }
 
 @layer components {
   .glass {
-    @apply border border-ink/10 bg-ink/[0.035] backdrop-blur-xl;
+    @apply border border-ink/15 bg-ink/[0.05] backdrop-blur-xl;
     box-shadow: 0 1px 2px rgb(var(--ink) / 0.04),
       0 12px 30px -18px rgb(var(--ink) / 0.12);
   }
 
   .glass-strong {
-    @apply border border-ink/10 bg-ink/[0.05] backdrop-blur-2xl;
+    @apply border border-ink/15 bg-ink/[0.07] backdrop-blur-2xl;
     box-shadow: 0 1px 2px rgb(var(--ink) / 0.05),
       0 20px 45px -22px rgb(var(--ink) / 0.16);
   }
 
   :root.dark .glass {
-    @apply bg-ink/[0.06];
+    @apply bg-white/[0.05] border-white/10;
     box-shadow: none;
   }
 
   :root.dark .glass-strong {
-    @apply bg-ink/[0.08];
+    @apply bg-white/[0.07] border-white/10;
     box-shadow: none;
   }
 

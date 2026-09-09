@@ -33,10 +33,10 @@ export function SectionHeading({
     >
       <Reveal>
         <span
-          className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-display text-[10px] font-normal uppercase tracking-[0.22em] backdrop-blur sm:px-3.5 sm:text-[11px] sm:tracking-[0.26em] ${
+          className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-sans text-xs font-medium backdrop-blur sm:px-3.5 sm:text-sm ${
             onBrand
               ? "border-black/15 bg-black/10 text-black"
-              : "border-ink/10 bg-ink/5 text-ink/60"
+              : "border-ink/15 bg-ink/5 text-ink/75"
           }`}
         >
           <span
@@ -60,7 +60,7 @@ export function SectionHeading({
         <Reveal delay={0.1}>
           <p
             className={`mt-3 text-sm leading-relaxed sm:mt-4 sm:text-base ${
-              onBrand ? "text-black/80" : "text-ink/60"
+              onBrand ? "text-black/85" : "text-ink/75"
             }`}
           >
             {description}

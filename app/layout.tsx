@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Michroma, Outfit } from "next/font/google";
+import { Michroma, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
@@ -16,7 +16,7 @@ const display = Michroma({
 });
 
 /** Readable geometric sans for body, forms, and UI density. */
-const sans = Outfit({
+const sans = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-sans",

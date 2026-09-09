@@ -25,6 +25,16 @@ const jobs = [
       "LLM product experience (tool calling, evals, guardrails)\nVector search / RAG in production\nMLOps (feature stores, CI for models)\nDomain work in healthcare, legal, or logistics",
     benefits:
       "Hybrid Dublin HQ plus a strong remote culture\nHardware and cloud budget for experiments that ship\nMedical, dental, and 401(k) (US)\nConference and learning stipend\nSmall teams — you will see your work in production quickly",
+    questions: JSON.stringify([
+      {
+        id: "work-auth",
+        prompt: "Are you authorized to work in the United States?",
+      },
+      {
+        id: "notice",
+        prompt: "What is your notice period or earliest start date?",
+      },
+    ]),
   },
   {
     title: "Full-Stack Product Engineer",

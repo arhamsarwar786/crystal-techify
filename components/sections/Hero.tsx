@@ -49,7 +49,7 @@ export function Hero() {
         >
           <motion.span
             variants={item}
-            className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/5 px-3 py-1 font-display text-[10px] font-normal uppercase tracking-[0.2em] text-ink/65 sm:px-3.5 sm:text-[11px] sm:tracking-[0.24em]"
+            className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-3 py-1 font-sans text-xs font-medium text-ink/80 sm:px-3.5 sm:text-sm"
           >
             Dublin, Ohio · USA &amp; Pakistan
           </motion.span>
@@ -65,7 +65,7 @@ export function Hero() {
 
           <motion.p
             variants={item}
-            className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink/60 sm:mt-4 sm:text-base"
+            className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink/75 sm:mt-4 sm:text-base"
           >
             AI and advanced software from Dublin, Ohio.{" "}
             <span className="text-ink">500+ projects</span> worldwide.
@@ -91,7 +91,7 @@ export function Hero() {
 
           <motion.p
             variants={item}
-            className="mt-5 text-[11px] leading-relaxed text-ink/45 sm:mt-6 sm:text-xs"
+            className="mt-5 text-xs leading-relaxed text-ink/70 sm:mt-6 sm:text-sm"
           >
             {COVER_BADGES.join("  ·  ")}
           </motion.p>
@@ -112,7 +112,7 @@ export function Hero() {
               <p className="font-display text-sm tracking-[0.08em] text-ink sm:text-base">
                 <CountUp value={metric.value} start />
               </p>
-              <p className="mt-0.5 text-[11px] leading-snug text-ink/55 sm:text-xs">
+              <p className="mt-0.5 text-xs leading-snug text-ink/70 sm:text-sm">
                 {metric.label}
               </p>
             </motion.div>
@@ -128,7 +128,7 @@ export function Hero() {
           <a
             href="/#about"
             aria-label="Scroll to explore"
-            className="grid h-8 w-8 place-items-center rounded-full border border-ink/10 text-ink/40 transition-colors hover:border-brand-orange/40 hover:text-ink"
+            className="grid h-10 w-10 place-items-center rounded-full border border-ink/20 text-ink/70 transition-colors hover:border-brand-orange/40 hover:text-ink"
           >
             <motion.span
               animate={{ y: [0, 4, 0] }}

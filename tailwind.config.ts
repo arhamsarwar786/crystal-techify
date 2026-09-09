@@ -27,7 +27,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "Outfit", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "Poppins", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Michroma", "sans-serif"],
       },
       backgroundImage: {

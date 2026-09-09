@@ -43,51 +43,54 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         <h1 className="text-3xl">
           {mode === "login" ? "Log in" : "Create an account"}
         </h1>
-        <p className="mt-2 text-sm text-ink/55">
+        <p className="mt-2 text-sm leading-relaxed text-ink/75">
           {mode === "login"
             ? "Sign in to apply for open roles."
             : "Sign up to submit your CV and details."}
         </p>
         <form onSubmit={(e) => void onSubmit(e)} className="mt-8 space-y-4">
           {mode === "signup" && (
-            <label className="block text-sm">
+            <label className="block text-sm font-medium text-ink">
               Name
               <input
                 name="name"
                 required
-                className="mt-1 w-full rounded-xl border border-ink/10 bg-ink/[0.03] px-3 py-2.5 outline-none focus:border-brand-orange/50"
+                autoComplete="name"
+                className="mt-1.5 w-full rounded-xl border border-ink/20 bg-ink/[0.04] px-3 py-3 outline-none focus:border-brand-orange/60"
               />
             </label>
           )}
-          <label className="block text-sm">
+          <label className="block text-sm font-medium text-ink">
             Email
             <input
               name="email"
               type="email"
               required
-              className="mt-1 w-full rounded-xl border border-ink/10 bg-ink/[0.03] px-3 py-2.5 outline-none focus:border-brand-orange/50"
+              autoComplete="email"
+              className="mt-1.5 w-full rounded-xl border border-ink/20 bg-ink/[0.04] px-3 py-3 outline-none focus:border-brand-orange/60"
             />
           </label>
-          <label className="block text-sm">
+          <label className="block text-sm font-medium text-ink">
             Password
             <input
               name="password"
               type="password"
               required
               minLength={mode === "signup" ? 8 : 1}
-              className="mt-1 w-full rounded-xl border border-ink/10 bg-ink/[0.03] px-3 py-2.5 outline-none focus:border-brand-orange/50"
+              autoComplete={mode === "signup" ? "new-password" : "current-password"}
+              className="mt-1.5 w-full rounded-xl border border-ink/20 bg-ink/[0.04] px-3 py-3 outline-none focus:border-brand-orange/60"
             />
           </label>
           {error && <p className="text-sm text-brand-red">{error}</p>}
           <button
             type="submit"
             disabled={pending}
-            className="w-full rounded-full bg-brand-gradient py-3 font-display text-[12px] tracking-[0.12em] text-obsidian disabled:opacity-60"
+            className="w-full rounded-full bg-brand-gradient py-3 font-sans text-sm font-semibold text-obsidian disabled:opacity-60"
           >
             {pending ? "Please wait…" : mode === "login" ? "Log in" : "Sign up"}
           </button>
         </form>
-        <p className="mt-6 text-sm text-ink/50">
+        <p className="mt-6 text-sm text-ink/70">
           {mode === "login" ? (
             <>
               No account?{" "}

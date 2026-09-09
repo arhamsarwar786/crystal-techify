@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { JobQuestion, QuestionAnswer } from "@/lib/job-questions";
 
 type Tab = "overview" | "jobs" | "users" | "apps";
 
@@ -33,6 +34,7 @@ interface JobRow {
   requirements: string;
   niceToHave: string;
   benefits: string;
+  questions: JobQuestion[];
   active: boolean;
   _count: { applications: number };
 }
@@ -41,24 +43,43 @@ interface AppRow {
   id: string;
   phone: string;
   coverNote: string;
+  answers: QuestionAnswer[];
   createdAt: string;
   user: { id: string; name: string; email: string };
   job: { id: string; title: string; slug: string };
 }
 
-const emptyJob = {
-  title: "",
-  department: "",
-  location: "",
-  employmentType: "Full-time",
-  salaryRange: "",
-  description: "",
-  responsibilities: "",
-  requirements: "",
-  niceToHave: "",
-  benefits: "",
-  active: true,
+type JobForm = {
+  title: string;
+  department: string;
+  location: string;
+  employmentType: string;
+  salaryRange: string;
+  description: string;
+  responsibilities: string;
+  requirements: string;
+  niceToHave: string;
+  benefits: string;
+  questions: JobQuestion[];
+  active: boolean;
 };
+
+function emptyJob(): JobForm {
+  return {
+    title: "",
+    department: "",
+    location: "",
+    employmentType: "Full-time",
+    salaryRange: "",
+    description: "",
+    responsibilities: "",
+    requirements: "",
+    niceToHave: "",
+    benefits: "",
+    questions: [],
+    active: true,
+  };
+}
 
 const fieldClass =
   "w-full rounded-xl border border-ink/10 bg-ink/[0.03] px-3 py-2 text-sm outline-none focus:border-brand-orange/50";
@@ -78,7 +99,7 @@ export function AdminDashboard() {
   const [users, setUsers] = useState<UserRow[]>([]);
   const [jobs, setJobs] = useState<JobRow[]>([]);
   const [apps, setApps] = useState<AppRow[]>([]);
-  const [form, setForm] = useState(emptyJob);
+  const [form, setForm] = useState<JobForm>(emptyJob);
   const [editing, setEditing] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [jobFilter, setJobFilter] = useState("all");
@@ -142,7 +163,7 @@ export function AdminDashboard() {
       setError(data.error || "Could not save");
       return;
     }
-    setForm(emptyJob);
+    setForm(emptyJob());
     setEditing(null);
     await load();
   }
@@ -160,9 +181,45 @@ export function AdminDashboard() {
       requirements: job.requirements,
       niceToHave: job.niceToHave,
       benefits: job.benefits,
+      questions: job.questions?.length
+        ? job.questions.map((q) => ({ ...q }))
+        : [],
       active: job.active,
     });
     setTab("jobs");
+  }
+
+  function addQuestion() {
+    if (form.questions.length >= 12) return;
+    setForm({
+      ...form,
+      questions: [
+        ...form.questions,
+        {
+          id:
+            typeof crypto !== "undefined" && crypto.randomUUID
+              ? crypto.randomUUID()
+              : `q-${Date.now()}-${form.questions.length}`,
+          prompt: "",
+        },
+      ],
+    });
+  }
+
+  function updateQuestion(id: string, prompt: string) {
+    setForm({
+      ...form,
+      questions: form.questions.map((question) =>
+        question.id === id ? { ...question, prompt } : question,
+      ),
+    });
+  }
+
+  function removeQuestion(id: string) {
+    setForm({
+      ...form,
+      questions: form.questions.filter((question) => question.id !== id),
+    });
   }
 
   const tabs: { id: Tab; label: string }[] = [
@@ -427,6 +484,55 @@ export function AdminDashboard() {
               onChange={(e) => setForm({ ...form, benefits: e.target.value })}
               className={fieldClass}
             />
+            <div className="rounded-xl border border-ink/10 p-3">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm text-ink">Required questions</p>
+                  <p className="mt-0.5 text-xs text-ink/45">
+                    Optional. Applicants must answer each one to apply.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={addQuestion}
+                  disabled={form.questions.length >= 12}
+                  className="shrink-0 text-sm text-brand-orange disabled:text-ink/30"
+                >
+                  Add question
+                </button>
+              </div>
+              {form.questions.length === 0 ? (
+                <p className="mt-3 text-xs text-ink/40">
+                  No questions yet — apply form will only ask for phone, cover
+                  note, and CV.
+                </p>
+              ) : (
+                <ul className="mt-3 space-y-2">
+                  {form.questions.map((question, index) => (
+                    <li key={question.id} className="flex items-start gap-2">
+                      <span className="mt-2 w-5 shrink-0 text-xs text-ink/40">
+                        {index + 1}.
+                      </span>
+                      <input
+                        placeholder="e.g. Are you able to work overlapping US hours?"
+                        value={question.prompt}
+                        onChange={(e) =>
+                          updateQuestion(question.id, e.target.value)
+                        }
+                        className={fieldClass}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeQuestion(question.id)}
+                        className="mt-2 shrink-0 text-xs text-brand-red"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <label className="flex items-center gap-2 text-sm">
               <input
                 type="checkbox"
@@ -448,7 +554,7 @@ export function AdminDashboard() {
                   type="button"
                   onClick={() => {
                     setEditing(null);
-                    setForm(emptyJob);
+                    setForm(emptyJob());
                   }}
                   className="rounded-full border border-ink/10 px-5 py-2 text-sm"
                 >
@@ -471,6 +577,11 @@ export function AdminDashboard() {
                       {job.department ? `${job.department} · ` : ""}
                       {job.location} · {job.active ? "Active" : "Inactive"} ·{" "}
                       {job._count.applications} applicants
+                      {job.questions?.length
+                        ? ` · ${job.questions.length} required question${
+                            job.questions.length === 1 ? "" : "s"
+                          }`
+                        : ""}
                     </p>
                     <Link
                       href={`/careers/${job.slug}`}
@@ -544,13 +655,14 @@ export function AdminDashboard() {
             </p>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-ink/10">
-            <table className="w-full min-w-[56rem] text-left text-sm">
+            <table className="w-full min-w-[68rem] text-left text-sm">
               <thead className="bg-ink/5 text-ink/50">
                 <tr>
                   <th className="px-4 py-3 font-medium">Candidate</th>
                   <th className="px-4 py-3 font-medium">Role</th>
                   <th className="px-4 py-3 font-medium">Phone</th>
                   <th className="px-4 py-3 font-medium">Note</th>
+                  <th className="px-4 py-3 font-medium">Questions</th>
                   <th className="px-4 py-3 font-medium">Submitted</th>
                   <th className="px-4 py-3 font-medium">CV</th>
                 </tr>
@@ -567,6 +679,22 @@ export function AdminDashboard() {
                     <td className="max-w-xs px-4 py-3 text-ink/60">
                       {a.coverNote || "—"}
                     </td>
+                    <td className="max-w-sm px-4 py-3 text-ink/70">
+                      {a.answers?.length ? (
+                        <ul className="space-y-2">
+                          {a.answers.map((answer) => (
+                            <li key={`${a.id}-${answer.questionId}`}>
+                              <span className="block text-xs text-ink/45">
+                                {answer.prompt}
+                              </span>
+                              <span className="block">{answer.value}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
                     <td className="px-4 py-3 text-ink/50">
                       {formatDate(a.createdAt)}
                     </td>
@@ -582,7 +710,7 @@ export function AdminDashboard() {
                 ))}
                 {filteredApps.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-8 text-center text-ink/40">
+                    <td colSpan={7} className="px-4 py-8 text-center text-ink/40">
                       No applications in this view.
                     </td>
                   </tr>

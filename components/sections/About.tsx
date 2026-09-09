@@ -43,7 +43,7 @@ export function About({
 
         <p
           className={`relative mt-6 max-w-3xl text-sm leading-relaxed sm:text-base ${
-            accent ? "text-white" : "text-ink/60"
+            accent ? "text-white" : "text-ink/80"
           }`}
         >
           Our core expertise includes AI-driven software development, Machine
@@ -84,7 +84,7 @@ export function About({
               </h3>
               <p
                 className={`mt-2 text-sm leading-relaxed ${
-                  accent ? "text-black/70" : "text-ink/60"
+                  accent ? "text-black/80" : "text-ink/75"
                 }`}
               >
                 {point.description}

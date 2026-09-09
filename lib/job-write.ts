@@ -1,3 +1,5 @@
+import { serializeQuestions } from "@/lib/job-questions";
+
 export type JobPayload = {
   title?: string;
   department?: string;
@@ -9,6 +11,7 @@ export type JobPayload = {
   requirements?: string;
   niceToHave?: string;
   benefits?: string;
+  questions?: unknown;
   active?: boolean;
 };
 
@@ -25,6 +28,7 @@ export function jobWriteData(body: JobPayload, mode: "create" | "update") {
       requirements: body.requirements?.trim() || "",
       niceToHave: body.niceToHave?.trim() || "",
       benefits: body.benefits?.trim() || "",
+      questions: serializeQuestions(body.questions),
       active: body.active ?? true,
     };
   }
@@ -50,6 +54,9 @@ export function jobWriteData(body: JobPayload, mode: "create" | "update") {
       : {}),
     ...(body.niceToHave !== undefined ? { niceToHave: body.niceToHave } : {}),
     ...(body.benefits !== undefined ? { benefits: body.benefits } : {}),
+    ...(body.questions !== undefined
+      ? { questions: serializeQuestions(body.questions) }
+      : {}),
     ...(body.active !== undefined ? { active: body.active } : {}),
   };
 }

@@ -125,8 +125,8 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative px-2.5 py-1.5 font-display text-[10px] tracking-[0.08em] transition-colors hover:text-ink lg:px-3 ${
-                    isActive ? "text-ink" : "text-ink/50"
+                  className={`relative px-2.5 py-1.5 font-sans text-[12px] font-medium tracking-[0.02em] transition-colors hover:text-ink lg:px-3 ${
+                    isActive ? "text-ink" : "text-ink/70"
                   }`}
                 >
                   {link.label}
@@ -143,10 +143,10 @@ export function Header() {
 
           <div className="relative z-10 ml-auto hidden shrink-0 items-center gap-1 xl:flex">
             <AuthStatus />
-            <ThemeToggle className="h-9 w-9 rounded-full border-ink/[0.08] bg-transparent" />
+            <ThemeToggle className="h-10 w-10 rounded-full border-ink/15 bg-ink/5" />
             <CTAButton
               onClick={openCalendly}
-              className="!px-4 !py-2 text-[10px]"
+              className="!px-4 !py-2 !text-xs"
             >
               <CalendarClock className="h-3.5 w-3.5" />
               Book a Consultation
@@ -155,13 +155,13 @@ export function Header() {
 
           <div className="relative z-10 ml-auto flex items-center gap-1 xl:hidden">
             <AuthStatus compact />
-            <ThemeToggle className="h-9 w-9 rounded-full border-ink/[0.08] bg-transparent" />
+            <ThemeToggle className="h-11 w-11 rounded-full border-ink/15 bg-ink/5" />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-ink/10 bg-ink/5 text-ink transition-colors hover:border-brand-orange/40"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink transition-colors hover:border-brand-orange/40"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -191,16 +191,16 @@ export function Header() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.04 }}
                       aria-current={isActive ? "true" : undefined}
-                      className={`group flex items-center justify-between rounded-2xl px-4 py-3.5 font-display text-sm tracking-[0.1em] transition-colors ${
+                      className={`group flex min-h-12 items-center justify-between rounded-2xl px-4 py-3.5 font-sans text-base font-medium transition-colors ${
                         isActive
                           ? "bg-brand-gradient text-obsidian"
-                          : "text-ink/80 hover:bg-ink/5"
+                          : "text-ink hover:bg-ink/5"
                       }`}
                     >
                       {link.label}
                       <ArrowUpRight
                         className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${
-                          isActive ? "text-obsidian/80" : "text-ink/30"
+                          isActive ? "text-obsidian/80" : "text-ink/60"
                         }`}
                       />
                     </motion.a>

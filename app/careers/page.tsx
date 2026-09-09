@@ -21,13 +21,13 @@ export default async function CareersPage() {
           <h1 className="mt-3 max-w-2xl text-3xl sm:text-4xl">
             Build with Crystal Techify
           </h1>
-          <p className="mt-4 max-w-xl text-sm text-ink/60">
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-ink/75 sm:text-base">
             Open roles in AI, product engineering, and delivery. Log in to
             apply with your CV.
           </p>
           <ul className="mt-10 space-y-3">
             {jobs.length === 0 && (
-              <li className="rounded-2xl border border-dashed border-ink/15 px-4 py-10 text-center text-sm text-ink/45">
+              <li className="rounded-2xl border border-dashed border-ink/20 px-4 py-10 text-center text-sm text-ink/70">
                 No open roles right now. Check back soon.
               </li>
             )}
@@ -44,16 +44,16 @@ export default async function CareersPage() {
                       </span>
                     ) : null}
                     <span className="mt-1 block text-base text-ink">{job.title}</span>
-                    <span className="mt-1 block text-sm text-ink/50">
+                    <span className="mt-1 block text-sm text-ink/70">
                       {job.location} · {job.employmentType}
                       {job.salaryRange ? ` · ${job.salaryRange}` : ""}
                     </span>
-                    <span className="mt-2 block max-w-2xl text-sm leading-relaxed text-ink/55">
+                    <span className="mt-2 block max-w-2xl text-sm leading-relaxed text-ink/75">
                       {excerpt(job.description)}
                     </span>
                   </span>
-                  <span className="mt-2 shrink-0 text-sm text-brand-orange sm:mt-1">
-                    View JD
+                  <span className="mt-2 inline-flex shrink-0 items-center self-start rounded-full border border-brand-orange/35 bg-brand-orange/10 px-3 py-1.5 text-sm font-medium text-brand-orange sm:mt-1">
+                    View role
                   </span>
                 </Link>
               </li>
