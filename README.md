@@ -35,15 +35,16 @@ Optional: copy [`.env.example`](.env.example) to `.env.local` and add a
 
 ## Database and file uploads (Vercel)
 
-The Next.js app (frontend + API), Postgres, and CV files all run on Vercel:
+Set these in Vercel → **Settings → Environment Variables** (project-wide config). Do not use the Neon Storage integration.
 
-| What | Where in Vercel | Env |
+| What | Where | Env |
 | --- | --- | --- |
 | Site + API | the Next.js project | — |
-| Database | **Storage → Create → Neon** | `DATABASE_URL`, `DATABASE_URL_UNPOOLED` (injected) |
-| CVs | **Storage → Create → Blob** | `BLOB_READ_WRITE_TOKEN` (injected) |
+| Database | any Postgres URL in env vars | `DATABASE_URL` |
+| CVs | **Storage → Blob** | `BLOB_READ_WRITE_TOKEN` |
+| Auth | env vars | `AUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` |
 
-Also set `AUTH_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD`. Local Docker Postgres is only for development.
+`DATABASE_URL` must be a **direct** Postgres URL (not a pooler URL). Local Docker Postgres is only for development.
 
 ## Structure
 
