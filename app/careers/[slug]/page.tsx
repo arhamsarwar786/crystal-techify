@@ -28,7 +28,22 @@ function Section({ title, items }: { title: string; items: string[] }) {
 }
 
 export default async function JobPage({ params }: PageProps) {
-  const job = await prisma.job.findUnique({ where: { slug: params.slug } });
+  let job;
+  try {
+    job = await prisma.job.findUnique({ where: { slug: params.slug } });
+  } catch (err) {
+    console.error(err);
+    return (
+      <PageShell>
+        <section className="section-shell pb-20 pt-32">
+          <p className="text-sm text-ink/80">
+            This role could not load because the database is unreachable from
+            Vercel. Set DATABASE_URL to a public Postgres URL, not 127.0.0.1.
+          </p>
+        </section>
+      </PageShell>
+    );
+  }
   if (!job || !job.active) notFound();
   const session = getSession();
   const questions = parseQuestions(job.questions);

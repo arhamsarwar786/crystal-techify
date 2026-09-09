@@ -6,10 +6,17 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 export default async function CareersPage() {
-  const jobs = await prisma.job.findMany({
-    where: { active: true },
-    orderBy: { createdAt: "desc" },
-  });
+  let jobs: Awaited<ReturnType<typeof prisma.job.findMany>> = [];
+  let dbDown = false;
+  try {
+    jobs = await prisma.job.findMany({
+      where: { active: true },
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (err) {
+    console.error(err);
+    dbDown = true;
+  }
 
   return (
     <PageShell>
@@ -26,7 +33,14 @@ export default async function CareersPage() {
             apply with your CV.
           </p>
           <ul className="mt-10 space-y-3">
-            {jobs.length === 0 && (
+            {dbDown && (
+              <li className="rounded-2xl border border-brand-red/30 bg-brand-red/10 px-4 py-10 text-center text-sm text-ink">
+                Careers could not load because the database is unreachable from
+                Vercel. Set DATABASE_URL in Vercel Environment Variables to a
+                public Postgres host, not 127.0.0.1.
+              </li>
+            )}
+            {!dbDown && jobs.length === 0 && (
               <li className="rounded-2xl border border-dashed border-ink/20 px-4 py-10 text-center text-sm text-ink/70">
                 No open roles right now. Check back soon.
               </li>

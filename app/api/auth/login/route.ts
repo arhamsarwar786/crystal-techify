@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/db";
+import { jsonDatabaseError } from "@/lib/db-error";
 import { setSessionCookie } from "@/lib/session";
 
 export async function POST(request: Request) {
@@ -11,33 +12,37 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Email and password required" }, { status: 400 });
   }
 
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || !(await compare(password, user.passwordHash))) {
-    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
-  }
-
-  setSessionCookie({
-    id: user.id,
-    email: user.email,
-    name: user.name,
-    isAdmin: user.isAdmin,
-  });
-
   try {
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { lastLoginAt: new Date() },
-    });
-  } catch {
-    /* lastLoginAt is optional for older DBs */
-  }
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user || !(await compare(password, user.passwordHash))) {
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
+    }
 
-  return NextResponse.json({
-    user: {
+    setSessionCookie({
       id: user.id,
       email: user.email,
       name: user.name,
       isAdmin: user.isAdmin,
-    },
-  });
+    });
+
+    try {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { lastLoginAt: new Date() },
+      });
+    } catch {
+      /* lastLoginAt is optional for older DBs */
+    }
+
+    return NextResponse.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        isAdmin: user.isAdmin,
+      },
+    });
+  } catch (err) {
+    return jsonDatabaseError(err);
+  }
 }

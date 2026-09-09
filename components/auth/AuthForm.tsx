@@ -27,7 +27,16 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-    const data = (await res.json()) as { error?: string };
+    let data: { error?: string } = {};
+    try {
+      data = (await res.json()) as { error?: string };
+    } catch {
+      setPending(false);
+      setError(
+        "Server error. DATABASE_URL on Vercel must be a public Postgres URL, not 127.0.0.1.",
+      );
+      return;
+    }
     setPending(false);
     if (!res.ok) {
       setError(data.error || "Something went wrong");
