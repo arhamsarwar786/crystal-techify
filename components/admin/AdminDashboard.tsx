@@ -139,7 +139,7 @@ export function AdminDashboard() {
     for (const user of users) {
       if (user._count.applications > 0) map.set(user.id, user);
     }
-    return [...map.values()];
+    return Array.from(map.values());
   }, [users]);
 
   const recentLogins = useMemo(

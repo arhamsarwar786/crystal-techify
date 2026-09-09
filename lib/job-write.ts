@@ -15,6 +15,27 @@ export type JobPayload = {
   active?: boolean;
 };
 
+export function jobWriteData(
+  body: JobPayload,
+  mode: "create",
+): {
+  title: string;
+  department: string;
+  location: string;
+  employmentType: string;
+  salaryRange: string;
+  description: string;
+  responsibilities: string;
+  requirements: string;
+  niceToHave: string;
+  benefits: string;
+  questions: string;
+  active: boolean;
+};
+export function jobWriteData(
+  body: JobPayload,
+  mode: "update",
+): Record<string, string | boolean>;
 export function jobWriteData(body: JobPayload, mode: "create" | "update") {
   if (mode === "create") {
     return {

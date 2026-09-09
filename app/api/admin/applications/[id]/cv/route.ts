@@ -23,7 +23,7 @@ export async function GET(_request: Request, { params }: Ctx) {
     return NextResponse.json({ error: "File missing" }, { status: 404 });
   }
 
-  return new NextResponse(file.body, {
+  return new NextResponse(new Uint8Array(file.body), {
     headers: {
       "Content-Type": "application/octet-stream",
       "Content-Disposition": `attachment; filename="${file.filename}"`,
