@@ -21,10 +21,29 @@ export function ApplyForm({
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
-    setPending(true);
     const form = event.currentTarget;
     const data = new FormData(form);
     data.set("jobId", jobId);
+    const phoneDigits = String(data.get("phone") ?? "").replace(/\D/g, "");
+    if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+      setError("Enter a valid phone number.");
+      return;
+    }
+    const cv = data.get("cv");
+    if (!(cv instanceof File) || !cv.name) {
+      setError("Attach your CV as a PDF or Word document.");
+      return;
+    }
+    const ext = cv.name.toLowerCase().slice(cv.name.lastIndexOf("."));
+    if (![".pdf", ".doc", ".docx"].includes(ext)) {
+      setError("CV must be a PDF or Word document.");
+      return;
+    }
+    if (cv.size > 8 * 1024 * 1024) {
+      setError("CV must be under 8MB.");
+      return;
+    }
+    setPending(true);
     const res = await fetchRetry("/api/applications", {
       method: "POST",
       body: data,

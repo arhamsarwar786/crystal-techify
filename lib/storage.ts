@@ -1,7 +1,11 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
-const LOCAL_UPLOADS = path.join(process.cwd(), "data", "uploads");
+function uploadsDir() {
+  return process.env.VERCEL
+    ? path.join("/tmp", "crystal-techify-uploads")
+    : path.join(process.cwd(), "data", "uploads");
+}
 
 function blobToken() {
   return process.env.BLOB_READ_WRITE_TOKEN?.trim() || "";
@@ -11,22 +15,31 @@ export function isRemoteCv(stored: string) {
   return /^https?:\/\//i.test(stored);
 }
 
+async function saveLocal(filename: string, data: Buffer) {
+  const root = uploadsDir();
+  await mkdir(root, { recursive: true });
+  const filePath = path.join(root, filename);
+  await writeFile(filePath, data);
+  return filePath;
+}
+
 export async function saveCv(filename: string, data: Buffer): Promise<string> {
   const token = blobToken();
   if (token) {
-    const { put } = await import("@vercel/blob");
-    const blob = await put(`cvs/${filename}`, data, {
-      access: "private",
-      token,
-      addRandomSuffix: false,
-    });
-    return blob.url;
+    try {
+      const { put } = await import("@vercel/blob");
+      const blob = await put(`cvs/${filename}`, data, {
+        access: "private",
+        token,
+        addRandomSuffix: false,
+      });
+      return blob.url;
+    } catch (err) {
+      console.error("Vercel Blob upload failed, using local fallback", err);
+    }
   }
 
-  await mkdir(LOCAL_UPLOADS, { recursive: true });
-  const filePath = path.join(LOCAL_UPLOADS, filename);
-  await writeFile(filePath, data);
-  return filePath;
+  return saveLocal(filename, data);
 }
 
 export async function readCv(
@@ -45,7 +58,7 @@ export async function readCv(
   }
 
   const filePath = path.resolve(stored);
-  const root = path.resolve(LOCAL_UPLOADS);
+  const root = path.resolve(uploadsDir());
   if (!filePath.startsWith(root)) return null;
   try {
     const body = await readFile(filePath);

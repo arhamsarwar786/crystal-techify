@@ -37,8 +37,8 @@ export default async function JobPage({ params }: PageProps) {
       <PageShell>
         <section className="section-shell pb-20 pt-32">
           <p className="text-sm text-ink/80">
-            This role could not load because the database is unreachable from
-            Vercel. Set DATABASE_URL to a public Postgres URL, not 127.0.0.1.
+            This role could not load because the database is unreachable.
+            Confirm DATABASE_URL and try again.
           </p>
         </section>
       </PageShell>
@@ -47,6 +47,14 @@ export default async function JobPage({ params }: PageProps) {
   if (!job || !job.active) notFound();
   const session = getSession();
   const questions = parseQuestions(job.questions);
+  const alreadyApplied = session
+    ? Boolean(
+        await prisma.application.findFirst({
+          where: { userId: session.id, jobId: job.id },
+          select: { id: true },
+        }),
+      )
+    : false;
 
   const paragraphs = job.description
     .split(/\n\n+/)
@@ -105,7 +113,12 @@ export default async function JobPage({ params }: PageProps) {
                 : ""}
               . One application per account.
             </p>
-            {session ? (
+            {session && alreadyApplied ? (
+              <p className="mt-3 text-sm leading-relaxed text-ink/80">
+                You have already applied to this role. We will be in touch if
+                there is a fit.
+              </p>
+            ) : session ? (
               <ApplyForm jobId={job.id} questions={questions} />
             ) : (
               <p className="mt-3 text-sm leading-relaxed text-ink/75">

@@ -77,7 +77,7 @@ export const COMPANY = {
     "Empowering businesses to weave the future of software, seamlessly together.",
   about:
     "Crystal Techify is a premier technology company based in Dublin, Ohio, with a strong focus on Artificial Intelligence and advanced software solutions. We specialize in turning complex challenges into intelligent, data-driven digital products that help businesses innovate, operate smarter, and scale faster.",
-  location: "Dublin, Ohio, USA",
+  location: "United States",
   email: "info@crystaltechify.com",
   phone: "+1 (614) 714-6688",
   phoneHref: "tel:+16147146688",
@@ -99,12 +99,12 @@ export const LEGAL_LINKS = [
 ] as const;
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
-  { label: "Industries", href: "/#industries" },
-  { label: "Process", href: "/#process" },
-  { label: "Case Studies", href: "/#case-studies" },
-  { label: "Testimonials", href: "/#testimonials" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Industries", href: "/industries" },
+  { label: "Process", href: "/process" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Testimonials", href: "/testimonials" },
   { label: "Careers", href: "/careers" },
 ];
 
@@ -112,7 +112,7 @@ export const TRUST_METRICS: TrustMetric[] = [
   {
     icon: Rocket,
     value: "500+",
-    label: "Projects completed worldwide",
+    label: "Projects completed in the United States",
   },
   {
     icon: Users,
@@ -122,12 +122,12 @@ export const TRUST_METRICS: TrustMetric[] = [
   {
     icon: Star,
     value: "Top 3%",
-    label: "Global talent pool",
+    label: "US-based talent pool",
   },
   {
     icon: Globe2,
-    value: "02",
-    label: "Locations — USA & Pakistan",
+    value: "01",
+    label: "Location — United States",
   },
 ];
 
@@ -155,9 +155,9 @@ export const MISSION_POINTS: MissionPoint[] = [
 export const JOURNEY: JourneyMilestone[] = [
   {
     icon: Lightbulb,
-    title: "Global Expansion Success",
+    title: "United States delivery",
     description:
-      "Founded in 2021, providing development services in the US, expanding globally with over 500 successful projects executed worldwide.",
+      "Founded in 2021, providing development services across the United States, with over 500 successful projects delivered.",
   },
   {
     icon: Globe2,

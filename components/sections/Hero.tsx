@@ -47,12 +47,12 @@ export function Hero() {
           animate="visible"
           className="mx-auto max-w-3xl text-center"
         >
-          <motion.span
+          {/* <motion.span
             variants={item}
             className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-3 py-1 font-sans text-xs font-medium text-ink/80 sm:px-3.5 sm:text-sm"
           >
-            Dublin, Ohio · USA &amp; Pakistan
-          </motion.span>
+            Based in the United States
+          </motion.span> */}
 
           <motion.h1
             variants={item}
@@ -65,10 +65,10 @@ export function Hero() {
 
           <motion.p
             variants={item}
-            className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink/75 sm:mt-4 sm:text-base"
+            className="mx-auto mt-3 max-w-xl font-sans text-sm leading-relaxed tracking-normal text-ink/75 sm:mt-4 sm:text-base"
           >
-            AI and advanced software from Dublin, Ohio.{" "}
-            <span className="text-ink">500+ projects</span> worldwide.
+            AI and advanced software from the United States.{" "}
+            <span className="text-ink">500+ projects</span> across the world.
           </motion.p>
 
           <motion.div

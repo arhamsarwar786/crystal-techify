@@ -1,12 +1,44 @@
 import { PrismaClient } from "@prisma/client";
 
+function hostnameOf(raw: string) {
+  try {
+    return new URL(raw.replace(/^postgres:/i, "postgresql:")).hostname.toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+function isLoopback(raw: string) {
+  const host = hostnameOf(raw);
+  return !host || host === "localhost" || host === "127.0.0.1" || host === "::1";
+}
+
+function rawDatabaseUrl() {
+  const candidates = [
+    process.env.DATABASE_URL,
+    process.env.POSTGRES_PRISMA_URL,
+    process.env.POSTGRES_URL,
+    process.env.POSTGRES_URL_NON_POOLING,
+    process.env.DATABASE_URL_UNPOOLED,
+    process.env.NEON_DATABASE_URL,
+    process.env.NEON_URL,
+  ]
+    .map((value) => value?.trim() || "")
+    .filter(Boolean);
+
+  const remote = candidates.find((url) => !isLoopback(url));
+  if (remote) return remote;
+  if (process.env.VERCEL) return "";
+  return candidates[0] || "";
+}
+
 function databaseUrl() {
-  const raw = process.env.DATABASE_URL?.trim() || "";
+  const raw = rawDatabaseUrl();
   if (!raw) return raw;
   try {
     const url = new URL(raw.replace(/^postgres:/i, "postgresql:"));
     url.searchParams.delete("channel_binding");
-    if (!url.searchParams.has("sslmode")) {
+    if (!url.searchParams.has("sslmode") && !isLoopback(raw)) {
       url.searchParams.set("sslmode", "require");
     }
     if (!url.searchParams.has("connect_timeout")) {

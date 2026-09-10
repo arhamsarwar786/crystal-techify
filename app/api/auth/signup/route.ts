@@ -1,24 +1,32 @@
 import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { prisma } from "@/lib/db";
+import { validateSignup } from "@/lib/auth-validate";
 import { jsonDatabaseError } from "@/lib/db-error";
 import { setSessionCookie } from "@/lib/session";
 
 export async function POST(request: Request) {
   const body = (await request.json()) as {
     email?: string;
+    emailConfirm?: string;
     password?: string;
+    passwordConfirm?: string;
     name?: string;
   };
-  const email = body.email?.trim().toLowerCase() ?? "";
-  const name = body.name?.trim() ?? "";
-  const password = body.password ?? "";
-  if (!email || !name || password.length < 8) {
+  const checked = validateSignup({
+    name: body.name,
+    email: body.email,
+    emailConfirm: body.emailConfirm ?? body.email,
+    password: body.password,
+    passwordConfirm: body.passwordConfirm ?? body.password,
+  });
+  if (!checked.ok) {
     return NextResponse.json(
-      { error: "Name, email, and a password of at least 8 characters are required" },
+      { error: checked.error, fields: checked.fields },
       { status: 400 },
     );
   }
+  const { email, name, password } = checked;
 
   try {
     const existing = await prisma.user.findUnique({ where: { email } });

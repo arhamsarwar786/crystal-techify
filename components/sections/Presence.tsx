@@ -28,22 +28,17 @@ export function Presence({ detailHref }: { detailHref?: string }) {
           detailHref={detailHref}
           title={
             <>
-              Our global{" "}
+              Our United States{" "}
               <span className="gradient-text">presence</span>
             </>
           }
-          description="Founded in 2021. Shipping from the USA, expanding worldwide — two locations, one engineering standard."
+          description="Founded in 2021. Based in Dublin, Ohio — one US location, one engineering standard."
         />
 
-        <div className="mx-auto mt-10 flex max-w-xl items-center justify-center gap-8 sm:mt-12 sm:gap-16">
+        <div className="mx-auto mt-10 flex max-w-xl items-center justify-center">
           <div className="flex items-center gap-2 text-sm font-semibold text-ink">
             <MapPin className="h-5 w-5 text-brand-red" />
-            USA
-          </div>
-          <div className="h-px flex-1 bg-ink/15" />
-          <div className="flex items-center gap-2 text-sm font-semibold text-ink">
-            <MapPin className="h-5 w-5 text-brand-red" />
-            Pakistan
+            Dublin, Ohio · United States
           </div>
         </div>
 

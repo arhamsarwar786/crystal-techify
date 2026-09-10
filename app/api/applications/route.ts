@@ -28,8 +28,22 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+  const phoneDigits = phone.replace(/\D/g, "");
+  if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+    return NextResponse.json(
+      { error: "Enter a valid phone number." },
+      { status: 400 },
+    );
+  }
   if (file.size > 8 * 1024 * 1024) {
     return NextResponse.json({ error: "CV must be under 8MB" }, { status: 400 });
+  }
+  const ext = path.extname(file.name || "").toLowerCase();
+  if (![".pdf", ".doc", ".docx"].includes(ext)) {
+    return NextResponse.json(
+      { error: "CV must be a PDF or Word document." },
+      { status: 400 },
+    );
   }
 
   try {
@@ -57,10 +71,18 @@ export async function POST(request: Request) {
       );
     }
 
-    const ext = path.extname(file.name || "").slice(0, 8) || ".bin";
     const filename = `${session.id}-${jobId}-${Date.now()}${ext}`;
     const buf = Buffer.from(await file.arrayBuffer());
-    const cvPath = await saveCv(filename, buf);
+    let cvPath: string;
+    try {
+      cvPath = await saveCv(filename, buf);
+    } catch (err) {
+      console.error(err);
+      return NextResponse.json(
+        { error: "Could not store the CV. Try again." },
+        { status: 503 },
+      );
+    }
 
     const application = await prisma.application.create({
       data: {

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Crystal Techify",
   },
   description:
-    "Premier technology company in Dublin, Ohio. AI, SaaS, mobile, Web3, e-commerce, and staff augmentation. 500+ projects completed worldwide.",
+    "Premier technology company in Dublin, Ohio. AI, SaaS, mobile, Web3, e-commerce, and staff augmentation. 500+ projects completed across the United States.",
   keywords: [
     "Artificial Intelligence",
     "SaaS",

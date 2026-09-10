@@ -66,7 +66,7 @@ export function Footer() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-orange opacity-40" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-orange" />
               </span>
-              Built in {COMPANY.location.replace(", USA", "")} · shipping worldwide
+              Built in {COMPANY.location.replace(", USA", "")}
             </p>
             <div className="mt-6 flex gap-2.5">
               {SOCIAL_LINKS.map((s) => {
@@ -135,8 +135,6 @@ export function Footer() {
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
                   <span className="text-sm text-ink/80">
                     {COMPANY.location}
-                    <br />
-                    <span className="text-ink/60">& Global Delivery Centers</span>
                   </span>
                 </div>
               </li>

@@ -35,9 +35,8 @@ export default async function CareersPage() {
           <ul className="mt-10 space-y-3">
             {dbDown && (
               <li className="rounded-2xl border border-brand-red/30 bg-brand-red/10 px-4 py-10 text-center text-sm text-ink">
-                Careers could not load because the database is unreachable from
-                Vercel. Set DATABASE_URL in Vercel Environment Variables to a
-                public Postgres host, not 127.0.0.1.
+                Careers could not load because the database is unreachable.
+                Confirm DATABASE_URL and try again.
               </li>
             )}
             {!dbDown && jobs.length === 0 && (
