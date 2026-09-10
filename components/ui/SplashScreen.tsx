@@ -55,7 +55,7 @@ export function SplashScreen() {
   const instant = Boolean(reduceMotion);
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-obsidian">
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-bg">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-40"
@@ -71,7 +71,7 @@ export function SplashScreen() {
       />
 
       <div className="relative flex flex-col items-center px-6">
-        <h1 className="flex items-baseline font-display text-[clamp(2.8rem,12vw,5.5rem)] leading-none tracking-[0.08em] text-white">
+        <h1 className="flex items-baseline font-display text-[clamp(2.8rem,12vw,5.5rem)] leading-none tracking-[0.08em] text-ink">
           <motion.span
             initial={instant ? false : { opacity: 0, scale: 0.55, rotate: -12 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -97,12 +97,12 @@ export function SplashScreen() {
           initial={instant ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: instant ? 0 : 1.05, duration: 0.45 }}
-          className="mt-3 font-display text-[11px] uppercase tracking-[0.42em] text-white/45 sm:text-xs"
+          className="mt-3 font-display text-[11px] uppercase tracking-[0.42em] text-ink/45 sm:text-xs"
         >
           Techify
         </motion.p>
 
-        <div className="relative mt-12 h-[3px] w-[min(56vw,220px)] overflow-hidden rounded-full bg-white/10">
+        <div className="relative mt-12 h-[3px] w-[min(56vw,220px)] overflow-hidden rounded-full bg-ink/10">
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}

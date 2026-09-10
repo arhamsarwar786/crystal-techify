@@ -22,12 +22,6 @@ const item: Variants = {
   },
 };
 
-const COVER_BADGES = [
-  "Clutch · Top Blockchain Consulting",
-  "ISO 27001:2013",
-  "Upwork Top Rated Plus",
-];
-
 export function Hero() {
   return (
     <section
@@ -88,13 +82,6 @@ export function Hero() {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </CTAButton>
           </motion.div>
-
-          <motion.p
-            variants={item}
-            className="mt-5 text-xs leading-relaxed text-ink/70 sm:mt-6 sm:text-sm"
-          >
-            {COVER_BADGES.join("  ·  ")}
-          </motion.p>
         </motion.div>
 
         <motion.div
