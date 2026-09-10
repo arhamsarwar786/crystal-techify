@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { PageShell } from "@/components/layout/PageShell";
+import { fetchRetry } from "@/lib/fetch-retry";
 
 export function AuthForm({ mode }: { mode: "login" | "signup" }) {
   const router = useRouter();
@@ -22,7 +23,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       email: String(form.get("email") ?? ""),
       password: String(form.get("password") ?? ""),
     };
-    const res = await fetch(`/api/auth/${mode}`, {
+    const res = await fetchRetry(`/api/auth/${mode}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

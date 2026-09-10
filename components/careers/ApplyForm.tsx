@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { JobQuestion } from "@/lib/job-questions";
+import { fetchRetry } from "@/lib/fetch-retry";
 
 const fieldClass =
   "mt-1.5 w-full rounded-xl border border-ink/20 bg-bg px-3 py-3 outline-none focus:border-brand-orange/60";
@@ -24,8 +25,18 @@ export function ApplyForm({
     const form = event.currentTarget;
     const data = new FormData(form);
     data.set("jobId", jobId);
-    const res = await fetch("/api/applications", { method: "POST", body: data });
-    const json = (await res.json()) as { error?: string };
+    const res = await fetchRetry("/api/applications", {
+      method: "POST",
+      body: data,
+    });
+    let json: { error?: string } = {};
+    try {
+      json = (await res.json()) as { error?: string };
+    } catch {
+      setPending(false);
+      setError("The database is waking up. Wait a few seconds and try again.");
+      return;
+    }
     setPending(false);
     if (!res.ok) {
       setError(json.error || "Could not submit");

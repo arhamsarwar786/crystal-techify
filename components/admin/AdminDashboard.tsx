@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { JobQuestion, QuestionAnswer } from "@/lib/job-questions";
+import { fetchRetry } from "@/lib/fetch-retry";
 
 type Tab = "overview" | "jobs" | "users" | "apps";
 
@@ -108,12 +109,14 @@ export function AdminDashboard() {
   const load = useCallback(async () => {
     setLoadError("");
     const [u, j, a] = await Promise.all([
-      fetch("/api/admin/users"),
-      fetch("/api/admin/jobs"),
-      fetch("/api/admin/applications"),
+      fetchRetry("/api/admin/users"),
+      fetchRetry("/api/admin/jobs"),
+      fetchRetry("/api/admin/applications"),
     ]);
     if (!u.ok || !j.ok || !a.ok) {
-      setLoadError("Could not load admin data. Sign in as an admin and retry.");
+      setLoadError(
+        "Could not load admin data. If you just opened the site, wait a few seconds and retry — the database may be waking up.",
+      );
       return;
     }
     const usersJson = (await u.json()) as { users?: UserRow[] };
