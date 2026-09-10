@@ -22,9 +22,9 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 const STORAGE_KEY = "ct-theme-v2";
 
 function readInitialTheme(): Theme {
-  if (typeof document === "undefined") return "dark";
+  if (typeof document === "undefined") return "light";
   // The inline theme-script already resolved this onto <html> before paint.
-  return document.documentElement.classList.contains("light") ? "light" : "dark";
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -63,7 +63,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       /* ignore */
     }
     if (stored !== "light" && stored !== "dark") {
-      applyTheme("dark");
+      applyTheme("light");
     }
   }, [applyTheme]);
 

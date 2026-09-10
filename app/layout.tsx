@@ -67,7 +67,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} dark`}
+      className={`${display.variable} ${sans.variable} light`}
       suppressHydrationWarning
     >
       <head>

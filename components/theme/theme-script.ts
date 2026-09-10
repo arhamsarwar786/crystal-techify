@@ -3,7 +3,7 @@
  * class is on <html> immediately — no flash of the wrong palette.
  *
  * Resolution order: `?theme=` query param (also persisted) → saved choice →
- * dark (site default). Light is only used when the visitor picks it.
+ * light (site default). Dark is only used when the visitor picks it.
  */
 export const themeScript = `
 (function () {
@@ -17,7 +17,7 @@ export const themeScript = `
       try { localStorage.setItem('ct-theme-v2', q); } catch (e) {}
     }
     var stored = q || localStorage.getItem('ct-theme-v2');
-    var theme = stored === 'light' ? 'light' : 'dark';
+    var theme = stored === 'dark' ? 'dark' : 'light';
     var root = document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(theme);

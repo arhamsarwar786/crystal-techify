@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 /**
  * First-visit overlay: the crystal C lands, then the rest of "Crystal"
- * draws in. Dark to match the preferred theme. No credential badges.
+ * draws in. No credential badges.
  */
 const BAR_MS = 2400;
 const CEILING_MS = 5000;
