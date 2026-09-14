@@ -1,4 +1,4 @@
-export const CALENDLY_URL = "https://calendly.com/arhamsarwar786/30min";
+export const CALENDLY_URL = "https://calendly.com/crystaltechify-info/30min";
 
 declare global {
   interface Window {
