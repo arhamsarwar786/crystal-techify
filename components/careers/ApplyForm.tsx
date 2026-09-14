@@ -113,7 +113,7 @@ export function ApplyForm({
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full bg-brand-gradient px-6 py-3 font-sans text-sm font-semibold text-obsidian disabled:opacity-60"
+        className="rounded-full bg-brand-orange px-6 py-3 font-sans text-sm font-semibold text-white disabled:opacity-60"
       >
         {pending ? "Submitting…" : "Submit application"}
       </button>

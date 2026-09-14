@@ -37,7 +37,7 @@ export function Presence({ detailHref }: { detailHref?: string }) {
 
         <div className="mx-auto mt-10 flex max-w-xl items-center justify-center">
           <div className="flex items-center gap-2 text-sm font-semibold text-ink">
-            <MapPin className="h-5 w-5 text-brand-red" />
+            <MapPin className="h-5 w-5 text-brand-orange" />
             Dublin, Ohio · United States
           </div>
         </div>

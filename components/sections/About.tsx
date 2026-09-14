@@ -16,7 +16,7 @@ export function About({
     <section
       id="about"
       className={`relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24 ${
-        accent ? "bg-[#FF5322]" : ""
+        accent ? "band-black" : ""
       }`}
     >
       <div className="section-shell relative">
@@ -29,7 +29,7 @@ export function About({
             accent ? (
               <>
                 AI and advanced software,{" "}
-                <span className="text-black">built in Dublin, Ohio</span>
+                <span className="text-brand-orange">built in Dublin, Ohio</span>
               </>
             ) : (
               <>
@@ -43,7 +43,7 @@ export function About({
 
         <p
           className={`relative mt-6 max-w-3xl text-sm leading-relaxed sm:text-base ${
-            accent ? "text-white" : "text-ink/80"
+            accent ? "text-white/80" : "text-ink/80"
           }`}
         >
           Our core expertise includes AI-driven software development, Machine

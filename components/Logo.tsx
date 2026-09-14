@@ -13,6 +13,8 @@ interface LogoProps {
   /** pixel height for the mark in the `wordmark` / `mark` variants */
   markSize?: number;
   priority?: boolean;
+  /** Light artwork for black surfaces (header, footer, contrast bands). */
+  inverted?: boolean;
 }
 
 /**
@@ -27,8 +29,23 @@ export function Logo({
   variant = "wordmark",
   markSize = 36,
   priority = false,
+  inverted = false,
 }: LogoProps) {
   if (variant === "lockup") {
+    if (inverted) {
+      return (
+        <span className={`inline-flex ${className ?? ""}`}>
+          <Image
+            src="/brand/lockup-dark.png"
+            alt="Crystal Techify"
+            width={750}
+            height={632}
+            priority={priority}
+            className="h-auto w-full"
+          />
+        </span>
+      );
+    }
     return (
       <span className={`inline-flex ${className ?? ""}`}>
         <Image
@@ -62,6 +79,22 @@ export function Logo({
         style={{ height: markSize, width: "auto" }}
         className={`shrink-0 ${className ?? ""}`}
       />
+    );
+  }
+
+  if (inverted) {
+    return (
+      <span className={`inline-flex shrink-0 ${className ?? ""}`}>
+        <Image
+          src="/brand/logo2.svg"
+          alt="Crystal Techify"
+          width={378}
+          height={130}
+          priority={priority}
+          unoptimized
+          className="h-8 w-auto max-w-[140px] sm:h-9 sm:max-w-[164px]"
+        />
+      </span>
     );
   }
 

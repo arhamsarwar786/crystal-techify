@@ -65,8 +65,8 @@ export function CTAButton({
 
   const variantClass =
     variant === "outline"
-      ? `${base} gradient-border border border-ink/25 bg-ink/[0.08] text-ink backdrop-blur hover:bg-ink/15 hover:shadow-glow-sm ${className ?? ""}`
-      : `${base} overflow-hidden bg-brand-gradient bg-[length:200%_100%] text-obsidian hover:animate-gradient-x hover:shadow-glow ${className ?? ""}`;
+      ? `${base} border border-ink/25 bg-transparent text-ink hover:border-brand-orange hover:text-brand-orange ${className ?? ""}`
+      : `${base} overflow-hidden bg-brand-orange text-white hover:bg-brand-orange/90 hover:shadow-glow ${className ?? ""}`;
 
   const content =
     variant === "outline" ? (

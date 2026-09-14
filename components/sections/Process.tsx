@@ -31,7 +31,7 @@ export function Process({ detailHref }: { detailHref?: string }) {
     >
       <div
         aria-hidden
-        className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-red/10 blur-[120px] sm:h-96 sm:w-96 sm:blur-[140px]"
+        className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-orange/10 blur-[120px] sm:h-96 sm:w-96 sm:blur-[140px]"
       />
       <div className="section-shell relative">
         <SectionHeading
@@ -54,7 +54,7 @@ export function Process({ detailHref }: { detailHref?: string }) {
           <div className="absolute left-5 top-0 h-full w-px bg-ink/10 sm:left-7 lg:left-1/2 lg:-translate-x-1/2" />
           <motion.div
             style={{ scaleY: lineScale }}
-            className="absolute left-5 top-0 h-full w-px origin-top bg-brand-gradient sm:left-7 lg:left-1/2 lg:-translate-x-1/2"
+            className="absolute left-5 top-0 h-full w-px origin-top bg-brand-orange sm:left-7 lg:left-1/2 lg:-translate-x-1/2"
           />
 
           <Reveal stagger>
@@ -83,7 +83,7 @@ export function Process({ detailHref }: { detailHref?: string }) {
                         activeStep === step.index ? "text-brand-orange" : "text-brand-orange/70"
                       }`}
                     />
-                    <span className="absolute -right-1.5 -top-1.5 grid h-5 w-5 place-items-center rounded-full bg-brand-gradient text-[10px] font-bold text-obsidian sm:h-6 sm:w-6 sm:text-[11px]">
+                    <span className="absolute -right-1.5 -top-1.5 grid h-5 w-5 place-items-center rounded-full bg-brand-orange text-[10px] font-bold text-white sm:h-6 sm:w-6 sm:text-[11px]">
                       {step.index}
                     </span>
                   </motion.div>

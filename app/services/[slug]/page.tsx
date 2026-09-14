@@ -43,7 +43,7 @@ export default function ServicePage({ params }: ServicePageProps) {
         >
           <div
             aria-hidden
-            className="absolute left-1/2 top-24 h-80 w-80 -translate-x-1/2 rounded-full bg-brand-red/20 blur-[100px] sm:h-[32rem] sm:w-[32rem] sm:blur-[130px]"
+            className="absolute left-1/2 top-24 h-80 w-80 -translate-x-1/2 rounded-full bg-brand-orange/15 blur-[100px] sm:h-[32rem] sm:w-[32rem] sm:blur-[130px]"
           />
 
           <div className="section-shell relative">
@@ -59,7 +59,7 @@ export default function ServicePage({ params }: ServicePageProps) {
               <div
                 className={`mx-auto inline-grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${service.accent} shadow-glow-sm`}
               >
-                <service.icon className="h-7 w-7 text-obsidian" />
+                <service.icon className="h-7 w-7 text-white" />
               </div>
 
               <p className="mt-5 font-display text-[10px] uppercase tracking-[0.22em] text-ink/45">
@@ -229,7 +229,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                   key={deliverable}
                   className="glass gradient-border flex items-start gap-3 rounded-2xl p-4 sm:p-5"
                 >
-                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-gradient text-obsidian">
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-orange text-white">
                     <Check className="h-3.5 w-3.5" />
                   </span>
                   <p className="text-sm leading-relaxed text-ink/70 sm:text-[15px]">
@@ -263,7 +263,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                     <div
                       className={`inline-grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br ${s.accent}`}
                     >
-                      <s.icon className="h-5 w-5 text-obsidian" />
+                      <s.icon className="h-5 w-5 text-white" />
                     </div>
                     <h3 className="mt-4 text-base leading-snug text-ink">
                       {s.title}

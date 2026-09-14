@@ -47,7 +47,7 @@ export default function IndustryPage({ params }: IndustryPageProps) {
           </Link>
 
           <div className="mt-8 text-center">
-            <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-ink/5 text-brand-red">
+            <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-ink/5 text-brand-orange">
               <industry.icon className="h-7 w-7" />
             </span>
             <p className="mt-5 font-display text-[10px] uppercase tracking-[0.22em] text-ink/45">

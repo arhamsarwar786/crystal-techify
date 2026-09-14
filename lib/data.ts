@@ -222,7 +222,7 @@ export const SERVICES: Service[] = [
       "Automation of manual workflows with measurable time and cost savings",
       "Monitoring for quality, drift, and operating cost after launch",
     ],
-    accent: "from-brand-red to-brand-orange",
+    accent: "from-brand-orange to-[#FF513C]",
   },
   {
     slug: "saas",
@@ -239,7 +239,7 @@ export const SERVICES: Service[] = [
       "CI/CD, observability, and infrastructure-as-code from day one",
       "A codebase your next engineering hire can work in",
     ],
-    accent: "from-brand-orange to-brand-red",
+    accent: "from-brand-orange to-[#FF513C]",
   },
   {
     slug: "mobile-development",
@@ -256,7 +256,7 @@ export const SERVICES: Service[] = [
       "Design-system-backed UI that stays on-brand as you ship",
       "Performance budgets enforced through automated testing",
     ],
-    accent: "from-brand-red to-brand-orange",
+    accent: "from-brand-orange to-[#FF513C]",
   },
   {
     slug: "design",
@@ -273,7 +273,7 @@ export const SERVICES: Service[] = [
       "A design system ready to hand off to engineering",
       "Usability testing before a single line of code ships",
     ],
-    accent: "from-brand-orange to-brand-red",
+    accent: "from-brand-orange to-[#FF513C]",
   },
   {
     slug: "ecommerce",
@@ -290,7 +290,7 @@ export const SERVICES: Service[] = [
       "Conversion-minded UX across web and mobile",
       "Admin tools your operations team can actually use",
     ],
-    accent: "from-brand-red to-brand-orange",
+    accent: "from-brand-orange to-[#FF513C]",
   },
   {
     slug: "web3-development",
@@ -307,7 +307,7 @@ export const SERVICES: Service[] = [
       "Public and private ledger infrastructure",
       "Security-reviewed contract deployments",
     ],
-    accent: "from-brand-orange to-brand-red",
+    accent: "from-brand-orange to-[#FF513C]",
   },
   {
     slug: "cms",
@@ -324,7 +324,7 @@ export const SERVICES: Service[] = [
       "Theme and component systems that stay on-brand",
       "Training so your team can run the site after launch",
     ],
-    accent: "from-brand-red to-brand-orange",
+    accent: "from-brand-orange to-[#FF513C]",
   },
   {
     slug: "digital-marketing",
@@ -341,7 +341,7 @@ export const SERVICES: Service[] = [
       "Campaign setup and reporting across core channels",
       "Reporting tied to pipeline and revenue, not just traffic",
     ],
-    accent: "from-brand-orange to-brand-red",
+    accent: "from-brand-orange to-[#FF513C]",
   },
   {
     slug: "staff-augmentation",
@@ -358,7 +358,7 @@ export const SERVICES: Service[] = [
       "Flexible scaling up or down as roadmap needs shift",
       "No recruiting overhead, benefits admin, or long ramp-up",
     ],
-    accent: "from-brand-red to-brand-orange",
+    accent: "from-brand-orange to-[#FF513C]",
   },
 ];
 

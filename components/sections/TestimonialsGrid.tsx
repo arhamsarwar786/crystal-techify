@@ -26,7 +26,7 @@ export function TestimonialsGrid() {
                 “{t.quote}”
               </p>
               <footer className="mt-5 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-gradient text-xs font-bold text-obsidian">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-orange text-xs font-bold text-white">
                   {t.initials}
                 </span>
                 <span>

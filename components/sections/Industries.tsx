@@ -38,15 +38,15 @@ export function Industries({ detailHref }: { detailHref?: string }) {
                   aria-label={`View details: ${industry.name}`}
                   className={`group flex h-full flex-col gap-3 rounded-xl p-4 transition-colors sm:p-5 ${
                     featured
-                      ? "bg-brand-red text-white shadow-glow-sm"
-                      : "glass gradient-border hover:bg-ink/[0.08]"
+                      ? "bg-black text-white"
+                      : "glass gradient-border hover:bg-ink/[0.04]"
                   }`}
                 >
                   <span
                     className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg transition-transform duration-300 group-hover:scale-110 ${
                       featured
                         ? "bg-white/15 text-white"
-                        : "bg-ink/5 text-brand-red"
+                        : "bg-ink/5 text-brand-orange"
                     }`}
                   >
                     <industry.icon className="h-5 w-5" />

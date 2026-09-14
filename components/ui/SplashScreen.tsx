@@ -112,7 +112,7 @@ export function SplashScreen() {
             }}
             onAnimationComplete={() => setBarDone(true)}
             style={{ transformOrigin: "0% 50%" }}
-            className="h-full w-full rounded-full bg-gradient-to-r from-brand-red to-brand-orange"
+            className="h-full w-full rounded-full bg-brand-orange"
           />
         </div>
       </div>

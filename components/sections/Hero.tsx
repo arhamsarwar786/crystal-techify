@@ -28,10 +28,12 @@ export function Hero() {
       id="top"
       className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pb-6 pt-24 sm:pb-8 sm:pt-28"
     >
-      <BrandBackdrop />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-16 overflow-hidden opacity-25 sm:top-20">
+        <BrandBackdrop />
+      </div>
       <div
         aria-hidden
-        className="absolute left-1/2 top-24 h-64 w-64 -translate-x-1/2 rounded-full bg-brand-red/15 blur-[100px] sm:h-80 sm:w-80"
+        className="absolute left-1/2 top-48 h-64 w-64 -translate-x-1/2 rounded-full bg-brand-orange/10 blur-[100px] sm:h-80 sm:w-80"
       />
 
       <div className="section-shell relative flex flex-1 flex-col justify-center">

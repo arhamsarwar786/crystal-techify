@@ -43,7 +43,7 @@ export function Services({ detailHref }: { detailHref?: string }) {
                   <div
                     className={`inline-grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br ${service.accent} shadow-glow-sm sm:h-12 sm:w-12`}
                   >
-                    <service.icon className="h-5 w-5 text-obsidian sm:h-6 sm:w-6" />
+                    <service.icon className="h-5 w-5 text-white sm:h-6 sm:w-6" />
                   </div>
 
                   <h3 className="mt-4 text-base font-semibold leading-snug text-ink sm:mt-5 sm:text-lg">

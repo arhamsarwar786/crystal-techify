@@ -29,7 +29,7 @@ export function Testimonials({ accent = false }: { accent?: boolean }) {
     <section
       id="testimonials"
       className={`relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24 ${
-        accent ? "bg-[#FF5322]" : ""
+        accent ? "band-black" : ""
       }`}
     >
       {!accent && (
@@ -46,7 +46,7 @@ export function Testimonials({ accent = false }: { accent?: boolean }) {
             accent ? (
               <>
                 Trusted by founders and{" "}
-                <span className="text-black">operators</span>
+                <span className="text-brand-orange">operators</span>
               </>
             ) : (
               <>
@@ -67,7 +67,7 @@ export function Testimonials({ accent = false }: { accent?: boolean }) {
           >
             <Quote
               className={`h-8 w-8 sm:h-9 sm:w-9 ${
-                accent ? "text-[#FF5322]" : "text-brand-orange/50"
+                accent ? "text-brand-orange" : "text-brand-orange/50"
               }`}
             />
             <AnimatePresence mode="wait" initial={false} custom={direction}>
@@ -91,8 +91,8 @@ export function Testimonials({ accent = false }: { accent?: boolean }) {
                   <span
                     className={`grid h-11 w-11 place-items-center rounded-full text-sm font-bold ${
                       accent
-                        ? "bg-[#FF5322] text-white"
-                        : "bg-brand-gradient text-obsidian"
+                        ? "bg-brand-orange text-white"
+                        : "bg-brand-orange text-white"
                     }`}
                   >
                     {current.initials}
@@ -127,7 +127,7 @@ export function Testimonials({ accent = false }: { accent?: boolean }) {
               aria-label="Previous testimonial"
               className={`grid h-11 w-11 place-items-center rounded-full border transition-colors ${
                 accent
-                  ? "border-black/20 bg-black/10 text-black hover:bg-black/20"
+                  ? "border-white/25 bg-white/10 text-white hover:bg-white/20"
                   : "border-ink/10 bg-ink/5 text-ink/70 hover:text-ink"
               }`}
             >
@@ -148,11 +148,9 @@ export function Testimonials({ accent = false }: { accent?: boolean }) {
                   <span
                     className={`block h-1.5 rounded-full transition-all ${
                       i === index
-                        ? accent
-                          ? "w-6 bg-black"
-                          : "w-6 bg-brand-gradient"
+                        ? "w-6 bg-brand-orange"
                         : accent
-                          ? "w-1.5 bg-white/50 hover:bg-white"
+                          ? "w-1.5 bg-white/40 hover:bg-white"
                           : "w-1.5 bg-ink/20 hover:bg-ink/40"
                     }`}
                   />
@@ -165,7 +163,7 @@ export function Testimonials({ accent = false }: { accent?: boolean }) {
               aria-label="Next testimonial"
               className={`grid h-11 w-11 place-items-center rounded-full border transition-colors ${
                 accent
-                  ? "border-black/20 bg-black/10 text-black hover:bg-black/20"
+                  ? "border-white/25 bg-white/10 text-white hover:bg-white/20"
                   : "border-ink/10 bg-ink/5 text-ink/70 hover:text-ink"
               }`}
             >

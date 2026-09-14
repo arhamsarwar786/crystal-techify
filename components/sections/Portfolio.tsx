@@ -45,14 +45,14 @@ export function Portfolio({ detailHref }: { detailHref?: string }) {
               onClick={() => setActive(cat)}
               className={`relative rounded-full border border-ink/10 px-3.5 py-2 text-[13px] font-medium transition-colors sm:border-transparent sm:px-4 sm:text-sm ${
                 active === cat
-                  ? "text-obsidian"
+                  ? "text-white"
                   : "text-ink/60 hover:text-ink"
               }`}
             >
               {active === cat && (
                 <motion.span
                   layoutId="portfolio-pill"
-                  className="absolute inset-0 rounded-full bg-brand-gradient"
+                  className="absolute inset-0 rounded-full bg-brand-orange"
                   transition={{ type: "spring", stiffness: 380, damping: 32 }}
                 />
               )}

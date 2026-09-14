@@ -252,7 +252,7 @@ export function AdminDashboard() {
               onClick={() => setTab(t.id)}
               className={`rounded-full px-4 py-2 text-sm ${
                 tab === t.id
-                  ? "bg-brand-gradient text-obsidian"
+                  ? "bg-brand-orange text-white"
                   : "border border-ink/10 text-ink/60"
               }`}
             >
@@ -548,7 +548,7 @@ export function AdminDashboard() {
             <div className="flex gap-2">
               <button
                 type="submit"
-                className="rounded-full bg-brand-gradient px-5 py-2 text-sm text-obsidian"
+                className="rounded-full bg-brand-orange px-5 py-2 text-sm text-white"
               >
                 {editing ? "Save changes" : "Create job"}
               </button>

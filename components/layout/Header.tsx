@@ -55,16 +55,8 @@ function isNavActive(
 
 export function Header() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string | null>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -95,20 +87,9 @@ export function Header() {
   const closeMenu = () => setOpen(false);
 
   return (
-    <motion.header
-      initial={false}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed inset-x-0 top-0 z-50"
-    >
+    <header className="fixed inset-x-0 top-0 z-50">
       <div className="section-shell pt-3 sm:pt-4">
-        <div
-          className={`relative flex items-center gap-3 px-2 py-1.5 transition-all duration-300 sm:px-3 sm:py-2 ${
-            scrolled || open
-              ? "rounded-2xl border border-ink/[0.08] bg-bg/80 shadow-[0_12px_40px_-24px_rgb(var(--ink)/0.55)] backdrop-blur-xl"
-              : "rounded-2xl border border-transparent bg-transparent"
-          }`}
-        >
+        <div className="relative flex items-center gap-3 rounded-full border border-ink/[0.08] bg-white/75 px-2 py-1.5 text-ink shadow-[0_8px_32px_-16px_rgba(0,0,0,0.28)] backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/55 sm:px-3 sm:py-2 dark:border-white/10 dark:bg-black/55 dark:text-white dark:supports-[backdrop-filter]:bg-black/40">
           <Link
             href="/"
             aria-label="Crystal Techify home"
@@ -125,15 +106,15 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative px-2.5 py-1.5 font-sans text-[12px] font-medium tracking-[0.02em] transition-colors hover:text-ink lg:px-3 ${
-                    isActive ? "text-ink" : "text-ink/70"
+                  className={`relative px-2.5 py-1.5 font-sans text-[12px] font-medium tracking-[0.02em] transition-colors hover:text-ink lg:px-3 dark:hover:text-white ${
+                    isActive ? "text-ink dark:text-white" : "text-ink/60 dark:text-white/70"
                   }`}
                 >
                   {link.label}
                   {isActive && (
                     <span
                       aria-hidden
-                      className="absolute inset-x-3 -bottom-0.5 h-px bg-brand-gradient"
+                      className="absolute inset-x-3 -bottom-0.5 h-px bg-brand-orange"
                     />
                   )}
                 </a>
@@ -143,7 +124,7 @@ export function Header() {
 
           <div className="relative z-10 ml-auto hidden shrink-0 items-center gap-1 xl:flex">
             <AuthStatus />
-            <ThemeToggle className="h-10 w-10 rounded-full border-ink/15 bg-ink/5" />
+            <ThemeToggle className="h-10 w-10 rounded-full border-ink/15 bg-ink/5 text-ink hover:border-brand-orange/50 dark:border-white/20 dark:bg-white/10 dark:text-white" />
             <CTAButton
               onClick={openCalendly}
               className="!px-4 !py-2 !text-xs"
@@ -155,13 +136,13 @@ export function Header() {
 
           <div className="relative z-10 ml-auto flex items-center gap-1 xl:hidden">
             <AuthStatus compact />
-            <ThemeToggle className="h-11 w-11 rounded-full border-ink/15 bg-ink/5" />
+            <ThemeToggle className="h-11 w-11 rounded-full border-ink/15 bg-ink/5 text-ink hover:border-brand-orange/50 dark:border-white/20 dark:bg-white/10 dark:text-white" />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink transition-colors hover:border-brand-orange/40"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink transition-colors hover:border-brand-orange/50 dark:border-white/20 dark:bg-white/10 dark:text-white"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -178,8 +159,8 @@ export function Header() {
             transition={{ duration: 0.22 }}
             className="section-shell mt-2 xl:hidden"
           >
-            <div className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-[1.75rem] border border-ink/10 bg-bg/90 p-3 shadow-[0_24px_60px_-28px_rgb(var(--ink)/0.45)] backdrop-blur-2xl">
-              <div className="flex flex-col gap-1 p-1">
+            <div className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-[1.75rem] border border-ink/[0.08] bg-white/90 p-3 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.35)] backdrop-blur-2xl dark:border-white/10 dark:bg-black/70">
+              <div className="flex flex-col gap-1">
                 {NAV_LINKS.map((link, i) => {
                   const isActive = isNavActive(link.href, pathname, activeHash);
                   return (
@@ -193,14 +174,14 @@ export function Header() {
                       aria-current={isActive ? "true" : undefined}
                       className={`group flex min-h-12 items-center justify-between rounded-2xl px-4 py-3.5 font-sans text-base font-medium transition-colors ${
                         isActive
-                          ? "bg-brand-gradient text-obsidian"
-                          : "text-ink hover:bg-ink/5"
+                          ? "bg-brand-orange text-white"
+                          : "text-ink hover:bg-ink/5 dark:text-white dark:hover:bg-white/10"
                       }`}
                     >
                       {link.label}
                       <ArrowUpRight
                         className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${
-                          isActive ? "text-obsidian/80" : "text-ink/60"
+                          isActive ? "text-white/80" : "text-ink/40 dark:text-white/50"
                         }`}
                       />
                     </motion.a>
@@ -221,6 +202,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

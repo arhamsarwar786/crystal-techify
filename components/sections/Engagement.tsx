@@ -41,7 +41,7 @@ export function Engagement({ detailHref }: { detailHref?: string }) {
               >
                 <TiltCard className="glass gradient-border h-full p-5">
                   <div className="flex h-full flex-col">
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand-red to-brand-orange text-obsidian shadow-glow-sm">
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-orange text-white">
                       <model.icon className="h-5 w-5" />
                     </span>
                     <h3 className="mt-4 text-base font-semibold text-ink">
@@ -143,7 +143,7 @@ export function Engagement({ detailHref }: { detailHref?: string }) {
                       key={line}
                       className="flex items-center gap-3 rounded-lg border border-ink/10 bg-ink/[0.03] px-3 py-2.5 text-sm text-ink/70"
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-brand-gradient" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />
                       {line}
                     </div>
                   ))}

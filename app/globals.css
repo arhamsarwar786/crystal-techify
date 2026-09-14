@@ -3,29 +3,33 @@
 @tailwind utilities;
 
 /*
- * Theme tokens. `--ink` doubles as the tint source for hairlines, glass
- * surfaces and grid lines, so flipping these values flips the whole UI:
- * white ink on a near-black ground in dark mode, near-black ink on an
- * off-white ground in light mode. The theme class is set on <html> by the
- * inline theme-script before first paint.
+ * 60 / 30 / 10 palette
+ *   60% white  — page canvas, cards, forms
+ *   30% black  — type, header, footer, contrast bands
+ *   10% orange — CTAs, active states, highlights
+ *
+ * `--ink` tints hairlines and muted text. The theme class is set on <html>
+ * by the inline theme-script before first paint.
  */
 :root,
 :root.light {
   color-scheme: light;
-  --bg: 249 249 251;
+  --bg: 255 255 255;
   --surface: 255 255 255;
-  --ink: 17 19 27;
-  --glow-red: 255 59 48 / 0.07;
-  --glow-orange: 255 149 0 / 0.06;
+  --ink: 10 10 10;
+  --brand: 255 107 26;
+  --glow-red: 255 107 26 / 0.04;
+  --glow-orange: 255 107 26 / 0.06;
 }
 
 :root.dark {
   color-scheme: dark;
-  --bg: 9 10 15;
-  --surface: 13 15 22;
+  --bg: 10 10 10;
+  --surface: 22 22 22;
   --ink: 255 255 255;
-  --glow-red: 255 59 48 / 0.14;
-  --glow-orange: 255 149 0 / 0.12;
+  --brand: 255 107 26;
+  --glow-red: 255 107 26 / 0.08;
+  --glow-orange: 255 107 26 / 0.1;
 }
 
 @layer base {
@@ -37,7 +41,6 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    /* keep decorative blur/glow layers from ever creating a sideways scroll */
     overflow-x: hidden;
     scroll-padding-top: 5.5rem;
   }
@@ -48,21 +51,16 @@
     overflow-x: hidden;
     max-width: 100%;
     background-image: radial-gradient(
-        60rem 40rem at 12% -10%,
-        rgb(var(--glow-red)),
-        transparent 60%
-      ),
-      radial-gradient(
-        55rem 40rem at 100% 0%,
-        rgb(var(--glow-orange)),
-        transparent 55%
-      );
+      50rem 32rem at 100% -8%,
+      rgb(var(--glow-orange)),
+      transparent 58%
+    );
     background-attachment: fixed;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
-    @apply bg-brand-orange/30 text-ink;
+    @apply bg-brand-orange/25 text-ink;
   }
 
   /*
@@ -89,7 +87,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid rgb(255 149 0 / 0.7);
+    outline: 2px solid rgb(var(--brand) / 0.75);
     outline-offset: 2px;
   }
 
@@ -134,25 +132,23 @@
 
 @layer components {
   .glass {
-    @apply border border-ink/15 bg-ink/[0.05] backdrop-blur-xl;
-    box-shadow: 0 1px 2px rgb(var(--ink) / 0.04),
-      0 12px 30px -18px rgb(var(--ink) / 0.12);
+    @apply border border-ink/10 bg-white dark:bg-surface;
+    box-shadow: 0 1px 2px rgb(var(--ink) / 0.04);
   }
 
   .glass-strong {
-    @apply border border-ink/15 bg-ink/[0.07] backdrop-blur-2xl;
+    @apply border border-ink/10 bg-white dark:bg-surface;
     box-shadow: 0 1px 2px rgb(var(--ink) / 0.05),
-      0 20px 45px -22px rgb(var(--ink) / 0.16);
+      0 18px 40px -24px rgb(var(--ink) / 0.18);
   }
 
-  :root.dark .glass {
-    @apply bg-white/[0.05] border-white/10;
-    box-shadow: none;
+  .band-black {
+    background: #0a0a0a;
+    color: #fff;
   }
 
-  :root.dark .glass-strong {
-    @apply bg-white/[0.07] border-white/10;
-    box-shadow: none;
+  :root.dark .band-black {
+    background: #161616;
   }
 
   .gradient-text {
@@ -168,20 +164,19 @@
     content: "";
     position: absolute;
     inset: 0;
-    /* purely decorative — must never intercept clicks on inputs/controls inside */
     pointer-events: none;
     border-radius: inherit;
     padding: 1px;
     background: linear-gradient(
       130deg,
-      rgba(255, 59, 48, 0.9),
-      rgba(255, 149, 0, 0.7),
-      rgb(var(--ink) / 0.05)
+      rgb(var(--brand) / 0.85),
+      rgb(var(--brand) / 0.25),
+      rgb(var(--ink) / 0.08)
     );
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    opacity: 0.4;
+    opacity: 0.45;
     transition: opacity 0.35s ease;
   }
 
@@ -193,7 +188,6 @@
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
-  /* consistent vertical rhythm that tightens up on small screens */
   .section-y {
     @apply py-16 sm:py-20 lg:py-24;
   }
@@ -206,7 +200,7 @@
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 22px rgba(255, 120, 60, 0.4);
+    text-shadow: 0 0 18px rgb(var(--brand) / 0.35);
   }
 
   .mask-fade-x {

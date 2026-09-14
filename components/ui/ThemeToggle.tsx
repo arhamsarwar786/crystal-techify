@@ -24,8 +24,8 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       onClick={toggleTheme}
       aria-label={label}
       title={label}
-      className={`group grid h-10 w-10 place-items-center rounded-full border border-ink/20 bg-ink/5 text-ink transition-colors hover:border-brand-orange/40 hover:text-ink ${
-        className ?? ""
+      className={`group grid h-10 w-10 place-items-center rounded-full border transition-colors ${
+        className ?? "border-ink/20 bg-ink/5 text-ink hover:border-brand-orange/40 hover:text-ink"
       }`}
     >
       {/* Render nothing theme-specific until mounted to avoid hydration mismatch */}

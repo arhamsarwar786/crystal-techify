@@ -227,7 +227,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   href={`mailto:${COMPANY.email}`}
                   className="glass gradient-border flex items-center gap-3.5 rounded-2xl p-4 transition-colors hover:bg-ink/[0.06]"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-red to-brand-orange text-obsidian">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-orange text-white">
                     <Mail className="h-5 w-5" />
                   </span>
                   <span>
@@ -245,7 +245,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   href={COMPANY.phoneHref}
                   className="glass gradient-border flex items-center gap-3.5 rounded-2xl p-4 transition-colors hover:bg-ink/[0.06]"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-orange to-brand-red text-obsidian">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-orange text-white">
                     <Phone className="h-5 w-5" />
                   </span>
                   <span>
@@ -283,7 +283,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex min-h-[22rem] flex-col items-center justify-center text-center"
                 >
-                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand-red to-brand-orange text-obsidian">
+                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-orange text-white">
                     <Check className="h-7 w-7" />
                   </span>
                   <h3 className="mt-5 text-xl font-semibold text-ink">
@@ -307,7 +307,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex flex-col"
                 >
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-brand-red to-brand-orange text-obsidian">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-orange text-white">
                     <MailOpen className="h-6 w-6" />
                   </span>
                   <h3 className="mt-4 text-xl font-semibold text-ink">
@@ -349,7 +349,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                     </button>
                     <a
                       href={composed.href}
-                      className="inline-flex items-center gap-2 rounded-full bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-obsidian transition-shadow hover:shadow-glow-sm"
+                      className="inline-flex items-center gap-2 rounded-full bg-brand-orange px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-orange/90"
                     >
                       <Mail className="h-4 w-4" />
                       Open email app
@@ -442,14 +442,14 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                             }
                             className={`relative rounded-full border px-3.5 py-2 text-xs font-medium transition-all duration-200 sm:text-[13px] ${
                               isActive
-                                ? "border-transparent text-obsidian"
+                                ? "border-transparent text-white"
                                 : "border-ink/20 bg-ink/[0.04] text-ink/80 hover:border-brand-orange/30 hover:text-ink"
                             }`}
                           >
                             {isActive && (
                               <motion.span
                                 layoutId="project-type-pill"
-                                className="absolute inset-0 rounded-full bg-brand-gradient shadow-glow-sm"
+                                className="absolute inset-0 rounded-full bg-brand-orange"
                                 transition={{ type: "spring", stiffness: 380, damping: 32 }}
                               />
                             )}
@@ -488,7 +488,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="group mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-brand-gradient bg-[length:200%_100%] px-6 py-3.5 text-sm font-semibold text-obsidian transition-all duration-300 hover:animate-gradient-x hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60 disabled:cursor-not-allowed disabled:opacity-70"
+                    className="group mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-brand-orange px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-orange/90 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60 disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {status === "submitting" ? "Sending…" : "Send it over"}
                     {status !== "submitting" && (

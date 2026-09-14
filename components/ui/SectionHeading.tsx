@@ -33,16 +33,14 @@ export function SectionHeading({
     >
       <Reveal>
         <span
-          className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-sans text-xs font-medium backdrop-blur sm:px-3.5 sm:text-sm ${
+          className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-sans text-xs font-medium sm:px-3.5 sm:text-sm ${
             onBrand
-              ? "border-black/15 bg-black/10 text-black"
+              ? "border-brand-orange/40 bg-brand-orange/15 text-brand-orange"
               : "border-ink/15 bg-ink/5 text-ink/75"
           }`}
         >
           <span
-            className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-              onBrand ? "bg-black" : "bg-brand-gradient"
-            }`}
+            className={`h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange`}
           />
           {eyebrow}
         </span>
@@ -60,7 +58,7 @@ export function SectionHeading({
         <Reveal delay={0.1}>
           <p
             className={`mt-3 text-sm leading-relaxed sm:mt-4 sm:text-base ${
-              onBrand ? "text-black/85" : "text-ink/75"
+              onBrand ? "text-white/70" : "text-ink/75"
             }`}
           >
             {description}
@@ -73,8 +71,8 @@ export function SectionHeading({
             href={detailHref}
             className={`mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               onBrand
-                ? "bg-black text-white hover:bg-black/80"
-                : "border border-ink/15 bg-ink/5 text-brand-orange hover:border-brand-orange/40 hover:text-ink"
+                ? "bg-brand-orange text-white hover:bg-brand-orange/90"
+                : "border border-ink/15 bg-white text-brand-orange hover:border-brand-orange/40 hover:text-ink"
             }`}
           >
             {detailLabel}

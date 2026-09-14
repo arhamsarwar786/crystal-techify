@@ -13,17 +13,17 @@ const config: Config = {
         // Fixed dark shade — used for text/icons that always sit on the
         // orange brand gradient, regardless of the active theme.
         obsidian: {
-          DEFAULT: "#090A0F",
-          800: "#0D0F16",
-          700: "#12151F",
+          DEFAULT: "#0A0A0A",
+          800: "#111111",
+          700: "#1A1A1A",
         },
         // Theme-aware semantic tokens (see globals.css for the values).
         bg: "rgb(var(--bg) / <alpha-value>)",
         surface: "rgb(var(--surface) / <alpha-value>)",
         ink: "rgb(var(--ink) / <alpha-value>)",
         brand: {
-          red: "#FF3B30",
-          orange: "#FF9500",
+          red: "#DC2626",
+          orange: "rgb(var(--brand) / <alpha-value>)",
         },
       },
       fontFamily: {
@@ -31,7 +31,8 @@ const config: Config = {
         display: ["var(--font-display)", "Michroma", "sans-serif"],
       },
       backgroundImage: {
-        "brand-gradient": "linear-gradient(120deg, #FF3B30 0%, #FF9500 100%)",
+        "brand-gradient":
+          "linear-gradient(120deg, #FF6B1A 0%, #FF9A3C 100%)",
         "grid-pattern":
           "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
       },

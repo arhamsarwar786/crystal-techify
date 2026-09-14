@@ -33,7 +33,7 @@ export function Advantages({ detailHref }: { detailHref?: string }) {
               variants={revealItem}
               className="glass relative rounded-2xl p-5 pt-8 sm:p-6 sm:pt-10"
             >
-              <span className="absolute left-1/2 top-0 grid h-8 w-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-brand-red text-xs font-bold text-white shadow-glow-sm">
+              <span className="absolute left-1/2 top-0 grid h-8 w-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-brand-orange text-xs font-bold text-white">
                 {item.index}
               </span>
               <h3 className="text-center text-base font-semibold text-ink">
@@ -42,7 +42,7 @@ export function Advantages({ detailHref }: { detailHref?: string }) {
               <p className="mt-2 text-center text-sm leading-relaxed text-ink/60">
                 {item.description}
               </p>
-              <span className="mx-auto mt-5 block h-1 w-12 rounded-full bg-brand-red" />
+              <span className="mx-auto mt-5 block h-1 w-12 rounded-full bg-brand-orange" />
             </motion.div>
           ))}
         </Reveal>
