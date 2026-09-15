@@ -6,6 +6,7 @@ import { CLIENTS } from "@/lib/data";
 export function Clients() {
   const items = CLIENTS.map((client) => (
     <a
+      key={client.name}
       href={client.website}
       target="_blank"
       rel="noopener noreferrer"
