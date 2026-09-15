@@ -9,40 +9,34 @@ export function Advantages({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="advantages"
-      className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className="band-canvas relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
       <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Why Crystal Techify"
+          title="Why Crystal Techify"
+          description="Advantages of a single US engineering base — from delivery pace to the people who ship."
           detailHref={detailHref}
-          title={
-            <>
-              Advantages of choosing{" "}
-              <span className="gradient-text">Crystal Techify</span>
-            </>
-          }
         />
 
         <Reveal
           stagger
-          className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4"
         >
           {ADVANTAGES.map((item) => (
             <motion.div
               key={item.index}
               variants={revealItem}
-              className="glass relative rounded-2xl p-5 pt-8 sm:p-6 sm:pt-10"
+              className="card-on-canvas"
             >
-              <span className="absolute left-1/2 top-0 grid h-8 w-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-brand-orange text-xs font-bold text-white">
-                {item.index}
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
+                {String(item.index).padStart(2, "0")}
               </span>
-              <h3 className="text-center text-base font-semibold text-ink">
+              <h3 className="mt-4 font-sans text-base font-semibold text-ink">
                 {item.title}
               </h3>
-              <p className="mt-2 text-center text-sm leading-relaxed text-ink/60">
+              <p className="mt-2 text-sm leading-relaxed text-ink/70">
                 {item.description}
               </p>
-              <span className="mx-auto mt-5 block h-1 w-12 rounded-full bg-brand-orange" />
             </motion.div>
           ))}
         </Reveal>

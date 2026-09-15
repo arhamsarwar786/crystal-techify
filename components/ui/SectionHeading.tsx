@@ -1,85 +1,41 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Reveal } from "./Reveal";
 
 interface SectionHeadingProps {
-  eyebrow: string;
   title: ReactNode;
   description?: ReactNode;
-  align?: "center" | "left";
   detailHref?: string;
   detailLabel?: string;
-  tone?: "default" | "brand";
 }
 
 export function SectionHeading({
-  eyebrow,
   title,
   description,
-  align = "center",
   detailHref,
-  detailLabel = "View details",
-  tone = "default",
+  detailLabel = "Explore more",
 }: SectionHeadingProps) {
-  const onBrand = tone === "brand";
   return (
-    <div
-      className={
-        align === "center"
-          ? "mx-auto max-w-2xl text-center"
-          : "max-w-2xl text-left"
-      }
-    >
-      <Reveal>
-        <span
-          className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-sans text-xs font-medium sm:px-3.5 sm:text-sm ${
-            onBrand
-              ? "border-brand-orange/40 bg-brand-orange/15 text-brand-orange"
-              : "border-ink/15 bg-ink/5 text-ink/75"
-          }`}
-        >
-          <span
-            className={`h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange`}
-          />
-          {eyebrow}
-        </span>
-      </Reveal>
-      <Reveal delay={0.05}>
-        <h2
-          className={`mt-4 text-[1.45rem] leading-snug sm:mt-5 sm:text-[2.15rem] md:text-[2.55rem] ${
-            onBrand ? "text-white" : ""
-          }`}
-        >
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="max-w-xl">
+        <h2 className="font-display text-2xl font-normal text-brand-orange sm:text-[2rem]">
           {title}
         </h2>
-      </Reveal>
-      {description && (
-        <Reveal delay={0.1}>
-          <p
-            className={`mt-3 text-sm leading-relaxed sm:mt-4 sm:text-base ${
-              onBrand ? "text-white/70" : "text-ink/75"
-            }`}
-          >
+        {description ? (
+          <p className="mt-2 text-sm font-medium text-ink sm:text-base">
             {description}
           </p>
-        </Reveal>
-      )}
-      {detailHref && (
-        <Reveal delay={0.14}>
-          <Link
-            href={detailHref}
-            className={`mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-              onBrand
-                ? "bg-brand-orange text-white hover:bg-brand-orange/90"
-                : "border border-ink/15 bg-ink/5 text-brand-orange hover:border-brand-orange/40 hover:text-ink dark:hover:text-white"
-            }`}
-          >
-            {detailLabel}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Reveal>
-      )}
+        ) : null}
+      </div>
+      {detailHref ? (
+        <Link
+          href={detailHref}
+          className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-brand-orange hover:text-ink dark:hover:text-white"
+        >
+          {detailLabel}
+          <ArrowUpRight className="h-4 w-4" />
+        </Link>
+      ) : null}
     </div>
   );
 }

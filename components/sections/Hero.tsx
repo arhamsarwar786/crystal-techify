@@ -25,7 +25,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] flex-col pb-2 pt-24 sm:pb-4 sm:pt-28"
+      className="relative flex min-h-[100svh] flex-col bg-white pb-2 pt-24 dark:bg-bg sm:pb-4 sm:pt-28"
     >
       <div className="section-shell relative flex flex-1 flex-col">
         <div className="relative flex flex-1 flex-col justify-center overflow-hidden rounded-[1.75rem] px-4 py-10 sm:px-8 sm:py-14 lg:px-12">

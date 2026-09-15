@@ -207,29 +207,19 @@ export function Contact({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className="band-canvas relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-brand-orange/10 blur-[150px]"
-      />
       <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Get Started"
+          title="Get started"
+          description="Let’s innovate together. A real engineer reads every message."
           detailHref={detailHref}
-          title={
-            <>
-              Open for collaboration and{" "}
-              <span className="gradient-text">partnership</span>
-            </>
-          }
-          description="Let’s innovate together. Contact us to explore partnership possibilities — a real engineer reads every message."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-12">
           {/* Left — the human details */}
           <Reveal className="flex flex-col gap-6">
-            <div className="glass gradient-border rounded-2xl p-6">
+            <div className="card-on-canvas">
               <span className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-3 py-1.5 text-xs font-medium text-ink/80">
                 <Clock className="h-3.5 w-3.5 text-brand-orange" />
                 Free · 90 minutes
@@ -245,7 +235,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
               <li>
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="glass gradient-border flex items-center gap-3.5 rounded-2xl p-4 transition-colors hover:bg-ink/[0.06]"
+                  className="card-on-canvas flex items-center gap-3.5"
                 >
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-orange text-white">
                     <Mail className="h-5 w-5" />
@@ -263,7 +253,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
               <li>
                 <a
                   href={COMPANY.phoneHref}
-                  className="glass gradient-border flex items-center gap-3.5 rounded-2xl p-4 transition-colors hover:bg-ink/[0.06]"
+                  className="card-on-canvas flex items-center gap-3.5"
                 >
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-orange text-white">
                     <Phone className="h-5 w-5" />
@@ -278,7 +268,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   </span>
                 </a>
               </li>
-              <li className="glass flex items-center gap-3.5 rounded-2xl p-4">
+              <li className="card-on-canvas flex items-center gap-3.5">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ink/5 text-brand-orange">
                   <MapPin className="h-5 w-5" />
                 </span>
@@ -296,7 +286,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
 
           {/* Right — the form */}
           <Reveal delay={0.05}>
-            <div className="glass-strong gradient-border rounded-3xl p-6 sm:p-8">
+            <div className="card-on-canvas">
               {status === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}

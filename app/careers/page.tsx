@@ -48,7 +48,7 @@ export default async function CareersPage() {
               <li key={job.id}>
                 <Link
                   href={`/careers/${job.slug}`}
-                  className="glass gradient-border flex flex-col gap-2 rounded-2xl p-5 transition-colors hover:bg-ink/[0.04] sm:flex-row sm:items-start sm:justify-between"
+                  className="card-on-canvas flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
                 >
                   <span className="min-w-0">
                     {job.department ? (

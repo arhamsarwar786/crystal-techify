@@ -1,24 +1,27 @@
-import { ShieldCheck } from "lucide-react";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PARTNERSHIPS } from "@/lib/data";
 
 export function Partnerships() {
   return (
-    <section id="recognition" className="relative py-12 sm:py-16">
+    <section
+      id="recognition"
+      className="band-canvas relative py-16 sm:py-20 lg:py-24"
+    >
       <div className="section-shell">
-        <p className="text-center font-sans text-xs font-semibold uppercase tracking-[0.18em] text-ink/50">
-          Partnerships & recognition
-        </p>
-        <p className="mt-2 text-center text-sm text-ink/60">
-          Commitment to excellence
-        </p>
-        <ul className="mx-auto mt-8 flex max-w-4xl flex-wrap items-center justify-center gap-3">
+        <SectionHeading
+          title="Partnerships & recognition"
+          description="Certifications, delivery, and independent recognition — from a single US base."
+        />
+        <ul className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">
           {PARTNERSHIPS.map((item) => (
-            <li
-              key={item.label}
-              className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/5 px-4 py-2 text-sm text-ink/75"
-            >
-              <ShieldCheck className="h-4 w-4 text-brand-orange" />
-              {item.label}
+            <li key={item.title} className="card-on-canvas flex flex-col">
+              <item.icon className="h-5 w-5 text-brand-orange" />
+              <h3 className="mt-4 font-sans text-base font-semibold text-ink">
+                {item.title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink/70">
+                {item.body}
+              </p>
             </li>
           ))}
         </ul>

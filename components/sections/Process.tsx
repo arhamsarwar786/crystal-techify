@@ -1,105 +1,48 @@
 "use client";
 
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
-import { useRef, useState } from "react";
-import { Reveal } from "@/components/ui/Reveal";
+import { motion } from "framer-motion";
+import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PROCESS_STEPS } from "@/lib/data";
 
-const stepVariant: Variants = {
-  hidden: { opacity: 0, x: -18 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] },
-  },
-};
-
 export function Process({ detailHref }: { detailHref?: string }) {
-  const railRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: railRef,
-    offset: ["start 65%", "end 55%"],
-  });
-  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const [activeStep, setActiveStep] = useState<number | null>(null);
-
   return (
     <section
       id="process"
-      className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className="band-muted relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
-      <div
-        aria-hidden
-        className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-orange/10 blur-[120px] sm:h-96 sm:w-96 sm:blur-[140px]"
-      />
       <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Our Process"
+          title="Our process"
+          description="Eight steps from discovery to a maintained product — transparent at every milestone."
           detailHref={detailHref}
-          title={
-            <>
-              Eight steps from discovery to{" "}
-              <span className="gradient-text">maintenance</span>
-            </>
-          }
-          description="A disciplined path from requirements to a maintained product — transparent at every milestone."
         />
 
-        <div
-          ref={railRef}
-          className="relative mx-auto mt-12 max-w-3xl sm:mt-16"
+        <Reveal
+          stagger
+          className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {/* rail — through the icon centres when stacked, down the middle on lg+ */}
-          <div className="absolute left-5 top-0 h-full w-px bg-ink/10 sm:left-7 lg:left-1/2 lg:-translate-x-1/2" />
-          <motion.div
-            style={{ scaleY: lineScale }}
-            className="absolute left-5 top-0 h-full w-px origin-top bg-brand-orange sm:left-7 lg:left-1/2 lg:-translate-x-1/2"
-          />
-
-          <Reveal stagger>
-            <ol className="space-y-6 sm:space-y-8">
-              {PROCESS_STEPS.map((step, i) => (
-                <motion.li
-                  key={step.index}
-                  variants={stepVariant}
-                  className={`relative flex items-start gap-4 sm:gap-5 lg:w-1/2 ${
-                    i % 2 === 1
-                      ? "lg:ml-auto lg:flex-row lg:pl-10"
-                      : "lg:flex-row-reverse lg:pr-10 lg:text-right"
-                  }`}
-                >
-                  <motion.div
-                    onViewportEnter={() => setActiveStep(step.index)}
-                    viewport={{ margin: "-45% 0px -45% 0px" }}
-                    className={`relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-xl border bg-bg transition-all duration-500 sm:h-14 sm:w-14 sm:rounded-2xl ${
-                      activeStep === step.index
-                        ? "border-brand-orange/50 shadow-glow"
-                        : "border-ink/10 shadow-glow-sm"
-                    }`}
-                  >
-                    <step.icon
-                      className={`h-5 w-5 transition-colors duration-500 sm:h-6 sm:w-6 ${
-                        activeStep === step.index ? "text-brand-orange" : "text-brand-orange/70"
-                      }`}
-                    />
-                    <span className="absolute -right-1.5 -top-1.5 grid h-5 w-5 place-items-center rounded-full bg-brand-orange text-[10px] font-bold text-white sm:h-6 sm:w-6 sm:text-[11px]">
-                      {step.index}
-                    </span>
-                  </motion.div>
-                  <div className="glass gradient-border min-w-0 flex-1 rounded-xl p-4 sm:rounded-2xl sm:p-5">
-                    <h3 className="text-[15px] font-semibold text-ink sm:text-base">
-                      {step.title}
-                    </h3>
-                    <p className="mt-1.5 text-[13px] leading-relaxed text-ink/55 sm:text-sm">
-                      {step.description}
-                    </p>
-                  </div>
-                </motion.li>
-              ))}
-            </ol>
-          </Reveal>
-        </div>
+          {PROCESS_STEPS.map((step) => (
+            <motion.div
+              key={step.index}
+              variants={revealItem}
+              className="card-on-muted flex h-full flex-col"
+            >
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
+                Step {String(step.index).padStart(2, "0")}
+              </span>
+              <div className="mt-4 flex items-start gap-2.5">
+                <step.icon className="mt-0.5 h-5 w-5 shrink-0 text-brand-orange" />
+                <h3 className="font-sans text-base font-semibold text-ink">
+                  {step.title}
+                </h3>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-ink/70">
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
+        </Reveal>
       </div>
     </section>
   );

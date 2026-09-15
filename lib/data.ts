@@ -30,6 +30,9 @@ import {
   UtensilsCrossed,
   Wrench,
   Globe2,
+  Award,
+  Layers,
+  MapPin,
 } from "lucide-react";
 import { FaAws } from "react-icons/fa6";
 import {
@@ -168,10 +171,26 @@ export const FEATURED_SERVICE_SLUGS = [
 ] as const;
 
 export const PARTNERSHIPS = [
-  { label: "ISO/IEC 27001:2013" },
-  { label: "Clutch · Top Blockchain" },
-  { label: "500+ projects delivered" },
-  { label: "US-based delivery" },
+  {
+    icon: ShieldCheck,
+    title: "ISO/IEC 27001:2013",
+    body: "Information security certified.",
+  },
+  {
+    icon: Award,
+    title: "Clutch · Top Blockchain",
+    body: "Independent marketplace recognition.",
+  },
+  {
+    icon: Layers,
+    title: "500+ projects delivered",
+    body: "Product, AI, and augmentation work shipped.",
+  },
+  {
+    icon: MapPin,
+    title: "US-based delivery",
+    body: "One office in Dublin, Ohio.",
+  },
 ] as const;
 
 export const TRUST_METRICS: TrustMetric[] = [

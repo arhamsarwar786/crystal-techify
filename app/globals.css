@@ -151,6 +151,18 @@
     background: #161616;
   }
 
+  .band-canvas {
+    @apply bg-white dark:bg-bg;
+  }
+
+  .band-muted {
+    background-color: #f4f4f5;
+  }
+
+  :root.dark .band-muted {
+    background-color: #161616;
+  }
+
   .gradient-text {
     @apply bg-brand-gradient bg-clip-text text-transparent;
   }
@@ -186,6 +198,16 @@
 
   .section-shell {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Gray tiles on white bands (services). */
+  .card-on-canvas {
+    @apply rounded-2xl bg-[#F3F4F6] p-6 transition-colors hover:bg-[#ECEDEF] dark:bg-white/[0.06] dark:hover:bg-white/[0.09] sm:p-7;
+  }
+
+  /* White tiles on gray bands (case studies). */
+  .card-on-muted {
+    @apply rounded-2xl bg-white p-6 transition-colors hover:bg-[#FAFAFA] dark:bg-white/[0.06] dark:hover:bg-white/[0.09] sm:p-7;
   }
 
   .section-y {
