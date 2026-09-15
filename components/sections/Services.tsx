@@ -6,9 +6,20 @@ import Link from "next/link";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TiltCard } from "@/components/ui/TiltCard";
-import { SERVICES } from "@/lib/data";
+import { SERVICES, FEATURED_SERVICE_SLUGS } from "@/lib/data";
 
-export function Services({ detailHref }: { detailHref?: string }) {
+export function Services({
+  detailHref,
+  featured = false,
+}: {
+  detailHref?: string;
+  featured?: boolean;
+}) {
+  const items = featured
+    ? FEATURED_SERVICE_SLUGS.map(
+        (slug) => SERVICES.find((s) => s.slug === slug),
+      ).filter((s): s is (typeof SERVICES)[number] => Boolean(s))
+    : SERVICES;
   return (
     <section
       id="services"
@@ -16,22 +27,35 @@ export function Services({ detailHref }: { detailHref?: string }) {
     >
       <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Services we offer"
+          eyebrow={featured ? "Services that empower you" : "Services we offer"}
           detailHref={detailHref}
           title={
-            <>
-              From AI to staff augmentation —{" "}
-              <span className="gradient-text">the full stack</span>
-            </>
+            featured ? (
+              <>
+                Access to services that drive{" "}
+                <span className="gradient-text">growth</span>
+              </>
+            ) : (
+              <>
+                From AI to staff augmentation —{" "}
+                <span className="gradient-text">the full stack</span>
+              </>
+            )
           }
-          description="Artificial Intelligence, SaaS, Mobile, Design, E-commerce, Web3, CMS, Digital Marketing, and Staff Augmentation."
+          description={
+            featured
+              ? "AI, product engineering, and team augmentation — the work we lead with."
+              : "Artificial Intelligence, SaaS, Mobile, Design, E-commerce, Web3, CMS, Digital Marketing, and Staff Augmentation."
+          }
         />
 
         <Reveal
           stagger
-          className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
+          className={`mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 ${
+            featured ? "lg:grid-cols-3" : "lg:grid-cols-3"
+          }`}
         >
-          {SERVICES.map((service) => (
+          {items.map((service) => (
             <motion.div key={service.title} variants={revealItem}>
               <Link
                 href={`/services/${service.slug}`}

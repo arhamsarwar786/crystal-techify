@@ -72,7 +72,7 @@ export function SectionHeading({
             className={`mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               onBrand
                 ? "bg-brand-orange text-white hover:bg-brand-orange/90"
-                : "border border-ink/15 bg-white text-brand-orange hover:border-brand-orange/40 hover:text-ink"
+                : "border border-ink/15 bg-ink/5 text-brand-orange hover:border-brand-orange/40 hover:text-ink dark:hover:text-white"
             }`}
           >
             {detailLabel}

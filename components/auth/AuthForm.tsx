@@ -72,7 +72,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
   }
 
   return (
-    <PageShell>
+    <PageShell expertCta={false}>
       <section className="section-shell mx-auto max-w-md pb-24 pt-36">
         <h1 className="text-3xl">
           {mode === "login" ? "Log in" : "Create an account"}

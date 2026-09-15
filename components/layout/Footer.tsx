@@ -10,13 +10,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
-import { CalendlyCTAButton } from "@/components/ui/CalendlyCTAButton";
-import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import {
   COMPANY,
   LEGAL_LINKS,
-  NAV_LINKS,
-  SERVICES,
+  NAV_GROUPS,
   SOCIAL_LINKS,
 } from "@/lib/data";
 
@@ -26,43 +23,58 @@ const SOCIAL_ICONS = {
   GitHub: Github,
 } as const;
 
+function FooterColumn({
+  title,
+  href,
+  links,
+}: {
+  title: string;
+  href: string;
+  links: { label: string; href: string }[];
+}) {
+  return (
+    <div>
+      <Link
+        href={href}
+        className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-white/60 transition-colors hover:text-white"
+      >
+        {title}
+      </Link>
+      <ul className="mt-4 space-y-1">
+        {(links.length ? links : [{ label: "Overview", href }]).map((link) => (
+          <li key={link.href + link.label}>
+            <Link
+              href={link.href}
+              className="group inline-flex min-h-10 items-center gap-1.5 py-1 text-sm leading-snug text-white/75 transition-colors hover:text-white"
+            >
+              {link.label}
+              <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-70" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="relative mt-20 overflow-hidden bg-black text-white sm:mt-24">
-      <BrandBackdrop className="opacity-30" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-brand-orange" />
 
       <div className="section-shell relative py-12 sm:py-16">
-        <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6 sm:p-8 lg:p-10">
-          <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
-            <div className="max-w-xl">
-              <p className="text-[10px] font-display font-normal uppercase tracking-[0.22em] text-brand-orange">
-                Start a conversation
-              </p>
-              <h2 className="mt-3 text-2xl text-white sm:text-3xl">
-                Ready to build something that lasts?
-              </h2>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-white/70 sm:text-base">
-                Tell us about the product, the constraint, or the idea. We will
-                map a clear path from first call to launch.
-              </p>
-            </div>
-            <CalendlyCTAButton>Book a Consultation</CalendlyCTAButton>
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-10 sm:grid-cols-2 sm:gap-12 lg:mt-16 lg:grid-cols-[1.5fr_1fr_1fr_1.15fr]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_repeat(3,1fr)] xl:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))]">
           <div>
             <Logo variant="lockup" inverted className="w-[150px]" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/70">
-              {COMPANY.tagline}
+              {COMPANY.about}
             </p>
             <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-white/70 sm:text-sm">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-orange opacity-40" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-orange" />
               </span>
-              Built in {COMPANY.location.replace(", USA", "")}
+              Built in {COMPANY.location}
             </p>
             <div className="mt-6 flex gap-2.5">
               {SOCIAL_LINKS.map((s) => {
@@ -83,61 +95,28 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
-            <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
-              Navigate
-            </h3>
-            <ul className="mt-4 space-y-1">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="group inline-flex min-h-11 items-center gap-1.5 py-1.5 text-sm text-white/75 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                    <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-70" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
-              Services
-            </h3>
-            <ul className="mt-4 space-y-1">
-              {SERVICES.slice(0, 6).map((s) => (
-                <li key={s.title}>
-                  <Link
-                    href={`/services/${s.slug}`}
-                    className="group inline-flex min-h-11 items-center gap-1.5 py-1.5 text-sm leading-snug text-white/75 transition-colors hover:text-white"
-                  >
-                    {s.title}
-                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-70" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {NAV_GROUPS.filter((g) => g.label !== "Contact").map((group) => (
+            <FooterColumn
+              key={group.label}
+              title={group.label}
+              href={group.href}
+              links={group.children.slice(0, 7)}
+            />
+          ))}
 
           <div>
             <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
               Contact
             </h3>
             <ul className="mt-4 space-y-2.5">
-              <li>
-                <div className="flex items-start gap-3 rounded-2xl border border-white/15 bg-white/[0.04] px-3.5 py-3">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
-                  <span className="text-sm text-white/80">
-                    {COMPANY.location}
-                  </span>
-                </div>
+              <li className="flex items-start gap-3 text-sm text-white/80">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
+                {COMPANY.location}
               </li>
               <li>
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="flex min-h-12 items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.04] px-3.5 py-3 text-sm text-white/80 transition-colors hover:border-brand-orange/30 hover:text-white"
+                  className="flex items-center gap-3 text-sm text-white/80 transition-colors hover:text-white"
                 >
                   <Mail className="h-4 w-4 shrink-0 text-brand-orange" />
                   {COMPANY.email}
@@ -146,7 +125,7 @@ export function Footer() {
               <li>
                 <a
                   href={COMPANY.phoneHref}
-                  className="flex min-h-12 items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.04] px-3.5 py-3 text-sm text-white/80 transition-colors hover:border-brand-orange/30 hover:text-white"
+                  className="flex items-center gap-3 text-sm text-white/80 transition-colors hover:text-white"
                 >
                   <Phone className="h-4 w-4 shrink-0 text-brand-orange" />
                   {COMPANY.phone}

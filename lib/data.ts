@@ -62,7 +62,9 @@ import type {
   Industry,
   JourneyMilestone,
   MissionPoint,
+  NavGroup,
   NavLink,
+  ClientLogo,
   PortfolioItem,
   ProcessStep,
   Service,
@@ -98,15 +100,79 @@ export const LEGAL_LINKS = [
   { label: "Terms of Service", href: "/terms" },
 ] as const;
 
-export const NAV_LINKS: NavLink[] = [
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Industries", href: "/industries" },
-  { label: "Process", href: "/process" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Testimonials", href: "/testimonials" },
-  { label: "Careers", href: "/careers" },
+export const NAV_GROUPS: NavGroup[] = [
+  {
+    label: "Services",
+    href: "/services",
+    children: [],
+  },
+  {
+    label: "Technologies",
+    href: "/technologies",
+    children: [
+      { label: "AI / Machine Learning", href: "/services/artificial-intelligence" },
+      { label: "Web & SaaS", href: "/services/saas" },
+      { label: "Mobile", href: "/services/mobile-development" },
+      { label: "Cloud", href: "/services/saas" },
+      { label: "Web3", href: "/services/web3-development" },
+    ],
+  },
+  {
+    label: "Customers",
+    href: "/industries",
+    children: [
+      { label: "E-Commerce", href: "/industries/e-commerce" },
+      { label: "Healthcare", href: "/industries/healthcare" },
+      { label: "EdTech", href: "/industries/edtech" },
+      { label: "Real Estate", href: "/industries/real-estate" },
+      { label: "Retail", href: "/industries/retail" },
+      { label: "Blockchain", href: "/industries/blockchain" },
+      { label: "Testimonials", href: "/testimonials" },
+    ],
+  },
+  {
+    label: "Look Inside",
+    href: "/case-studies",
+    children: [
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Careers", href: "/careers" },
+    ],
+  },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "Company", href: "/about" },
+      { label: "Why us", href: "/about#advantages" },
+      { label: "How we work", href: "/process" },
+    ],
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+    children: [],
+  },
 ];
+
+export const NAV_LINKS: NavLink[] = NAV_GROUPS.map((group) => ({
+  label: group.label,
+  href: group.href,
+}));
+
+export const FEATURED_SERVICE_SLUGS = [
+  "artificial-intelligence",
+  "saas",
+  "mobile-development",
+  "design",
+  "staff-augmentation",
+] as const;
+
+export const PARTNERSHIPS = [
+  { label: "ISO/IEC 27001:2013" },
+  { label: "Clutch · Top Blockchain" },
+  { label: "500+ projects delivered" },
+  { label: "US-based delivery" },
+] as const;
 
 export const TRUST_METRICS: TrustMetric[] = [
   {
@@ -362,6 +428,14 @@ export const SERVICES: Service[] = [
   },
 ];
 
+const servicesNav = NAV_GROUPS.find((group) => group.label === "Services");
+if (servicesNav) {
+  servicesNav.children = SERVICES.map((s) => ({
+    label: s.title,
+    href: `/services/${s.slug}`,
+  }));
+}
+
 export const PROCESS_STEPS: ProcessStep[] = [
   {
     index: 1,
@@ -548,6 +622,31 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
 ];
 
+export const CLIENTS: ClientLogo[] = [
+  {
+    name: "SW Industries",
+    website: "https://swindust.com/",
+    logo: "/clients/sw-industries.png",
+  },
+  {
+    name: "Visas.pt",
+    website: "https://visas.pt/",
+    logo: "/clients/visas-pt.webp",
+  },
+  {
+    name: "Parker & Co.",
+    website: "https://parkercoboston.com/",
+    logo: "/clients/parker-and-co.webp",
+    invertOnLight: true,
+  },
+  {
+    name: "Serreva",
+    website: "https://serrevaglasshouses.com/",
+    logo: "/clients/serreva.png",
+    invertOnLight: true,
+  },
+];
+
 export const PORTFOLIO_CATEGORIES = [
   "All",
   "Mobility",
@@ -559,29 +658,52 @@ export const PORTFOLIO_CATEGORIES = [
 
 export const ENGAGEMENT_MODELS: EngagementModel[] = [
   {
+    icon: Cpu,
+    title: "Staff Augmentation",
+    slug: "staff-augmentation",
+    description:
+      "Quickly scale internal engineering teams with highly skilled software development professionals. A flexible model that can be customized to the specific needs of the project.",
+    bestFor: "Scaling capacity fast",
+    points: [
+      "Hire AI engineers, developers, QA, or DevOps",
+      "Staffing on a timeline that matches your sprint",
+    ],
+    qualifierLabel: "Required team size?",
+    qualifierOptions: ["10+", "5–10", "Not sure"],
+  },
+  {
     icon: Users,
-    title: "Dedicated Development Team",
+    title: "Dedicated Team",
+    slug: "dedicated-team",
     description:
       "Our dedicated development team provides flexible and scalable solutions tailored to your business requirements, with personalized attention and specialized skills to bring your projects to life.",
     bestFor: "Long-term product ownership",
+    points: [
+      "Handpick your team",
+      "Dedicated project management",
+      "Grow or shrink as the roadmap shifts",
+    ],
+    qualifierLabel: "Required team size?",
+    qualifierOptions: ["10+", "5–10", "Not sure"],
   },
   {
     icon: Rocket,
     title: "Product Development",
+    slug: "product-development",
     description:
       "End-to-end support for teams looking to develop and bring new software products to market. Our experts work closely with clients to understand their vision — from ideation to launch and beyond.",
     bestFor: "New products & platforms",
-  },
-  {
-    icon: Cpu,
-    title: "Staff Augmentation",
-    description:
-      "Quickly scale internal engineering teams with highly skilled software development professionals. A flexible model that can be customized to the specific needs of the project.",
-    bestFor: "Scaling capacity fast",
+    points: [
+      "End-to-end product development",
+      "Product, QA, and DevOps included",
+    ],
+    qualifierLabel: "Looking to develop?",
+    qualifierOptions: ["MVP", "Prototype", "Complete product", "Something else"],
   },
   {
     icon: ClipboardList,
     title: "Consultant",
+    slug: "consultant",
     description:
       "Ideal for businesses looking for expert advice on software initiatives. Experienced consultants provide guidance on the latest technologies and best practices so you can make informed decisions.",
     bestFor: "Direction & de-risking",

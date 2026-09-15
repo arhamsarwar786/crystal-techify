@@ -15,7 +15,7 @@ export function Industries({ detailHref }: { detailHref?: string }) {
     >
       <div className="section-shell relative">
         <SectionHeading
-          eyebrow="Industries we serve in"
+          eyebrow="Customers we serve"
           detailHref={detailHref}
           title={
             <>

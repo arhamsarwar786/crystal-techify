@@ -11,7 +11,7 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { COMPANY } from "@/lib/data";
@@ -70,6 +70,26 @@ export function Contact({ detailHref }: { detailHref?: string }) {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
+
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const model = q.get("model");
+    const need = q.get("need");
+    if (!model && !need) return;
+    const typeByModel: Record<string, string> = {
+      "staff-augmentation": "Staff augmentation",
+      "dedicated-team": "Not sure yet — let's talk",
+      "product-development": "SaaS",
+    };
+    setForm((prev) => ({
+      ...prev,
+      projectType: (model && typeByModel[model]) || prev.projectType,
+      message:
+        need || model
+          ? `Engagement interest: ${model ?? "general"}${need ? ` · ${need}` : ""}.`
+          : prev.message,
+    }));
+  }, []);
 
   const update =
     (field: keyof FormState) =>

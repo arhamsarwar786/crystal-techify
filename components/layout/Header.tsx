@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, CalendarClock, ArrowUpRight } from "lucide-react";
+import { Menu, X, CalendarClock, ArrowUpRight, ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -10,72 +10,108 @@ import { CTAButton } from "@/components/ui/CTAButton";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { AuthStatus } from "@/components/layout/AuthStatus";
 import { openCalendly } from "@/lib/calendly";
-import { NAV_LINKS } from "@/lib/data";
+import { NAV_GROUPS } from "@/lib/data";
+import type { NavGroup } from "@/lib/types";
 
-const HASH_TO_PATH: Record<string, string> = {
-  about: "/about",
-  services: "/services",
-  industries: "/industries",
-  process: "/process",
-  "case-studies": "/case-studies",
-};
-
-const HOME_SECTION_IDS = [
-  "about",
-  "services",
-  "industries",
-  "process",
-  "case-studies",
-  "testimonials",
-];
-
-function navHash(href: string): string | null {
-  const i = href.indexOf("#");
-  return i >= 0 ? href.slice(i + 1) : null;
-}
-
-function isNavActive(
-  href: string,
-  pathname: string,
-  activeHash: string | null,
-): boolean {
-  if (href === "/careers") {
-    return pathname === "/careers" || pathname.startsWith("/careers/");
-  }
-  const hash = navHash(href);
-  if (!hash) {
-    return pathname === href || pathname.startsWith(`${href}/`);
-  }
-  const detail = HASH_TO_PATH[hash];
-  if (detail && (pathname === detail || pathname.startsWith(`${detail}/`))) {
+function isGroupActive(group: NavGroup, pathname: string): boolean {
+  if (pathname === group.href || pathname.startsWith(`${group.href}/`)) {
     return true;
   }
-  return pathname === "/" && activeHash === hash;
+  return group.children.some(
+    (child) =>
+      pathname === child.href.split("#")[0] ||
+      pathname.startsWith(`${child.href.split("#")[0]}/`),
+  );
+}
+
+function DesktopGroup({
+  group,
+  pathname,
+  inverted,
+}: {
+  group: NavGroup;
+  pathname: string;
+  inverted?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const active = isGroupActive(group, pathname);
+  const hasMenu = group.children.length > 0;
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => hasMenu && setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <Link
+        href={group.href}
+        aria-expanded={hasMenu ? open : undefined}
+        aria-haspopup={hasMenu ? "menu" : undefined}
+        className={`relative inline-flex items-center gap-0.5 px-2.5 py-1.5 font-sans text-[12px] font-medium tracking-[0.02em] transition-colors lg:px-3 ${
+          inverted
+            ? active
+              ? "text-white hover:text-white"
+              : "text-white/70 hover:text-white"
+            : `hover:text-ink dark:hover:text-white ${
+                active
+                  ? "text-ink dark:text-white"
+                  : "text-ink/60 dark:text-white/70"
+              }`
+        }`}
+      >
+        {group.label}
+        {hasMenu && (
+          <ChevronDown
+            className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}
+          />
+        )}
+        {active && (
+          <span
+            aria-hidden
+            className="absolute inset-x-3 -bottom-0.5 h-px bg-brand-orange"
+          />
+        )}
+      </Link>
+      <AnimatePresence>
+        {open && hasMenu && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.16 }}
+            className="absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-3"
+          >
+            <div className="rounded-2xl border border-ink/[0.08] bg-white p-2 shadow-[0_18px_50px_-24px_rgba(0,0,0,0.45)] dark:border-white/10 dark:bg-[#111]">
+              {group.children.map((child) => (
+                <Link
+                  key={child.href + child.label}
+                  href={child.href}
+                  className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-ink/80 transition-colors hover:bg-ink/5 hover:text-ink dark:text-white/80 dark:hover:bg-white/10 dark:hover:text-white"
+                >
+                  {child.label}
+                  <ArrowUpRight className="h-3.5 w-3.5 text-ink/30 dark:text-white/30" />
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 }
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [activeHash, setActiveHash] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setActiveHash(null);
-      return;
-    }
-    const onScroll = () => {
-      const y = window.scrollY + 140;
-      let current: string | null = null;
-      for (const id of HOME_SECTION_IDS) {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= y) current = id;
-      }
-      setActiveHash(current);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname]);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -84,47 +120,51 @@ export function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    setOpen(false);
+    setExpanded(null);
+  }, [pathname]);
+
   const closeMenu = () => setOpen(false);
+  const inverted = scrolled || open;
+  const controlClass = inverted
+    ? "border-white/20 bg-white/10 text-white hover:border-brand-orange/50"
+    : "border-ink/15 bg-ink/5 text-ink hover:border-brand-orange/50 dark:border-white/20 dark:bg-white/10 dark:text-white";
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="section-shell pt-3 sm:pt-4">
-        <div className="relative flex items-center gap-3 rounded-full border border-ink/[0.08] bg-white/75 px-2 py-1.5 text-ink shadow-[0_8px_32px_-16px_rgba(0,0,0,0.28)] backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/55 sm:px-3 sm:py-2 dark:border-white/10 dark:bg-black/55 dark:text-white dark:supports-[backdrop-filter]:bg-black/40">
+        <div
+          className={`relative flex items-center gap-3 rounded-full px-2 py-1.5 transition-[background-color,border-color,box-shadow,color] duration-300 sm:px-3 sm:py-2 ${
+            inverted
+              ? "border border-white/10 bg-black text-white shadow-[0_10px_30px_-18px_rgba(0,0,0,0.7)]"
+              : "border border-transparent bg-transparent text-ink dark:text-white"
+          }`}
+        >
           <Link
             href="/"
             aria-label="Crystal Techify home"
             className="relative z-10 flex min-w-0 shrink-0 items-center py-0.5"
           >
-            <Logo priority />
+            <Logo priority inverted={inverted} />
           </Link>
 
           <nav className="hidden min-w-0 flex-1 items-center justify-center xl:flex">
-            {NAV_LINKS.map((link) => {
-              const isActive = isNavActive(link.href, pathname, activeHash);
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  aria-current={isActive ? "true" : undefined}
-                  className={`relative px-2.5 py-1.5 font-sans text-[12px] font-medium tracking-[0.02em] transition-colors hover:text-ink lg:px-3 dark:hover:text-white ${
-                    isActive ? "text-ink dark:text-white" : "text-ink/60 dark:text-white/70"
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <span
-                      aria-hidden
-                      className="absolute inset-x-3 -bottom-0.5 h-px bg-brand-orange"
-                    />
-                  )}
-                </a>
-              );
-            })}
+            {NAV_GROUPS.map((group) => (
+              <DesktopGroup
+                key={group.label}
+                group={group}
+                pathname={pathname}
+                inverted={inverted}
+              />
+            ))}
           </nav>
 
           <div className="relative z-10 ml-auto hidden shrink-0 items-center gap-1 xl:flex">
-            <AuthStatus />
-            <ThemeToggle className="h-10 w-10 rounded-full border-ink/15 bg-ink/5 text-ink hover:border-brand-orange/50 dark:border-white/20 dark:bg-white/10 dark:text-white" />
+            <AuthStatus inverted={inverted} />
+            <ThemeToggle
+              className={`h-10 w-10 rounded-full ${controlClass}`}
+            />
             <CTAButton
               onClick={openCalendly}
               className="!px-4 !py-2 !text-xs"
@@ -135,14 +175,16 @@ export function Header() {
           </div>
 
           <div className="relative z-10 ml-auto flex items-center gap-1 xl:hidden">
-            <AuthStatus compact />
-            <ThemeToggle className="h-11 w-11 rounded-full border-ink/15 bg-ink/5 text-ink hover:border-brand-orange/50 dark:border-white/20 dark:bg-white/10 dark:text-white" />
+            <AuthStatus compact inverted={inverted} />
+            <ThemeToggle
+              className={`h-11 w-11 rounded-full ${controlClass}`}
+            />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink transition-colors hover:border-brand-orange/50 dark:border-white/20 dark:bg-white/10 dark:text-white"
+              className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border transition-colors ${controlClass}`}
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -159,32 +201,51 @@ export function Header() {
             transition={{ duration: 0.22 }}
             className="section-shell mt-2 xl:hidden"
           >
-            <div className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-[1.75rem] border border-ink/[0.08] bg-white/90 p-3 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.35)] backdrop-blur-2xl dark:border-white/10 dark:bg-black/70">
+            <div className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-[1.75rem] border border-white/10 bg-black p-3 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.55)]">
               <div className="flex flex-col gap-1">
-                {NAV_LINKS.map((link, i) => {
-                  const isActive = isNavActive(link.href, pathname, activeHash);
+                {NAV_GROUPS.map((group) => {
+                  const active = isGroupActive(group, pathname);
+                  const isOpen = expanded === group.label;
                   return (
-                    <motion.a
-                      key={link.href}
-                      href={link.href}
-                      onClick={closeMenu}
-                      initial={{ opacity: 0, x: -8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.04 }}
-                      aria-current={isActive ? "true" : undefined}
-                      className={`group flex min-h-12 items-center justify-between rounded-2xl px-4 py-3.5 font-sans text-base font-medium transition-colors ${
-                        isActive
-                          ? "bg-brand-orange text-white"
-                          : "text-ink hover:bg-ink/5 dark:text-white dark:hover:bg-white/10"
-                      }`}
-                    >
-                      {link.label}
-                      <ArrowUpRight
-                        className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${
-                          isActive ? "text-white/80" : "text-ink/40 dark:text-white/50"
-                        }`}
-                      />
-                    </motion.a>
+                    <div key={group.label}>
+                      <div className="flex items-center gap-1">
+                        <Link
+                          href={group.href}
+                          onClick={closeMenu}
+                          className={`flex min-h-12 flex-1 items-center rounded-2xl px-4 py-3 font-sans text-base font-medium ${
+                            active ? "text-brand-orange" : "text-white"
+                          }`}
+                        >
+                          {group.label}
+                        </Link>
+                        {group.children.length > 0 && (
+                          <button
+                            type="button"
+                            aria-label={`${isOpen ? "Hide" : "Show"} ${group.label} links`}
+                            onClick={() =>
+                              setExpanded(isOpen ? null : group.label)
+                            }
+                            className="grid h-11 w-11 place-items-center rounded-full text-white"
+                          >
+                            <ChevronDown
+                              className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                            />
+                          </button>
+                        )}
+                      </div>
+                      {isOpen &&
+                        group.children.map((child) => (
+                          <Link
+                            key={child.href + child.label}
+                            href={child.href}
+                            onClick={closeMenu}
+                            className="ml-3 flex min-h-11 items-center justify-between rounded-xl px-4 py-2 text-sm text-white/70 hover:text-white"
+                          >
+                            {child.label}
+                            <ArrowUpRight className="h-3.5 w-3.5" />
+                          </Link>
+                        ))}
+                    </div>
                   );
                 })}
               </div>

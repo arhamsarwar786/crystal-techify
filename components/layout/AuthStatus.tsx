@@ -11,7 +11,13 @@ export interface AuthUser {
   isAdmin: boolean;
 }
 
-export function AuthStatus({ compact: _compact = false }: { compact?: boolean }) {
+export function AuthStatus({
+  compact: _compact = false,
+  inverted = false,
+}: {
+  compact?: boolean;
+  inverted?: boolean;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<AuthUser | null | undefined>(undefined);
@@ -44,7 +50,11 @@ export function AuthStatus({ compact: _compact = false }: { compact?: boolean })
     return (
       <Link
         href={`/login?next=${encodeURIComponent(pathname)}`}
-        className="grid h-10 place-items-center rounded-full px-3 font-sans text-sm font-medium text-ink/70 hover:text-ink"
+        className={`grid h-10 place-items-center rounded-full px-3 font-sans text-sm font-medium ${
+          inverted
+            ? "text-white/70 hover:text-white"
+            : "text-ink/70 hover:text-ink"
+        }`}
       >
         Log in
       </Link>
@@ -56,7 +66,9 @@ export function AuthStatus({ compact: _compact = false }: { compact?: boolean })
       {user.isAdmin && (
         <Link
           href="/admin"
-          className="rounded-full px-2 py-1 font-sans text-sm font-medium text-brand-orange hover:text-ink"
+          className={`rounded-full px-2 py-1 font-sans text-sm font-medium text-brand-orange ${
+            inverted ? "hover:text-white" : "hover:text-ink"
+          }`}
         >
           Admin
         </Link>
@@ -64,7 +76,11 @@ export function AuthStatus({ compact: _compact = false }: { compact?: boolean })
       <button
         type="button"
         onClick={() => void logout()}
-        className="rounded-full px-3 py-2 font-sans text-sm font-medium text-ink/70 hover:text-ink"
+        className={`rounded-full px-3 py-2 font-sans text-sm font-medium ${
+          inverted
+            ? "text-white/70 hover:text-white"
+            : "text-ink/70 hover:text-ink"
+        }`}
       >
         Log out
       </button>

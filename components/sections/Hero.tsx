@@ -1,12 +1,11 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight, CalendarClock, ChevronDown } from "lucide-react";
+import { ArrowRight, CalendarClock } from "lucide-react";
+import { Clients } from "@/components/sections/Clients";
 import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
 import { CTAButton } from "@/components/ui/CTAButton";
-import { CountUp } from "@/components/ui/CountUp";
 import { openCalendly } from "@/lib/calendly";
-import { TRUST_METRICS } from "@/lib/data";
 
 const container: Variants = {
   hidden: {},
@@ -26,107 +25,62 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pb-6 pt-24 sm:pb-8 sm:pt-28"
+      className="relative flex min-h-[100svh] flex-col pb-2 pt-24 sm:pb-4 sm:pt-28"
     >
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-16 overflow-hidden opacity-25 sm:top-20">
-        <BrandBackdrop />
-      </div>
-      <div
-        aria-hidden
-        className="absolute left-1/2 top-48 h-64 w-64 -translate-x-1/2 rounded-full bg-brand-orange/10 blur-[100px] sm:h-80 sm:w-80"
-      />
-
-      <div className="section-shell relative flex flex-1 flex-col justify-center">
-        <motion.div
-          variants={container}
-          initial={false}
-          animate="visible"
-          className="mx-auto max-w-3xl text-center"
-        >
-          {/* <motion.span
-            variants={item}
-            className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-3 py-1 font-sans text-xs font-medium text-ink/80 sm:px-3.5 sm:text-sm"
-          >
-            Based in the United States
-          </motion.span> */}
-
-          <motion.h1
-            variants={item}
-            className="mt-4 text-[1.5rem] leading-[1.22] sm:mt-5 sm:text-[2.15rem] sm:leading-[1.2] md:text-[2.45rem]"
-          >
-            Empowering businesses to weave the{" "}
-            <span className="gradient-text">future of software</span>,
-            seamlessly together.
-          </motion.h1>
-
-          <motion.p
-            variants={item}
-            className="mx-auto mt-3 max-w-xl font-sans text-sm leading-relaxed tracking-normal text-ink/75 sm:mt-4 sm:text-base"
-          >
-            AI and advanced software from the United States.{" "}
-            <span className="text-ink">500+ projects</span> across the world.
-          </motion.p>
+      <div className="section-shell relative flex flex-1 flex-col">
+        <div className="relative flex flex-1 flex-col justify-center overflow-hidden rounded-[1.75rem] px-4 py-10 sm:px-8 sm:py-14 lg:px-12">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-25">
+            <BrandBackdrop />
+          </div>
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-brand-orange/10 blur-[100px] sm:h-80 sm:w-80"
+          />
 
           <motion.div
-            variants={item}
-            className="mt-5 flex w-full flex-col items-stretch justify-center gap-2.5 sm:mt-6 sm:w-auto sm:flex-row sm:items-center"
+            variants={container}
+            initial={false}
+            animate="visible"
+            className="relative mx-auto max-w-3xl text-center"
           >
-            <CTAButton onClick={openCalendly} className="w-full sm:w-auto">
-              <CalendarClock className="h-4 w-4" />
-              Book a Consultation
-            </CTAButton>
-            <CTAButton
-              href="/#case-studies"
-              variant="outline"
-              className="w-full sm:w-auto"
-            >
-              View Our Work
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </CTAButton>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          variants={container}
-          initial={false}
-          animate="visible"
-          className="mx-auto mt-6 grid w-full max-w-4xl grid-cols-2 gap-2 sm:mt-8 sm:gap-3 lg:grid-cols-4"
-        >
-          {TRUST_METRICS.map((metric) => (
-            <motion.div
-              key={metric.label}
+            <motion.h1
               variants={item}
-              className="glass gradient-border rounded-xl px-3 py-3 text-left sm:px-4 sm:py-3.5"
+              className="text-[1.5rem] leading-[1.22] sm:text-[2.15rem] font-bold sm:leading-[1.2] md:text-[2.45rem]"
             >
-              <p className="font-display text-sm tracking-[0.08em] text-ink sm:text-base">
-                <CountUp value={metric.value} start />
-              </p>
-              <p className="mt-0.5 text-xs leading-snug text-ink/70 sm:text-sm">
-                {metric.label}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+              Empowering businesses to weave the{" "}
+              <span className="gradient-text">future of software</span>,
+              seamlessly together.
+            </motion.h1>
 
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="mt-5 hidden justify-center sm:mt-6 sm:flex"
-        >
-          <a
-            href="/#about"
-            aria-label="Scroll to explore"
-            className="grid h-10 w-10 place-items-center rounded-full border border-ink/20 text-ink/70 transition-colors hover:border-brand-orange/40 hover:text-ink"
-          >
-            <motion.span
-              animate={{ y: [0, 4, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            <motion.p
+              variants={item}
+              className="mx-auto mt-3 max-w-xl font-sans text-sm leading-relaxed tracking-normal text-ink/75 sm:mt-4 sm:text-base"
             >
-              <ChevronDown className="h-4 w-4" />
-            </motion.span>
-          </a>
-        </motion.div>
+              AI and advanced software from the United States.{" "}
+              <span className="text-ink">500+ projects</span> across the world.
+            </motion.p>
+
+            <motion.div
+              variants={item}
+              className="mt-5 flex w-full flex-col items-stretch justify-center gap-2.5 sm:mt-6 sm:w-auto sm:flex-row sm:items-center"
+            >
+              <CTAButton onClick={openCalendly} className="w-full sm:w-auto">
+                <CalendarClock className="h-4 w-4" />
+                Book a Consultation
+              </CTAButton>
+              <CTAButton
+                href="/#case-studies"
+                variant="outline"
+                className="w-full sm:w-auto"
+              >
+                View Our Work
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </CTAButton>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        <Clients />
       </div>
     </section>
   );

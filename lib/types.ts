@@ -6,6 +6,12 @@ export interface NavLink {
   href: string;
 }
 
+export interface NavGroup {
+  label: string;
+  href: string;
+  children: NavLink[];
+}
+
 export interface TrustMetric {
   icon: LucideIcon;
   value: string;
@@ -67,11 +73,24 @@ export interface PortfolioItem {
   pdf?: string;
 }
 
+/** Homepage clients marquee — logos pulled from each client's public site. */
+export interface ClientLogo {
+  name: string;
+  website: string;
+  logo: string;
+  /** Wordmarks designed for dark headers; render black on the light canvas. */
+  invertOnLight?: boolean;
+}
+
 export interface EngagementModel {
   icon: LucideIcon;
   title: string;
   description: string;
   bestFor: string;
+  slug?: string;
+  points?: string[];
+  qualifierLabel?: string;
+  qualifierOptions?: string[];
 }
 
 export interface Testimonial {
