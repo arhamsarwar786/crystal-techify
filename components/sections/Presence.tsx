@@ -6,17 +6,22 @@ import { CountUp } from "@/components/ui/CountUp";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { JOURNEY, TRUST_METRICS } from "@/lib/data";
-
-const PRESENCE_STATS = [
-  ...TRUST_METRICS,
-  {
-    icon: TRUST_METRICS[0].icon,
-    value: "50+",
-    label: "Supported technologies",
-  },
-];
+import { useLocale } from "@/lib/i18n";
 
 export function Presence({ detailHref }: { detailHref?: string }) {
+  const { t } = useLocale();
+  const labels = t.trust;
+  const presenceStats = [
+    ...TRUST_METRICS.map((stat, i) => ({
+      ...stat,
+      label: labels[i] ?? stat.label,
+    })),
+    {
+      icon: TRUST_METRICS[0].icon,
+      value: "50+",
+      label: labels[TRUST_METRICS.length] ?? t.presence.extraStat,
+    },
+  ];
   return (
     <section
       id="presence"
@@ -24,21 +29,22 @@ export function Presence({ detailHref }: { detailHref?: string }) {
     >
       <div className="section-shell relative">
         <SectionHeading
-          title="United States presence"
-          description="Founded in 2021. Based in Dublin, Ohio — one US location, one engineering standard."
+          title={t.presence.title}
+          description={t.presence.description}
           detailHref={detailHref}
+          detailLabel={t.common.exploreMore}
         />
 
         <p className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink">
           <MapPin className="h-4 w-4 text-brand-orange" />
-          Dublin, Ohio · United States
+          {t.presence.location}
         </p>
 
         <Reveal
           stagger
           className="mt-8 grid grid-cols-2 gap-4 sm:mt-10 sm:grid-cols-3 lg:grid-cols-5"
         >
-          {PRESENCE_STATS.map((stat) => (
+          {presenceStats.map((stat) => (
             <motion.div
               key={stat.label}
               variants={revealItem}
@@ -56,7 +62,7 @@ export function Presence({ detailHref }: { detailHref?: string }) {
           stagger
           className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {JOURNEY.map((step) => (
+          {JOURNEY.map((step, i) => (
             <motion.div
               key={step.title}
               variants={revealItem}
@@ -64,10 +70,10 @@ export function Presence({ detailHref }: { detailHref?: string }) {
             >
               <step.icon className="h-5 w-5 text-brand-orange" />
               <h3 className="mt-4 font-sans text-base font-semibold text-ink">
-                {step.title}
+                {t.journey[i]?.title ?? step.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-ink/70">
-                {step.description}
+                {t.journey[i]?.description ?? step.description}
               </p>
             </motion.div>
           ))}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PageShell } from "@/components/layout/PageShell";
+import { CareersAccount } from "@/components/careers/CareersAccount";
 import { excerpt } from "@/lib/jobs";
 import { prisma } from "@/lib/db";
 
@@ -32,6 +33,7 @@ export default async function CareersPage() {
             Open roles in AI, product engineering, and delivery. Log in to
             apply with your CV.
           </p>
+          <CareersAccount />
           <ul className="mt-10 space-y-3">
             {dbDown && (
               <li className="rounded-2xl border border-brand-red/30 bg-brand-red/10 px-4 py-10 text-center text-sm text-ink">

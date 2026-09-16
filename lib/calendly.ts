@@ -1,4 +1,5 @@
-export const CALENDLY_URL = "https://calendly.com/crystaltechify-info/30min";
+export const CALENDLY_URL =
+  "https://calendly.com/crystaltechify-info/30min?hide_gdpr_banner=1&timezone=America/New_York";
 
 declare global {
   interface Window {

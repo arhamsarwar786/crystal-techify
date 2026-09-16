@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 export interface AuthUser {
   id: string;
@@ -14,10 +15,13 @@ export interface AuthUser {
 export function AuthStatus({
   compact: _compact = false,
   inverted = false,
+  offerSignup = false,
 }: {
   compact?: boolean;
   inverted?: boolean;
+  offerSignup?: boolean;
 }) {
+  const { t } = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<AuthUser | null | undefined>(undefined);
@@ -48,16 +52,26 @@ export function AuthStatus({
 
   if (!user) {
     return (
-      <Link
-        href={`/login?next=${encodeURIComponent(pathname)}`}
-        className={`grid h-10 place-items-center rounded-full px-3 font-sans text-sm font-medium ${
-          inverted
-            ? "text-white/70 hover:text-white"
-            : "text-ink/70 hover:text-ink"
-        }`}
-      >
-        Log in
-      </Link>
+      <div className="flex flex-wrap items-center gap-2">
+        <Link
+          href={`/login?next=${encodeURIComponent(pathname)}`}
+          className={`grid h-10 place-items-center rounded-full px-3 font-sans text-sm font-medium ${
+            inverted
+              ? "text-white/70 hover:text-white"
+              : "text-ink/70 hover:text-ink"
+          }`}
+        >
+          {t.auth.logIn}
+        </Link>
+        {offerSignup ? (
+          <Link
+            href={`/signup?next=${encodeURIComponent(pathname)}`}
+            className="rounded-full border border-ink/15 bg-ink/5 px-4 py-2 font-sans text-sm font-medium text-ink hover:border-brand-orange/40"
+          >
+            {t.auth.createAccount}
+          </Link>
+        ) : null}
+      </div>
     );
   }
 
@@ -70,7 +84,7 @@ export function AuthStatus({
             inverted ? "hover:text-white" : "hover:text-ink"
           }`}
         >
-          Admin
+          {t.auth.admin}
         </Link>
       )}
       <button
@@ -82,7 +96,7 @@ export function AuthStatus({
             : "text-ink/70 hover:text-ink"
         }`}
       >
-        Log out
+        {t.auth.logOut}
       </button>
     </div>
   );

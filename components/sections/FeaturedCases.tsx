@@ -1,42 +1,61 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { InViewCard } from "@/components/ui/InViewCard";
 import { PORTFOLIO_ITEMS } from "@/lib/data";
 import { CaseCard } from "@/components/sections/CaseCard";
+import { useLocale } from "@/lib/i18n";
+import { locCase } from "@/lib/i18n/localize";
 
 export function FeaturedCases({ detailHref }: { detailHref?: string }) {
-  const featuredTop = PORTFOLIO_ITEMS.slice(0, 2);
-  const featuredBottom = PORTFOLIO_ITEMS.slice(2);
+  const { t } = useLocale();
+  const items = PORTFOLIO_ITEMS.map((p) => locCase(t, p));
+  const featuredTop = items.slice(0, 2);
+  const featuredMid = items.slice(2, 5);
+  const featuredBottom = items.slice(5);
 
   return (
     <section
       id="case-studies"
       className="band-muted relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 fx-tech-grid opacity-50"
+      />
       <div className="section-shell relative">
         <SectionHeading
-          title="Be the next success story"
-          description="Work shipped with small specialist teams — mobility, legal, real estate, transit, and architecture."
+          index="04"
+          title={t.cases.title}
+          description={t.cases.description}
           detailHref={detailHref}
+          detailLabel={t.common.exploreMore}
         />
 
         <div className="mt-8 grid gap-4 sm:mt-10">
-          <Reveal stagger className="grid gap-4 lg:grid-cols-2">
-            {featuredTop.map((project) => (
-              <motion.div key={project.slug} variants={revealItem}>
-                <CaseCard {...project} />
-              </motion.div>
+          <div className="grid gap-4 lg:grid-cols-2">
+            {featuredTop.map((project, index) => (
+              <InViewCard key={project.slug} delay={index * 0.1}>
+                <CaseCard {...project} index={index} />
+              </InViewCard>
             ))}
-          </Reveal>
-          <Reveal stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredBottom.map((project) => (
-              <motion.div key={project.slug} variants={revealItem}>
-                <CaseCard {...project} />
-              </motion.div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredMid.map((project, index) => (
+              <InViewCard key={project.slug} delay={index * 0.08}>
+                <CaseCard {...project} index={index + 2} />
+              </InViewCard>
             ))}
-          </Reveal>
+          </div>
+          {featuredBottom.length > 0 ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              {featuredBottom.map((project, index) => (
+                <InViewCard key={project.slug} delay={index * 0.08}>
+                  <CaseCard {...project} index={index + 5} />
+                </InViewCard>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

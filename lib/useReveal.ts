@@ -5,21 +5,18 @@ import { useEffect, useRef, useState } from "react";
 interface Options {
   /** rootMargin passed to the observer */
   margin?: string;
-  /** hard fallback (ms) after which content is shown regardless of the observer */
-  fallback?: number;
 }
 
 /**
  * Reveal-on-scroll primitive.
  *
- * Unlike a bare `whileInView`, this can never leave content permanently
- * hidden: if IntersectionObserver is unavailable or never fires, a timeout
- * forces the visible state. SSR always renders the final markup — the hidden
- * state only exists once JS has hydrated.
+ * Content stays hidden until it actually enters the viewport. If
+ * IntersectionObserver is missing, we show immediately so nothing is trapped.
+ * SSR always renders the final markup — the hidden state only exists once JS
+ * has hydrated.
  */
 export function useReveal<T extends HTMLElement = HTMLDivElement>({
-  margin = "-80px",
-  fallback = 1400,
+  margin = "-12% 0px -8% 0px",
 }: Options = {}) {
   const ref = useRef<T>(null);
   const [shown, setShown] = useState(false);
@@ -33,27 +30,20 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>({
       return;
     }
 
-    const reveal = () => setShown(true);
-    const timer = window.setTimeout(reveal, fallback);
-
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
-          window.clearTimeout(timer);
-          reveal();
+          setShown(true);
           observer.disconnect();
         }
       },
-      { rootMargin: margin },
+      { rootMargin: margin, threshold: 0.05 },
     );
 
     observer.observe(el);
 
-    return () => {
-      window.clearTimeout(timer);
-      observer.disconnect();
-    };
-  }, [shown, margin, fallback]);
+    return () => observer.disconnect();
+  }, [shown, margin]);
 
   return { ref, shown };
 }

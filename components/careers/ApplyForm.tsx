@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { JobQuestion } from "@/lib/job-questions";
 import { fetchRetry } from "@/lib/fetch-retry";
+import { fmt, useLocale } from "@/lib/i18n";
 
 const fieldClass =
   "mt-1.5 w-full rounded-xl border border-ink/20 bg-bg px-3 py-3 outline-none focus:border-brand-orange/60";
@@ -14,6 +15,7 @@ export function ApplyForm({
   jobId: string;
   questions: JobQuestion[];
 }) {
+  const { t } = useLocale();
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
   const [pending, setPending] = useState(false);
@@ -26,21 +28,21 @@ export function ApplyForm({
     data.set("jobId", jobId);
     const phoneDigits = String(data.get("phone") ?? "").replace(/\D/g, "");
     if (phoneDigits.length < 7 || phoneDigits.length > 15) {
-      setError("Enter a valid phone number.");
+      setError(t.apply.errPhone);
       return;
     }
     const cv = data.get("cv");
     if (!(cv instanceof File) || !cv.name) {
-      setError("Attach your CV as a PDF or Word document.");
+      setError(t.apply.errCvMissing);
       return;
     }
     const ext = cv.name.toLowerCase().slice(cv.name.lastIndexOf("."));
     if (![".pdf", ".doc", ".docx"].includes(ext)) {
-      setError("CV must be a PDF or Word document.");
+      setError(t.apply.errCvType);
       return;
     }
     if (cv.size > 8 * 1024 * 1024) {
-      setError("CV must be under 8MB.");
+      setError(t.apply.errCvSize);
       return;
     }
     setPending(true);
@@ -53,12 +55,12 @@ export function ApplyForm({
       json = (await res.json()) as { error?: string };
     } catch {
       setPending(false);
-      setError("The database is waking up. Wait a few seconds and try again.");
+      setError(t.apply.errDb);
       return;
     }
     setPending(false);
     if (!res.ok) {
-      setError(json.error || "Could not submit");
+      setError(json.error || t.apply.errSubmit);
       return;
     }
     setDone(true);
@@ -68,7 +70,7 @@ export function ApplyForm({
   if (done) {
     return (
       <p className="mt-4 text-sm leading-relaxed text-ink/80">
-        Application received. We will be in touch if there is a fit.
+        {t.apply.received}
       </p>
     );
   }
@@ -76,7 +78,7 @@ export function ApplyForm({
   return (
     <form onSubmit={(e) => void onSubmit(e)} className="mt-4 space-y-4">
       <label className="block text-sm font-medium text-ink">
-        Phone
+        {t.apply.phone}
         <input name="phone" required autoComplete="tel" className={fieldClass} />
       </label>
       {questions.map((question, index) => (
@@ -89,18 +91,18 @@ export function ApplyForm({
             name={`answer:${question.id}`}
             required
             rows={3}
-            aria-label={`Required question ${index + 1}`}
+            aria-label={fmt(t.apply.requiredQ, { n: index + 1 })}
             className={fieldClass}
           />
         </label>
       ))}
       <label className="block text-sm font-medium text-ink">
-        Cover note{" "}
-        <span className="font-normal text-ink/60">(optional)</span>
+        {t.apply.cover}{" "}
+        <span className="font-normal text-ink/60">{t.contact.optional}</span>
         <textarea name="coverNote" rows={4} className={fieldClass} />
       </label>
       <label className="block text-sm font-medium text-ink">
-        CV (PDF or DOC, max 8MB)
+        {t.apply.cv}
         <input
           name="cv"
           type="file"
@@ -115,7 +117,7 @@ export function ApplyForm({
         disabled={pending}
         className="rounded-full bg-brand-orange px-6 py-3 font-sans text-sm font-semibold text-white disabled:opacity-60"
       >
-        {pending ? "Submitting…" : "Submit application"}
+        {pending ? t.apply.pending : t.apply.submit}
       </button>
     </form>
   );

@@ -1,0 +1,380 @@
+import type { DeepPartial, Messages } from "./types";
+import { MORE_OVERLAYS } from "./overlays-more";
+import { ASIA_OVERLAYS } from "./overlays-asia";
+
+type Overlay = DeepPartial<Messages>;
+
+const navDe = {
+  Services: "Leistungen",
+  Technologies: "Technologien",
+  Customers: "Kunden",
+  "Look Inside": "Einblick",
+  Careers: "Karriere",
+  "About Us": "Über uns",
+  "Contact Us": "Kontakt",
+  "AI / Machine Learning": "KI / Machine Learning",
+  "Web & SaaS": "Web & SaaS",
+  Mobile: "Mobile",
+  Cloud: "Cloud",
+  Web3: "Web3",
+  "E-Commerce": "E-Commerce",
+  Healthcare: "Gesundheitswesen",
+  EdTech: "EdTech",
+  "Real Estate": "Immobilien",
+  Retail: "Einzelhandel",
+  Blockchain: "Blockchain",
+  Testimonials: "Kundenstimmen",
+  "Case Studies": "Fallstudien",
+  Company: "Unternehmen",
+  "Why us": "Warum wir",
+  "How we work": "So arbeiten wir",
+  "Privacy Policy": "Datenschutz",
+  "Terms of Service": "Nutzungsbedingungen",
+  "Artificial Intelligence": "Künstliche Intelligenz",
+  SaaS: "SaaS",
+  "Mobile Development": "Mobile Entwicklung",
+  Design: "Design",
+  "E-commerce": "E-Commerce",
+  "Web3 Development": "Web3-Entwicklung",
+  CMS: "CMS",
+  "Digital Marketing": "Digital Marketing",
+  "Staff Augmentation": "Staff Augmentation",
+};
+
+export const OVERLAYS: Record<string, Overlay> = {
+  ...MORE_OVERLAYS,
+  ...ASIA_OVERLAYS,
+  "en-GB": {
+    heroBody: "Product and engineering from the United States.",
+    clientsHeadline: "Technology partner to leading brands",
+    common: {
+      exploreMore: "Explore more",
+      companyAboutExtra:
+        "Our core expertise includes AI-driven software development, machine learning, natural language processing, and automation, along with SaaS, mobile and web development, UI/UX design, Web3, e-commerce, and digital marketing. To support growing demand, we also offer staff augmentation — experienced AI engineers, developers, and digital professionals so you can scale with agility.",
+    },
+    services: {
+      title: "Services that empower you",
+      description: "Access services that drive growth and fuel success.",
+    },
+    cases: {
+      description:
+        "AI and automation for real estate and marketing, plus mobility, legal, transit, and architecture — shipped with small specialist teams.",
+    },
+    advantages: {
+      description:
+        "Advantages of a single US engineering base — from delivery pace to the people who ship.",
+    },
+    legal: {
+      terms: [
+        {
+          heading: "No warranty",
+          body: 'This website is provided "as is". We work to keep the information accurate and current, but we do not warrant that it is complete or error-free, and metrics quoted (such as project counts or rankings) reflect a point in time.',
+        },
+      ],
+    },
+  },
+  de: {
+    heroTitle: "KI-native Software, die",
+    heroWords: ["produktionsreif", "intelligent", "zuverlässig", "langlebig"],
+    heroBody: "Produkt und Engineering aus den Vereinigten Staaten.",
+    bookDemo: "Demo buchen",
+    clientsHeadline: "Technologiepartner führender Marken",
+    nav: navDe,
+    common: {
+      exploreMore: "Mehr entdecken",
+      overview: "Überblick",
+      talkToUs: "Sprechen Sie mit uns",
+      getInTouch: "Kontakt aufnehmen",
+      viewDetails: "Details ansehen",
+      viewRole: "Stelle ansehen",
+      allRoles: "Alle Stellen",
+      allRights: "Alle Rechte vorbehalten.",
+      builtIn: "Entwickelt in {location}",
+      lastUpdated: "Zuletzt aktualisiert {date}",
+      selectLanguage: "Sprache wählen",
+      openMenu: "Menü öffnen",
+      closeMenu: "Menü schließen",
+      homeAria: "Crystal Techify Startseite",
+      showLinks: "{label}-Links anzeigen",
+      hideLinks: "{label}-Links ausblenden",
+      step: "Schritt {n}",
+      bestFor: "Ideal für: {value}",
+      service: "Leistung",
+      industry: "Branche",
+      outcome: "Ergebnis",
+      openPdf: "Fallstudie als PDF öffnen",
+      iso: "ISO/IEC 27001:2013",
+      free90: "Kostenlos · 90 Minuten",
+      forExecutives: "Für Führungskräfte",
+      forTechnical: "Für technische Teams",
+      tools: "Tools und Fähigkeiten",
+      whatYouGet: "Was Sie erhalten",
+      otherServices: "Weitere Leistungen",
+      otherIndustries: "Weitere Branchen",
+      problemsWeTake: "Probleme, die wir lösen",
+      problemsWeTakeBody: "Wo diese Arbeit beginnt — und warum Teams zu uns kommen.",
+      howWeWork: "So arbeiten wir",
+      howWeWorkService: "Ein Lieferpfad für {name}.",
+      typicalWork: "Typische Einsätze",
+      typicalWorkBody: "Wo Teams diese Leistung in Produktion nutzen.",
+      problemsWeSee: "Probleme, die wir sehen",
+      problemsWeSeeBody: "Wo Teams in {name} stecken bleiben.",
+      howWeWorkIndustry: "Ein Lieferpfad für diese Domäne.",
+      outcomesAim: "Ergebnisse, die wir anstreben",
+      lookingServices: "Lieber eine Leistung suchen?",
+      browseServices: "Alle {count} Leistungen ansehen",
+      companyAboutExtra:
+        "Unsere Kernkompetenz umfasst KI-Software, Machine Learning, Natural Language Processing und Automatisierung sowie SaaS, Mobile- und Webentwicklung, UI/UX, Web3, E-Commerce und Digital Marketing. Zusätzlich bieten wir Staff Augmentation — erfahrene KI-Ingenieure, Entwickler und Digitalprofis, damit Sie agil skalieren.",
+    },
+    footer: {
+      haveProduct: "Haben Sie ein Produkt im Kopf?",
+      talkFirst:
+        "Sprechen Sie zuerst mit unseren Expertinnen und Experten — dann entscheiden Sie, ob wir passen.",
+      contact: "Kontakt",
+    },
+    snapshot: {
+      kicker: "Seit 2021",
+      title: "Was wir seit 2021 aufgebaut haben",
+      description:
+        "Gegründet in Dublin, Ohio. Produkt, KI und die Teams, die wir einbetten, teilen einen Engineering-Standard.",
+      stats: [
+        { value: "5+", label: "Jahre US-Lieferung", animate: true },
+        { value: "100+", label: "Abgeschlossene Projekte", animate: true },
+        { value: "50+", label: "Betreute Kunden", animate: true },
+        { value: "ISO", label: "27001:2013 zertifiziert", animate: false },
+      ],
+    },
+    services: {
+      title: "Leistungen, die Sie stärken",
+      description: "Zugang zu Leistungen, die Wachstum und Erfolg antreiben.",
+    },
+    cases: {
+      title: "Werden Sie die nächste Erfolgsgeschichte",
+      description:
+        "KI und Automatisierung für Immobilien und Marketing, plus Mobilität, Recht, ÖPNV und Architektur — mit kleinen Spezialistenteams.",
+    },
+    engagement: {
+      title: "Mit uns arbeiten",
+      description:
+        "Flexible Zusammenarbeit passend zu Teamgröße, Dauer und dem Anteil am Produkt, den wir verantworten sollen.",
+      auditKicker: "Kostenlos · 90 Minuten",
+      auditTitle: "Strategisches Beratungsangebot",
+      auditBody:
+        "Kostenlose 90-Minuten-Session für Führungskräfte und technische Teams. Ohne Verpflichtung — Sie gehen mit einem klaren Bild des Stands Ihrer Plattform und der nächsten Schritte.",
+    },
+    expert: {
+      title: "Sprechen Sie zuerst mit unseren Experten",
+      body: "Beauftragen Sie uns nicht sofort. Teilen Sie Produkt, Engpass oder Idee — dann entscheiden Sie, ob wir passen.",
+      points: [
+        "Kostenlose 90-Minuten-Arbeitssession",
+        "Eine echte Ingenieurin oder ein Ingenieur im Call — kein Sales-Deck",
+        "Klarheit, was als Nächstes zu tun ist",
+      ],
+    },
+    partnerships: {
+      title: "Partnerschaften & Anerkennung",
+      description:
+        "Zertifizierungen, Lieferung und unabhängige Anerkennung — von einem US-Standort.",
+      items: [
+        { title: "ISO/IEC 27001:2013", body: "Informationssicherheit zertifiziert." },
+        { title: "Clutch · Top Blockchain", body: "Unabhängige Marktplatz-Anerkennung." },
+        { title: "100+ gelieferte Projekte", body: "Produkt, KI und Augmentation ausgeliefert." },
+        { title: "Lieferung aus den USA", body: "Engineering aus Dublin, Ohio." },
+      ],
+    },
+    about: { title: "Über uns" },
+    presence: {
+      title: "Präsenz in den Vereinigten Staaten",
+      description:
+        "Gegründet 2021. Sitz in Dublin, Ohio — ein Engineering-Standard für Produkt, KI und Delivery.",
+      location: "Dublin, Ohio · Vereinigte Staaten",
+      extraStat: "Unterstützte Technologien",
+    },
+    advantages: {
+      title: "Warum Crystal Techify",
+      description:
+        "Vorteile einer einzigen US-Engineering-Basis — vom Tempo bis zu den Menschen, die liefern.",
+    },
+    process: {
+      title: "Unser Prozess",
+      description:
+        "Acht Schritte von der Discovery bis zum gepflegten Produkt — transparent an jedem Meilenstein.",
+    },
+    industries: {
+      title: "Branchen, die wir bedienen",
+      description:
+        "Domänenwissen von Retail und Healthcare bis Logistik, Fintech und Blockchain.",
+    },
+    tech: {
+      title: "Technologien",
+      description:
+        "Der Stack, den wir in Produktion ausliefern — gruppiert nach der Arbeit, die Sie schon betreiben oder aufbauen wollen.",
+      groups: [
+        { key: "ai", title: "KI / Machine Learning" },
+        { key: "web", title: "Web & SaaS" },
+        { key: "mobile", title: "Mobile" },
+        { key: "cloud", title: "Cloud" },
+        { key: "web3", title: "Web3" },
+      ],
+    },
+    testimonials: {
+      title: "Kundenfeedback",
+      description: "Vertrauen von Gründerinnen, Gründern und Operatoren, mit denen wir liefern.",
+      pageDescription: "Stimmen der Gründer und Operatoren, mit denen wir liefern.",
+    },
+    contact: {
+      title: "Loslegen",
+      description: "Lassen Sie uns gemeinsam innovieren. Eine echte Ingenieurin oder ein Ingenieur liest jede Nachricht.",
+      sessionBody:
+        "Buchen Sie eine Arbeitssession mit unseren Principal Engineers. Kein Slide-Deck, keine Verpflichtung — eine ehrliche Einschätzung Ihrer Plattform und der nächsten Schritte.",
+      email: "E-Mail",
+      call: "Anrufen",
+      where: "Wo wir sind",
+      successTitle: "Nachricht gesendet — danke",
+      successBody:
+        "Sie ist in unserem Posteingang. Innerhalb eines Werktags antwortet eine echte Ingenieurin oder ein Ingenieur.",
+      sendAnother: "Weitere senden",
+      readyTitle: "Ihre Nachricht ist bereit",
+      readyBody:
+        "Wir haben versucht, Ihre Mail-App zu öffnen. Falls nichts passiert ist, kopieren Sie den Text und senden Sie ihn an {email}.",
+      copied: "Kopiert",
+      copy: "Nachricht kopieren",
+      openEmail: "E-Mail-App öffnen",
+      editAnother: "Bearbeiten oder neu schreiben",
+      name: "Name",
+      emailLabel: "E-Mail",
+      company: "Unternehmen",
+      optional: "(optional)",
+      whatNeed: "Was brauchen Sie?",
+      message: "Kurz zum Projekt",
+      messageHint: "Wo Sie stehen, was Sie liefern wollen, und jeder Termin, der zählt.",
+      sending: "Wird gesendet…",
+      send: "Absenden",
+      inboxNote: "Geht direkt in unseren Posteingang. Antwort innerhalb eines Werktags.",
+      mailtoNote: "Öffnet eine vorausgefüllte E-Mail — gesendet wird erst, wenn Sie senden.",
+      errName: "Bitte Ihren Namen angeben.",
+      errEmail: "Gültige E-Mail-Adresse eingeben.",
+      errMessage: "Ein oder zwei Sätze zum Projekt helfen.",
+      projectTypes: [
+        "Künstliche Intelligenz",
+        "SaaS",
+        "Mobile Entwicklung",
+        "Design",
+        "E-Commerce",
+        "Web3",
+        "CMS",
+        "Digital Marketing",
+        "Staff Augmentation",
+        "Noch unsicher — sprechen wir",
+      ],
+      engagementPrefix: "Interesse an Zusammenarbeit: {model}",
+    },
+    careers: {
+      kicker: "Karriere",
+      title: "Bei Crystal Techify bauen",
+      body: "Offene Rollen in KI, Produktengineering und Delivery. Melden Sie sich an, um mit Lebenslauf zu bewerben.",
+      dbDown:
+        "Karriere konnte nicht geladen werden, weil die Datenbank nicht erreichbar ist. DATABASE_URL prüfen und erneut versuchen.",
+      empty: "Gerade keine offenen Stellen. Schauen Sie bald wieder vorbei.",
+      jobDbDown:
+        "Diese Stelle konnte nicht geladen werden, weil die Datenbank nicht erreichbar ist. DATABASE_URL prüfen und erneut versuchen.",
+      doTitle: "Was Sie tun",
+      lookTitle: "Was wir suchen",
+      niceTitle: "Nice to have",
+      benefitsTitle: "Benefits",
+      applyTitle: "Bewerben",
+      applyBody:
+        "Angemeldete Kandidatinnen und Kandidaten können einen Lebenslauf einreichen. Eine Bewerbung pro Konto.",
+      applyBodyQ:
+        "Angemeldete Kandidatinnen und Kandidaten können einen Lebenslauf einreichen, inklusive {count} Pflichtfrage(n). Eine Bewerbung pro Konto.",
+      already:
+        "Sie haben sich bereits auf diese Stelle beworben. Wir melden uns bei Passung.",
+      loginToApply: "um Lebenslauf und Angaben einzureichen.",
+      signUp: "registrieren",
+      or: "oder",
+    },
+    apply: {
+      phone: "Telefon",
+      cover: "Anschreiben",
+      cv: "Lebenslauf (PDF oder DOC, max. 8MB)",
+      pending: "Wird gesendet…",
+      submit: "Bewerbung absenden",
+      received: "Bewerbung eingegangen. Wir melden uns bei Passung.",
+      errPhone: "Gültige Telefonnummer eingeben.",
+      errCvMissing: "Lebenslauf als PDF oder Word anhängen.",
+      errCvType: "Lebenslauf muss PDF oder Word sein.",
+      errCvSize: "Lebenslauf muss unter 8MB liegen.",
+      errDb: "Die Datenbank startet. Einige Sekunden warten und erneut versuchen.",
+      errSubmit: "Senden fehlgeschlagen",
+      requiredQ: "Pflichtfrage {n}",
+    },
+    auth: {
+      login: "Anmelden",
+      adminLogin: "Admin-Anmeldung",
+      signup: "Konto erstellen",
+      loginBody: "Anmelden, um sich auf offene Stellen zu bewerben.",
+      adminBody:
+        "Mit einem Administratorkonto anmelden, um Stellen und Bewerbungen zu verwalten.",
+      signupBody:
+        "Registrieren, um den Lebenslauf einzureichen. Name, E-Mail und Passwort werden vor der Kontoerstellung geprüft.",
+      fullName: "Vollständiger Name",
+      email: "E-Mail",
+      confirmEmail: "E-Mail bestätigen",
+      password: "Passwort",
+      confirmPassword: "Passwort bestätigen",
+      passwordHint: "Mindestens 8 Zeichen, inklusive Buchstabe und Zahl.",
+      wait: "Bitte warten…",
+      createAccount: "Konto erstellen",
+      noAccount: "Kein Konto?",
+      signUp: "Registrieren",
+      already: "Bereits registriert?",
+      logIn: "Anmelden",
+      logOut: "Abmelden",
+      admin: "Admin",
+      server: "Server nicht erreichbar. Einige Sekunden warten und erneut versuchen.",
+      generic: "Etwas ist schiefgelaufen",
+      errors: {
+        nameShort: "Vollständigen Namen eingeben (mindestens 2 Zeichen).",
+        nameLong: "Name darf höchstens 80 Zeichen haben.",
+        nameChars: "Name darf nur Buchstaben, Leerzeichen, Bindestriche und Apostrophe enthalten.",
+        emailRequired: "E-Mail ist erforderlich.",
+        emailInvalid: "Gültige E-Mail-Adresse eingeben.",
+        emailMismatch: "E-Mail-Adressen stimmen nicht überein.",
+        passwordRequired: "Passwort ist erforderlich.",
+        passwordShort: "Passwort muss mindestens 8 Zeichen haben.",
+        passwordLong: "Passwort darf höchstens 72 Zeichen haben.",
+        passwordLetter: "Passwort muss einen Buchstaben enthalten.",
+        passwordNumber: "Passwort muss eine Zahl enthalten.",
+        passwordMismatch: "Passwörter stimmen nicht überein.",
+      },
+    },
+    legal: {
+      privacyTitle: "Datenschutz",
+      privacyIntro:
+        "Diese Richtlinie erklärt, was Crystal Techify mit den Angaben macht, die Sie uns geben — vor allem über das Kontaktformular oder per E-Mail. Wir halten sie kurz, weil unsere Praxis einfach ist.",
+      termsTitle: "Nutzungsbedingungen",
+      termsIntro:
+        "Diese Bedingungen gelten für die Nutzung dieser Website. Bezahlte Aufträge unterliegen einem separaten Master Services Agreement und Statement of Work.",
+      privacy: [
+        { heading: "Was wir erheben", body: "Wenn Sie uns kontaktieren, erhalten wir Namen, E-Mail-Adresse und alles, was Sie zusätzlich schreiben — etwa Firmenname und Projektbeschreibung. Die Website erfasst außerdem aggregierte Verkehrsdaten (besuchte Seiten, ungefähre Region, Gerätetyp), damit die Seite schnell und nützlich bleibt." },
+        { heading: "Wofür wir sie nutzen", body: "Wir nutzen Ihre Angaben, um auf Ihre Anfrage zu antworten, mögliche Arbeit zu scopen und zu diesem Gespräch nachzufassen. Wir verkaufen Ihre Daten nicht und setzen Sie nicht ohne Nachfrage auf eine Marketingliste." },
+        { heading: "Wer sie sieht", body: "Zugriff haben nur Crystal-Techify-Teammitglieder, die Ihnen antworten. Für E-Mail und Hosting nutzen wir seriöse Dienstleister; sie verarbeiten Daten in unserem Auftrag und nicht für eigene Zwecke." },
+        { heading: "Wie lange wir sie behalten", body: "Anfragen behalten wir so lange, wie es für die Bearbeitung und gesetzliche Pflichten nötig ist, und löschen sie danach. Sie können uns jederzeit um Löschung bitten." },
+        { heading: "Ihre Wahl", body: "Schreiben Sie an {email}, um Auskunft, Korrektur oder Löschung zu verlangen oder weiteren Kontakt abzulehnen. Wir antworten innerhalb von 30 Tagen." },
+        { heading: "Sicherheit", body: "Crystal Techify unterhält ein an ISO/IEC 27001 ausgerichtetes Informationssicherheitsprogramm zu Zugriffskontrolle, Verschlüsselung in Transit und Schulung. Kein System ist perfekt, aber wir nehmen den Schutz von Kundendaten ernst." },
+      ],
+      terms: [
+        { heading: "Nutzung der Website", body: "Sie dürfen diese Website lesen und uns zu Ihrem Projekt kontaktieren. Bitte versuchen Sie nicht, die Seite zu stören, sie massenhaft auszulesen oder rechtswidrige Inhalte zu senden." },
+        { heading: "Anfragen sind kein Vertrag", body: "Das Kontaktformular oder eine E-Mail begründet kein Mandat. Arbeit beginnt erst, wenn Crystal Techify und der Kunde eine schriftliche Vereinbarung zu Umfang, Honorar, Zeitplan und Eigentum unterzeichnen." },
+        { heading: "Inhalte und geistiges Eigentum", body: "Text, Design, Logo und Grafiken gehören Crystal Techify, sofern nicht anders angegeben. Fallstudien beschreiben Arbeit für namentlich genannte Kunden mit deren Erlaubnis. Kommerzielle Nutzung der Inhalte ohne Zustimmung ist nicht gestattet." },
+        { heading: "Keine Gewähr", body: "Diese Website wird „wie besehen“ bereitgestellt. Wir bemühen uns um Aktualität, garantieren aber keine Vollständigkeit oder Fehlerfreiheit. Kennzahlen gelten zum jeweiligen Zeitpunkt." },
+        { heading: "Haftungsbeschränkung", body: "Soweit gesetzlich zulässig haftet Crystal Techify nicht für indirekte oder Folgeschäden aus der Nutzung dieser Website." },
+        { heading: "Anwendbares Recht", body: "Es gilt das Recht des US-Bundesstaates Ohio. Streitigkeiten zu dieser Website werden dort entschieden." },
+        { heading: "Kontakt", body: "Fragen zu diesen Bedingungen? E-Mail an {email}." },
+      ],
+    },
+    companyAbout:
+      "Crystal Techify ist ein Technologieunternehmen mit Sitz in Dublin, Ohio, mit klarem Fokus auf künstliche Intelligenz und fortschrittliche Software. Wir verwandeln komplexe Herausforderungen in intelligente, datengetriebene Produkte, mit denen Unternehmen innovieren, smarter arbeiten und schneller skalieren.",
+    companyTagline: "KI-native Software, die ausgeliefert wird.",
+  },
+};

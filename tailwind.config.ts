@@ -72,6 +72,18 @@ const config: Config = {
           "90%": { opacity: "0.5" },
           "100%": { transform: "translateY(120%)", opacity: "0" },
         },
+        kenburns: {
+          "0%": { transform: "scale(1.04)" },
+          "100%": { transform: "scale(1.08)" },
+        },
+        "scroll-cue": {
+          "0%, 100%": { transform: "translateY(0)", opacity: "1" },
+          "50%": { transform: "translateY(7px)", opacity: "0.35" },
+        },
+        "line-grow": {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
       },
       animation: {
         marquee: "marquee 32s linear infinite",
@@ -82,6 +94,9 @@ const config: Config = {
         "spin-slow": "spin-slow 26s linear infinite",
         "orb-drift": "orb-drift 14s ease-in-out infinite",
         "scan-line": "scan-line 8s ease-in-out infinite",
+        kenburns: "kenburns 40s linear infinite alternate",
+        "scroll-cue": "scroll-cue 1.8s ease-in-out infinite",
+        "line-grow": "line-grow 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
     },
   },

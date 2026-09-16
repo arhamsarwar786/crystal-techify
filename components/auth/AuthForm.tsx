@@ -5,11 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { PageShell } from "@/components/layout/PageShell";
 import { fetchRetry } from "@/lib/fetch-retry";
-import {
-  type FieldErrors,
-  validateLogin,
-  validateSignup,
-} from "@/lib/auth-validate";
+import { validateLogin, validateSignup, type FieldErrors } from "@/lib/auth-validate";
+import { useLocale } from "@/lib/i18n";
 
 const inputClass =
   "mt-1.5 w-full rounded-xl border bg-ink/[0.04] px-3 py-3 outline-none focus:border-brand-orange/60";
@@ -18,10 +15,22 @@ function fieldClass(invalid?: string) {
   return `${inputClass} ${invalid ? "border-brand-red/50" : "border-ink/20"}`;
 }
 
-export function AuthForm({ mode }: { mode: "login" | "signup" }) {
+export function AuthForm({
+  mode,
+  audience = "user",
+  withShell = true,
+}: {
+  mode: "login" | "signup";
+  audience?: "user" | "admin";
+  withShell?: boolean;
+}) {
+  const { t } = useLocale();
+  const err = (code?: string) =>
+    (code && t.auth.errors[code]) || code || "";
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get("next") || "/careers";
+  const next =
+    params.get("next") || (audience === "admin" ? "/admin" : "/careers");
   const [error, setError] = useState("");
   const [fields, setFields] = useState<FieldErrors>({});
   const [pending, setPending] = useState(false);
@@ -43,7 +52,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       mode === "signup" ? validateSignup(payload) : validateLogin(payload);
     if (!checked.ok) {
       setFields(checked.fields);
-      setError(checked.error);
+      setError(err(checked.error));
       return;
     }
 
@@ -58,29 +67,34 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       data = (await res.json()) as { error?: string; fields?: FieldErrors };
     } catch {
       setPending(false);
-      setError("The server could not be reached. Wait a few seconds and try again.");
+      setError(t.auth.server);
       return;
     }
     setPending(false);
     if (!res.ok) {
       setFields(data.fields ?? {});
-      setError(data.error || "Something went wrong");
+      setError(err(data.error) || t.auth.generic);
       return;
     }
     router.push(next);
     router.refresh();
   }
 
-  return (
-    <PageShell expertCta={false}>
+  const form = (
       <section className="section-shell mx-auto max-w-md pb-24 pt-36">
         <h1 className="text-3xl">
-          {mode === "login" ? "Log in" : "Create an account"}
+          {mode === "login"
+            ? audience === "admin"
+              ? t.auth.adminLogin
+              : t.auth.login
+            : t.auth.signup}
         </h1>
         <p className="mt-2 text-sm leading-relaxed text-ink/75">
           {mode === "login"
-            ? "Sign in to apply for open roles."
-            : "Sign up to submit your CV. We will verify your name, email, and password before creating the account."}
+            ? audience === "admin"
+              ? t.auth.adminBody
+              : t.auth.loginBody
+            : t.auth.signupBody}
         </p>
         <form
           onSubmit={(e) => void onSubmit(e)}
@@ -89,7 +103,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         >
           {mode === "signup" && (
             <label className="block text-sm font-medium text-ink">
-              Full name
+              {t.auth.fullName}
               <input
                 name="name"
                 required
@@ -99,13 +113,13 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
               />
               {fields.name && (
                 <span className="mt-1 block text-sm font-normal text-brand-red">
-                  {fields.name}
+                {err(fields.name)}
                 </span>
               )}
             </label>
           )}
           <label className="block text-sm font-medium text-ink">
-            Email
+            {t.auth.email}
             <input
               name="email"
               type="email"
@@ -116,13 +130,13 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
             />
             {fields.email && (
               <span className="mt-1 block text-sm font-normal text-brand-red">
-                {fields.email}
+                {err(fields.email)}
               </span>
             )}
           </label>
           {mode === "signup" && (
             <label className="block text-sm font-medium text-ink">
-              Confirm email
+              {t.auth.confirmEmail}
               <input
                 name="emailConfirm"
                 type="email"
@@ -133,13 +147,13 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
               />
               {fields.emailConfirm && (
                 <span className="mt-1 block text-sm font-normal text-brand-red">
-                  {fields.emailConfirm}
+                  {err(fields.emailConfirm)}
                 </span>
               )}
             </label>
           )}
           <label className="block text-sm font-medium text-ink">
-            Password
+            {t.auth.password}
             <input
               name="password"
               type="password"
@@ -151,18 +165,18 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
             />
             {mode === "signup" && (
               <span className="mt-1 block text-xs font-normal text-ink/60">
-                At least 8 characters, including a letter and a number.
+                {t.auth.passwordHint}
               </span>
             )}
             {fields.password && (
               <span className="mt-1 block text-sm font-normal text-brand-red">
-                {fields.password}
+                {err(fields.password)}
               </span>
             )}
           </label>
           {mode === "signup" && (
             <label className="block text-sm font-medium text-ink">
-              Confirm password
+              {t.auth.confirmPassword}
               <input
                 name="passwordConfirm"
                 type="password"
@@ -174,7 +188,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
               />
               {fields.passwordConfirm && (
                 <span className="mt-1 block text-sm font-normal text-brand-red">
-                  {fields.passwordConfirm}
+                  {err(fields.passwordConfirm)}
                 </span>
               )}
             </label>
@@ -189,33 +203,41 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
             disabled={pending}
             className="w-full rounded-full bg-brand-orange py-3 font-sans text-sm font-semibold text-white disabled:opacity-60"
           >
-            {pending ? "Please wait…" : mode === "login" ? "Log in" : "Create account"}
+            {pending
+              ? t.auth.wait
+              : mode === "login"
+                ? t.auth.logIn
+                : t.auth.createAccount}
           </button>
         </form>
+        {audience === "user" ? (
         <p className="mt-6 text-sm text-ink/70">
           {mode === "login" ? (
             <>
-              No account?{" "}
+              {t.auth.noAccount}{" "}
               <Link
                 className="text-brand-orange"
                 href={`/signup?next=${encodeURIComponent(next)}`}
               >
-                Sign up
+                {t.auth.signUp}
               </Link>
             </>
           ) : (
             <>
-              Already registered?{" "}
+              {t.auth.already}{" "}
               <Link
                 className="text-brand-orange"
                 href={`/login?next=${encodeURIComponent(next)}`}
               >
-                Log in
+                {t.auth.logIn}
               </Link>
             </>
           )}
         </p>
+        ) : null}
       </section>
-    </PageShell>
   );
+
+  if (!withShell) return form;
+  return <PageShell expertCta={false}>{form}</PageShell>;
 }

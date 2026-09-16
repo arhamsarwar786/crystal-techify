@@ -5,19 +5,21 @@ import { useMemo, useState } from "react";
 import { PORTFOLIO_CATEGORIES, PORTFOLIO_ITEMS } from "@/lib/data";
 import { CaseCard } from "@/components/sections/CaseCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useLocale } from "@/lib/i18n";
+import { locCase } from "@/lib/i18n/localize";
 
 export function Portfolio() {
+  const { t } = useLocale();
   const [active, setActive] = useState<(typeof PORTFOLIO_CATEGORIES)[number]>(
     "All",
   );
 
-  const filtered = useMemo(
-    () =>
-      active === "All"
-        ? PORTFOLIO_ITEMS
-        : PORTFOLIO_ITEMS.filter((p) => p.category === active),
-    [active],
-  );
+  const filtered = useMemo(() => {
+    const items = PORTFOLIO_ITEMS.map((p) => locCase(t, p));
+    return active === "All"
+      ? items
+      : items.filter((p) => p.category === active);
+  }, [active, t]);
 
   return (
     <section
@@ -26,8 +28,8 @@ export function Portfolio() {
     >
       <div className="section-shell relative">
         <SectionHeading
-          title="Be the next success story"
-          description="Case studies from mobility, legal, real estate, transit, and architecture — shipped with small specialist teams."
+          title={t.cases.title}
+          description={t.cases.description}
         />
 
         <div className="mt-8 flex flex-wrap gap-2 sm:mt-10">
@@ -49,23 +51,26 @@ export function Portfolio() {
                   transition={{ type: "spring", stiffness: 380, damping: 32 }}
                 />
               )}
-              <span className="relative z-10">{cat}</span>
+              <span className="relative z-10">
+                {t.categories[cat] ?? cat}
+              </span>
             </button>
           ))}
         </div>
 
         <motion.div layout className="mt-8 grid gap-4 sm:mt-10 md:grid-cols-2">
           <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
+            {filtered.map((project, index) => (
               <motion.div
                 key={project.slug}
                 layout
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 36 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2, margin: "0px 0px -8% 0px" }}
+                exit={{ opacity: 0, y: 16 }}
+                transition={{ duration: 0.65, delay: (index % 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
               >
-                <CaseCard {...project} />
+                <CaseCard {...project} index={index} />
               </motion.div>
             ))}
           </AnimatePresence>

@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { COMPANY } from "@/lib/data";
+import { fmt, useLocale } from "@/lib/i18n";
 
 const PROJECT_TYPES = [
   "Artificial Intelligence",
@@ -61,6 +62,8 @@ interface Composed {
 }
 
 export function Contact({ detailHref }: { detailHref?: string }) {
+  const { t } = useLocale();
+  const projectTypes = t.contact.projectTypes;
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>(
     {},
@@ -104,11 +107,11 @@ export function Contact({ detailHref }: { detailHref?: string }) {
 
   const validate = () => {
     const next: Partial<Record<keyof FormState, string>> = {};
-    if (!form.name.trim()) next.name = "Please add your name.";
+    if (!form.name.trim()) next.name = t.contact.errName;
     if (!EMAIL_RE.test(form.email.trim()))
-      next.email = "Enter a valid email address.";
+      next.email = t.contact.errEmail;
     if (form.message.trim().length < 10)
-      next.message = "A sentence or two about the project helps.";
+      next.message = t.contact.errMessage;
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -211,9 +214,10 @@ export function Contact({ detailHref }: { detailHref?: string }) {
     >
       <div className="section-shell relative">
         <SectionHeading
-          title="Get started"
-          description="Let’s innovate together. A real engineer reads every message."
+          title={t.contact.title}
+          description={t.contact.description}
           detailHref={detailHref}
+          detailLabel={t.common.exploreMore}
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-12">
@@ -222,12 +226,10 @@ export function Contact({ detailHref }: { detailHref?: string }) {
             <div className="card-on-canvas">
               <span className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-3 py-1.5 text-xs font-medium text-ink/80">
                 <Clock className="h-3.5 w-3.5 text-brand-orange" />
-                Free · 90 minutes
+                {t.common.free90}
               </span>
               <p className="mt-4 text-sm leading-relaxed text-ink/80">
-                Book a working session with our principal engineers. No slide
-                deck, no obligation — just a straight read on where your platform
-                stands and what we&apos;d do next.
+                {t.contact.sessionBody}
               </p>
             </div>
 
@@ -242,7 +244,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   </span>
                   <span>
                     <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
-                      Email
+                      {t.contact.email}
                     </span>
                     <span className="block text-sm font-medium text-ink">
                       {COMPANY.email}
@@ -260,7 +262,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   </span>
                   <span>
                     <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
-                      Call
+                      {t.contact.call}
                     </span>
                     <span className="block text-sm font-medium text-ink">
                       {COMPANY.phone}
@@ -273,9 +275,9 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   <MapPin className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
-                    Where we are
-                  </span>
+                    <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
+                      {t.contact.where}
+                    </span>
                   <span className="block text-sm font-medium text-ink">
                     {COMPANY.location}
                   </span>
@@ -297,7 +299,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                     <Check className="h-7 w-7" />
                   </span>
                   <h3 className="mt-5 text-xl font-semibold text-ink">
-                    Message sent — thank you
+                    {t.contact.successTitle}
                   </h3>
                   <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink/60">
                     It&apos;s in our inbox. A real engineer will read it and get
@@ -441,7 +443,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                       What do you need?
                     </span>
                     <div className="flex flex-wrap gap-2">
-                      {PROJECT_TYPES.map((type) => {
+                      {projectTypes.map((type) => {
                         const isActive = form.projectType === type;
                         return (
                           <button

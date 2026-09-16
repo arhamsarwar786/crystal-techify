@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export default function AdminPage() {
   if (!requireAdmin()) {
-    redirect("/login?next=/admin");
+    redirect("/admin/login");
   }
   return <AdminDashboard />;
 }

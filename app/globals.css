@@ -200,14 +200,77 @@
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
-  /* Gray tiles on white bands (services). */
-  .card-on-canvas {
-    @apply rounded-2xl bg-[#F3F4F6] p-6 transition-colors hover:bg-[#ECEDEF] dark:bg-white/[0.06] dark:hover:bg-white/[0.09] sm:p-7;
+  /* Hairline tiles — white canvas and muted bands share the same language. */
+  .card-on-canvas,
+  .card-on-muted {
+    @apply relative overflow-hidden rounded-2xl border border-ink/[0.08] bg-white p-6 transition-[transform,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:border-brand-orange/40 hover:shadow-[0_24px_60px_-32px_rgba(255,107,26,0.45)] dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-brand-orange/40 sm:p-7;
   }
 
-  /* White tiles on gray bands (case studies). */
-  .card-on-muted {
-    @apply rounded-2xl bg-white p-6 transition-colors hover:bg-[#FAFAFA] dark:bg-white/[0.06] dark:hover:bg-white/[0.09] sm:p-7;
+  .card-dark {
+    @apply relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] p-6 text-white transition-[transform,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:border-brand-orange/50 hover:shadow-[0_24px_60px_-28px_rgba(255,107,26,0.55)] sm:p-7;
+  }
+
+  .card-on-canvas::after,
+  .card-on-muted::after,
+  .card-dark::after {
+    content: "";
+    position: absolute;
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 0;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: rgb(var(--brand));
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2;
+  }
+
+  .card-on-canvas:hover::after,
+  .card-on-muted:hover::after,
+  .card-dark:hover::after {
+    transform: scaleX(1);
+  }
+
+  .fx-spot {
+    --spot-x: 50%;
+    --spot-y: 0%;
+  }
+
+  .fx-spot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 0;
+    background: radial-gradient(
+      420px circle at var(--spot-x) var(--spot-y),
+      rgb(255 107 26 / 0.16),
+      transparent 55%
+    );
+    transition: opacity 0.45s ease;
+  }
+
+  .card-dark.fx-spot::before {
+    background: radial-gradient(
+      420px circle at var(--spot-x) var(--spot-y),
+      rgb(255 107 26 / 0.28),
+      transparent 55%
+    );
+  }
+
+  .fx-spot:hover::before {
+    opacity: 1;
+  }
+
+  .icon-chip {
+    @apply grid h-11 w-11 place-items-center rounded-xl border border-ink/10 text-brand-orange transition-colors duration-500 group-hover:border-brand-orange group-hover:bg-brand-orange group-hover:text-white dark:border-white/15;
+  }
+
+  .card-dark .icon-chip {
+    @apply border-white/15 text-brand-orange group-hover:border-brand-orange group-hover:bg-brand-orange group-hover:text-white;
   }
 
   .section-y {
@@ -240,6 +303,113 @@
       #000 88%,
       transparent
     );
+  }
+
+  .typewriter-cursor {
+    animation: typewriter-cursor 1s ease-in-out infinite;
+  }
+
+  .heading-accent {
+    display: block;
+    width: 2.75rem;
+    height: 2px;
+    margin-top: 0.85rem;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: rgb(var(--brand));
+  }
+
+  [data-shown="true"] .heading-accent {
+    animation: heading-accent 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .fx-tech-grid {
+    background-image:
+      linear-gradient(to right, rgb(var(--ink) / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--ink) / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 50% 40%, #000 18%, transparent 78%);
+    animation: fx-grid-drift 28s linear infinite;
+  }
+
+  .fx-tech-grid-dark {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 50% 40%, #000 22%, transparent 78%);
+    animation: fx-grid-drift 28s linear infinite;
+  }
+
+  .fx-scan {
+    position: absolute;
+    inset-inline: 0;
+    height: 28%;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(255 107 26 / 0.08),
+      transparent
+    );
+  }
+
+  .index-ghost {
+    pointer-events: none;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.35rem;
+    font-family: var(--font-sans), Poppins, sans-serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    color: rgb(var(--ink) / 0.06);
+    transition: color 0.45s ease;
+  }
+
+  .group:hover .index-ghost {
+    color: rgb(255 107 26 / 0.14);
+  }
+
+  .card-dark .index-ghost {
+    color: rgba(255, 255, 255, 0.06);
+  }
+
+  .card-dark.group:hover .index-ghost,
+  .group:hover .card-dark .index-ghost {
+    color: rgb(255 107 26 / 0.22);
+  }
+}
+
+@keyframes typewriter-cursor {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes heading-accent {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fx-grid-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 56px 56px;
   }
 }
 

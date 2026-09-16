@@ -79,10 +79,11 @@ import type {
 export const COMPANY = {
   name: "Crystal Techify",
   tagline:
-    "Empowering businesses to weave the future of software, seamlessly together.",
+    "AI-native software that ships.",
   about:
     "Crystal Techify is a premier technology company based in Dublin, Ohio, with a strong focus on Artificial Intelligence and advanced software solutions. We specialize in turning complex challenges into intelligent, data-driven digital products that help businesses innovate, operate smarter, and scale faster.",
   location: "United States",
+  address: "Dublin, Ohio, United States",
   email: "info@crystaltechify.com",
   phone: "+1 (614) 714-6688",
   phoneHref: "tel:+16147146688",
@@ -110,15 +111,9 @@ export const NAV_GROUPS: NavGroup[] = [
     children: [],
   },
   {
-    label: "Technologies",
-    href: "/technologies",
-    children: [
-      { label: "AI / Machine Learning", href: "/services/artificial-intelligence" },
-      { label: "Web & SaaS", href: "/services/saas" },
-      { label: "Mobile", href: "/services/mobile-development" },
-      { label: "Cloud", href: "/services/saas" },
-      { label: "Web3", href: "/services/web3-development" },
-    ],
+    label: "Case Studies",
+    href: "/case-studies",
+    children: [],
   },
   {
     label: "Customers",
@@ -134,15 +129,12 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "Look Inside",
-    href: "/case-studies",
-    children: [
-      { label: "Case Studies", href: "/case-studies" },
-      { label: "Careers", href: "/careers" },
-    ],
+    label: "Careers",
+    href: "/careers",
+    children: [],
   },
   {
-    label: "About",
+    label: "About Us",
     href: "/about",
     children: [
       { label: "Company", href: "/about" },
@@ -151,7 +143,7 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "Contact",
+    label: "Contact Us",
     href: "/contact",
     children: [],
   },
@@ -183,25 +175,25 @@ export const PARTNERSHIPS = [
   },
   {
     icon: Layers,
-    title: "500+ projects delivered",
+    title: "100+ projects delivered",
     body: "Product, AI, and augmentation work shipped.",
   },
   {
     icon: MapPin,
     title: "US-based delivery",
-    body: "One office in Dublin, Ohio.",
+    body: "Engineering from Dublin, Ohio.",
   },
 ] as const;
 
 export const TRUST_METRICS: TrustMetric[] = [
   {
     icon: Rocket,
-    value: "500+",
+    value: "100+",
     label: "Projects completed in the United States",
   },
   {
     icon: Users,
-    value: "500+",
+    value: "50+",
     label: "Happy clients",
   },
   {
@@ -211,8 +203,8 @@ export const TRUST_METRICS: TrustMetric[] = [
   },
   {
     icon: Globe2,
-    value: "01",
-    label: "Location — United States",
+    value: "5+",
+    label: "Years of US delivery",
   },
 ];
 
@@ -242,7 +234,7 @@ export const JOURNEY: JourneyMilestone[] = [
     icon: Lightbulb,
     title: "United States delivery",
     description:
-      "Founded in 2021, providing development services across the United States, with over 500 successful projects delivered.",
+      "Founded in 2021, providing development services across the United States, with 100+ successful projects delivered.",
   },
   {
     icon: Globe2,
@@ -260,7 +252,7 @@ export const JOURNEY: JourneyMilestone[] = [
     icon: Sparkles,
     title: "Innovative Transition Strategy",
     description:
-      "With over 500 successful projects, Crystal Techify continues to be a driving force in creating cutting-edge digital solutions.",
+      "With 100+ successful projects, Crystal Techify continues to be a driving force in creating cutting-edge digital solutions.",
   },
 ];
 
@@ -575,6 +567,32 @@ export const INDUSTRIES: Industry[] = [
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
+    slug: "ai-automation-real-estate",
+    name: "AI and Automation for Real Estate",
+    client: "Parker & Co.",
+    category: "Real Estate",
+    summary:
+      "AI-assisted listing, lead, and valuation workflows for a real estate team.",
+    outcome:
+      "Automated repetitive listing and lead-routing work so brokers could spend more time with clients.",
+    tags: ["AI", "Automation", "Real Estate"],
+    timeline: "Specialist engagement",
+    teamSize: "Small team",
+  },
+  {
+    slug: "ai-automation-marketing",
+    name: "AI and Automation for Marketing",
+    client: "Green Light Media & Marketing",
+    category: "Marketing",
+    summary:
+      "AI-assisted campaign, content, and reporting workflows for a marketing team.",
+    outcome:
+      "Automated repetitive campaign operations so the team could focus on strategy and client work.",
+    tags: ["AI", "Automation", "Marketing"],
+    timeline: "Specialist engagement",
+    teamSize: "Small team",
+  },
+  {
     slug: "ev-last-mile-mobility",
     name: "EV-Powered Last-Mile Mobility Solutions",
     client: "SW Industries",
@@ -668,9 +686,10 @@ export const CLIENTS: ClientLogo[] = [
 
 export const PORTFOLIO_CATEGORIES = [
   "All",
+  "Real Estate",
+  "Marketing",
   "Mobility",
   "Legal",
-  "Real Estate",
   "Analytics",
   "Architecture",
 ] as const;

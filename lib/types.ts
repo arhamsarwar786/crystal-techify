@@ -51,6 +51,7 @@ export interface ProcessStep {
 }
 
 export type PortfolioCategory =
+  | "Marketing"
   | "Mobility"
   | "Legal"
   | "Real Estate"

@@ -1,37 +1,34 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, CalendarClock, ArrowUpRight, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowUpRight, ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
-import { CTAButton } from "@/components/ui/CTAButton";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { AuthStatus } from "@/components/layout/AuthStatus";
-import { openCalendly } from "@/lib/calendly";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { NAV_GROUPS } from "@/lib/data";
+import { fmt, useLocale } from "@/lib/i18n";
 import type { NavGroup } from "@/lib/types";
 
 function isGroupActive(group: NavGroup, pathname: string): boolean {
-  if (pathname === group.href || pathname.startsWith(`${group.href}/`)) {
-    return true;
-  }
-  return group.children.some(
-    (child) =>
-      pathname === child.href.split("#")[0] ||
-      pathname.startsWith(`${child.href.split("#")[0]}/`),
-  );
+  const href = group.href.split("#")[0];
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
+
+const HEADER_NAV = NAV_GROUPS.filter((group) => group.label !== "Customers");
 
 function DesktopGroup({
   group,
   pathname,
-  inverted,
+  label,
+  childLabel,
 }: {
   group: NavGroup;
   pathname: string;
-  inverted?: boolean;
+  label: string;
+  childLabel: (raw: string) => string;
 }) {
   const [open, setOpen] = useState(false);
   const active = isGroupActive(group, pathname);
@@ -48,18 +45,10 @@ function DesktopGroup({
         aria-expanded={hasMenu ? open : undefined}
         aria-haspopup={hasMenu ? "menu" : undefined}
         className={`relative inline-flex items-center gap-0.5 px-2.5 py-1.5 font-sans text-[12px] font-medium tracking-[0.02em] transition-colors lg:px-3 ${
-          inverted
-            ? active
-              ? "text-white hover:text-white"
-              : "text-white/70 hover:text-white"
-            : `hover:text-ink dark:hover:text-white ${
-                active
-                  ? "text-ink dark:text-white"
-                  : "text-ink/60 dark:text-white/70"
-              }`
+          active ? "text-white" : "text-white/70 hover:text-white"
         }`}
       >
-        {group.label}
+        {label}
         {hasMenu && (
           <ChevronDown
             className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}
@@ -88,7 +77,7 @@ function DesktopGroup({
                   href={child.href}
                   className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-ink/80 transition-colors hover:bg-ink/5 hover:text-ink dark:text-white/80 dark:hover:bg-white/10 dark:hover:text-white"
                 >
-                  {child.label}
+                  {childLabel(child.label)}
                   <ArrowUpRight className="h-3.5 w-3.5 text-ink/30 dark:text-white/30" />
                 </Link>
               ))}
@@ -102,16 +91,11 @@ function DesktopGroup({
 
 export function Header() {
   const pathname = usePathname();
+  const { t } = useLocale();
+  const labelOf = (raw: string) => t.nav[raw] ?? raw;
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -125,64 +109,59 @@ export function Header() {
     setExpanded(null);
   }, [pathname]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const closeMenu = () => setOpen(false);
-  const inverted = scrolled || open;
-  const controlClass = inverted
-    ? "border-white/20 bg-white/10 text-white hover:border-brand-orange/50"
-    : "border-ink/15 bg-ink/5 text-ink hover:border-brand-orange/50 dark:border-white/20 dark:bg-white/10 dark:text-white";
+  const controlClass =
+    "border-white/20 bg-white/10 text-white hover:border-brand-orange/50";
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="section-shell pt-3 sm:pt-4">
-        <div
-          className={`relative flex items-center gap-3 rounded-full px-2 py-1.5 transition-[background-color,border-color,box-shadow,color] duration-300 sm:px-3 sm:py-2 ${
-            inverted
-              ? "border border-white/10 bg-black text-white shadow-[0_10px_30px_-18px_rgba(0,0,0,0.7)]"
-              : "border border-transparent bg-transparent text-ink dark:text-white"
-          }`}
-        >
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ${
+        scrolled
+          ? "border-b border-white/10 bg-black/75 shadow-[0_12px_40px_-24px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+          : "border-b border-transparent bg-black"
+      }`}
+    >
+      <div className="section-shell">
+        <div className="relative flex items-center gap-3 py-3 text-white sm:py-3.5">
           <Link
             href="/"
-            aria-label="Crystal Techify home"
+            aria-label={t.common.homeAria}
             className="relative z-10 flex min-w-0 shrink-0 items-center py-0.5"
           >
-            <Logo priority inverted={inverted} />
+            <Logo priority inverted />
           </Link>
 
           <nav className="hidden min-w-0 flex-1 items-center justify-center xl:flex">
-            {NAV_GROUPS.map((group) => (
+            {HEADER_NAV.map((group) => (
               <DesktopGroup
                 key={group.label}
                 group={group}
                 pathname={pathname}
-                inverted={inverted}
+                label={labelOf(group.label)}
+                childLabel={labelOf}
               />
             ))}
           </nav>
 
-          <div className="relative z-10 ml-auto hidden shrink-0 items-center gap-1 xl:flex">
-            <AuthStatus inverted={inverted} />
-            <ThemeToggle
-              className={`h-10 w-10 rounded-full ${controlClass}`}
-            />
-            <CTAButton
-              onClick={openCalendly}
-              className="!px-4 !py-2 !text-xs"
-            >
-              <CalendarClock className="h-3.5 w-3.5" />
-              Book a Consultation
-            </CTAButton>
+          <div className="relative z-10 ml-auto hidden shrink-0 items-center gap-2 xl:flex">
+            <ThemeToggle className={`h-10 w-10 rounded-full ${controlClass}`} />
+            <LanguageSwitcher />
           </div>
 
           <div className="relative z-10 ml-auto flex items-center gap-1 xl:hidden">
-            <AuthStatus compact inverted={inverted} />
-            <ThemeToggle
-              className={`h-11 w-11 rounded-full ${controlClass}`}
-            />
+            <LanguageSwitcher />
+            <ThemeToggle className={`h-11 w-11 rounded-full ${controlClass}`} />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t.common.closeMenu : t.common.openMenu}
               aria-expanded={open}
               className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border transition-colors ${controlClass}`}
             >
@@ -199,13 +178,14 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22 }}
-            className="section-shell mt-2 xl:hidden"
+            className="border-t border-white/10 bg-black xl:hidden"
           >
-            <div className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-[1.75rem] border border-white/10 bg-black p-3 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.55)]">
+            <div className="section-shell max-h-[calc(100dvh-5rem)] overflow-y-auto py-3">
               <div className="flex flex-col gap-1">
-                {NAV_GROUPS.map((group) => {
+                {HEADER_NAV.map((group) => {
                   const active = isGroupActive(group, pathname);
                   const isOpen = expanded === group.label;
+                  const label = labelOf(group.label);
                   return (
                     <div key={group.label}>
                       <div className="flex items-center gap-1">
@@ -216,12 +196,15 @@ export function Header() {
                             active ? "text-brand-orange" : "text-white"
                           }`}
                         >
-                          {group.label}
+                          {label}
                         </Link>
                         {group.children.length > 0 && (
                           <button
                             type="button"
-                            aria-label={`${isOpen ? "Hide" : "Show"} ${group.label} links`}
+                            aria-label={fmt(
+                              isOpen ? t.common.hideLinks : t.common.showLinks,
+                              { label },
+                            )}
                             onClick={() =>
                               setExpanded(isOpen ? null : group.label)
                             }
@@ -241,7 +224,7 @@ export function Header() {
                             onClick={closeMenu}
                             className="ml-3 flex min-h-11 items-center justify-between rounded-xl px-4 py-2 text-sm text-white/70 hover:text-white"
                           >
-                            {child.label}
+                            {labelOf(child.label)}
                             <ArrowUpRight className="h-3.5 w-3.5" />
                           </Link>
                         ))}
@@ -249,16 +232,6 @@ export function Header() {
                   );
                 })}
               </div>
-              <CTAButton
-                className="mt-2 w-full"
-                onClick={() => {
-                  closeMenu();
-                  openCalendly();
-                }}
-              >
-                <CalendarClock className="h-4 w-4" />
-                Book a Consultation
-              </CTAButton>
             </div>
           </motion.div>
         )}

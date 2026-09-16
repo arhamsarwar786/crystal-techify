@@ -3,6 +3,7 @@ import { Michroma, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { LocaleProvider } from "@/lib/i18n";
 import { themeScript } from "@/components/theme/theme-script";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { COMPANY } from "@/lib/data";
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | Crystal Techify",
   },
   description:
-    "Premier technology company in Dublin, Ohio. AI, SaaS, mobile, Web3, e-commerce, and staff augmentation. 500+ projects completed across the United States.",
+    "Premier technology company in Dublin, Ohio. AI, SaaS, mobile, Web3, e-commerce, and staff augmentation. 100+ projects completed across the United States.",
   keywords: [
     "Artificial Intelligence",
     "SaaS",
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Crystal Techify — AI & Advanced Software Solutions",
     description:
-      "Empowering businesses to weave the future of software, seamlessly together.",
+      "AI-native software that ships.",
     type: "website",
     locale: "en_US",
     siteName: COMPANY.name,
@@ -86,8 +87,10 @@ export default function RootLayout({
           }}
         />
         <ThemeProvider>
-          <SmoothScroll />
-          {children}
+          <LocaleProvider>
+            <SmoothScroll />
+            {children}
+          </LocaleProvider>
         </ThemeProvider>
         <Script
           src="https://assets.calendly.com/assets/external/widget.js"

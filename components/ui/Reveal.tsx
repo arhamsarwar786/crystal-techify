@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
+import { EASE } from "@/lib/motion";
 import { useReveal } from "@/lib/useReveal";
 
 interface RevealProps {
@@ -14,30 +15,30 @@ interface RevealProps {
   id?: string;
 }
 
-const EASE: [number, number, number, number] = [0.21, 0.47, 0.32, 0.98];
-
 export const revealItem: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 36, scale: 0.98 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: EASE },
+    scale: 1,
+    transition: { duration: 0.8, ease: EASE },
   },
 };
 
 const single = (delay: number, y: number): Variants => ({
-  hidden: { opacity: 0, y },
+  hidden: { opacity: 0, y, scale: 0.985 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay, ease: EASE },
+    scale: 1,
+    transition: { duration: 0.85, delay, ease: EASE },
   },
 });
 
 const group = (delay: number): Variants => ({
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.08, delayChildren: delay },
+    transition: { staggerChildren: 0.12, delayChildren: delay },
   },
 });
 
@@ -45,11 +46,12 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  y = 24,
+  y = 28,
   stagger = false,
   id,
 }: RevealProps) {
-  const { ref } = useReveal();
+  const { ref, shown } = useReveal();
+  const reduce = useReducedMotion();
 
   return (
     <motion.div
@@ -58,7 +60,8 @@ export function Reveal({
       className={className}
       variants={stagger ? group(delay) : single(delay, y)}
       initial={false}
-      animate="visible"
+      animate={reduce || shown ? "visible" : "hidden"}
+      data-shown={reduce || shown ? "true" : undefined}
     >
       {children}
     </motion.div>
