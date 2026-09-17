@@ -143,12 +143,8 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: "Company", href: "/about" },
       { label: "Why us", href: "/about#advantages" },
       { label: "How we work", href: "/process" },
+      { label: "Contact Us", href: "/contact" },
     ],
-  },
-  {
-    label: "Contact Us",
-    href: "/contact",
-    children: [],
   },
 ];
 

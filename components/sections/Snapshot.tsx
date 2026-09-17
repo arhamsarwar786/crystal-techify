@@ -1,77 +1,124 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import { ArrowUpRight, Calendar, Layers, ShieldCheck, Users } from "lucide-react";
 import { BandDecor } from "@/components/ui/BandDecor";
 import { CountUp } from "@/components/ui/CountUp";
-import { Reveal } from "@/components/ui/Reveal";
-import { EASE } from "@/lib/motion";
+import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { useLocale } from "@/lib/i18n";
+import { setSpot } from "@/lib/spot";
+
+const STAT_ICONS = [Calendar, Layers, Users, ShieldCheck] as const;
+
+function splitTitle(title: string): [string, string] | [string] {
+  const at = title.toLowerCase().lastIndexOf(" to ");
+  if (at < 0) return [title];
+  return [title.slice(0, at), title.slice(at + 1)];
+}
 
 export function Snapshot() {
   const { t } = useLocale();
-  const statsRef = useRef<HTMLDListElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
   const shown = useInView(statsRef, { once: true, margin: "-80px", amount: 0.35 });
+  const titleParts = splitTitle(t.snapshot.title);
 
   return (
     <section
       id="snapshot"
       aria-labelledby="snapshot-heading"
-      className="relative scroll-mt-24 overflow-hidden bg-[#0a0a0a] py-20 text-white sm:py-24 lg:py-28"
+      className="band-muted relative scroll-mt-24 overflow-hidden py-20 sm:py-24 lg:py-28"
     >
-      <BandDecor tone="dark" />
+      <BandDecor />
 
       <div className="section-shell relative">
-        <Reveal className="max-w-3xl">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-orange">
-            02 · {t.snapshot.kicker}
-          </p>
-          <h2
-            id="snapshot-heading"
-            className="mt-3 font-sans text-[1.85rem] font-semibold tracking-tight text-white sm:text-[2.35rem]"
-          >
-            {t.snapshot.title}
-          </h2>
-          <span aria-hidden className="heading-accent" />
-          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-[15px]">
-            {t.snapshot.description}
-          </p>
-        </Reveal>
-
-        <dl
-          ref={statsRef}
-          className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 lg:grid-cols-4"
-        >
-          {t.snapshot.stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.7, delay: index * 0.1, ease: EASE }}
-              className="group bg-[#0a0a0a] px-5 py-9 text-left transition-colors duration-500 hover:bg-white/[0.04] sm:px-7 sm:py-11"
+        <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-7">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.28em] text-brand-orange">
+              02 · {t.snapshot.kicker}
+            </p>
+            <h2
+              id="snapshot-heading"
+              className="mt-3 font-sans text-[1.9rem] font-semibold tracking-[-0.03em] text-ink sm:text-[2.55rem] sm:leading-[1.12]"
             >
-              <dt className="font-sans text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
-                {stat.animate ? (
-                  <CountUp value={stat.value} start={shown} />
-                ) : (
-                  stat.value
-                )}
-              </dt>
-              <dd className="mt-3 max-w-[10rem] text-xs leading-snug text-white/45 sm:text-sm">
-                {stat.label}
-              </dd>
-            </motion.div>
-          ))}
-        </dl>
+              {titleParts.length === 2 ? (
+                <>
+                  <span className="block">{titleParts[0]}</span>
+                  <span className="mt-1 block text-ink/45">{titleParts[1]}</span>
+                </>
+              ) : (
+                titleParts[0]
+              )}
+            </h2>
+            <span aria-hidden className="heading-accent" />
+          </Reveal>
 
-        <Reveal delay={0.1} className="mt-12 max-w-3xl sm:mt-14">
-          <p className="text-sm leading-relaxed text-white/60 sm:text-[15px]">
-            {t.snapshot.commitment}
-          </p>
-          <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-[15px]">
-            {t.snapshot.closing}
-          </p>
+          <Reveal delay={0.08} className="lg:col-span-5">
+            <p className="text-[15px] leading-[1.75] text-ink/65">
+              {t.snapshot.description}
+            </p>
+            <Link
+              href="/about"
+              className="group mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-orange transition-colors hover:text-ink"
+            >
+              {t.common.exploreMore}
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+          </Reveal>
+        </div>
+
+        <div ref={statsRef}>
+          <Reveal
+            stagger
+            className="mt-14 grid gap-4 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4"
+          >
+            {t.snapshot.stats.map((stat, index) => {
+              const Icon = STAT_ICONS[index] ?? Layers;
+              const n = String(index + 1).padStart(2, "0");
+              return (
+                <motion.div
+                  key={stat.label}
+                  variants={revealItem}
+                  onMouseMove={setSpot}
+                  className="card-on-muted fx-spot"
+                >
+                  <span aria-hidden className="index-ghost">
+                    {n}
+                  </span>
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="icon-chip">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <span className="font-sans text-[11px] font-semibold tracking-[0.18em] text-ink/30">
+                      {n}
+                    </span>
+                  </div>
+                  <p className="mt-8 font-sans text-[2.35rem] font-semibold tracking-tight text-ink sm:text-[2.75rem]">
+                    {stat.animate ? (
+                      <CountUp value={stat.value} start={shown} />
+                    ) : (
+                      stat.value
+                    )}
+                  </p>
+                  <p className="mt-3 max-w-[11rem] text-sm leading-snug text-ink/55">
+                    {stat.label}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.12} className="mt-14 max-w-3xl sm:mt-16">
+          <blockquote className="border-l border-brand-orange pl-6 sm:pl-8">
+            <p className="text-[15px] leading-[1.8] text-ink/70">
+              {t.snapshot.commitment}
+            </p>
+            <p className="mt-4 text-[15px] leading-[1.8] text-ink/70">
+              {t.snapshot.closing}
+            </p>
+          </blockquote>
         </Reveal>
       </div>
     </section>

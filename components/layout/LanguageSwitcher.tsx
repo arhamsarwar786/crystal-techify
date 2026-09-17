@@ -65,7 +65,7 @@ export function LanguageSwitcher() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.16 }}
-            className="absolute right-0 top-full z-50 mt-3 w-60 rounded-[1.15rem] border border-ink/[0.08] bg-white/95 p-1.5 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.4)] backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/95"
+            className="absolute right-0 top-full z-50 mt-3 w-60 rounded-[1.15rem] border border-white/10 bg-[#111] p-1.5 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.65)]"
           >
             {LOCALES.map((item) => {
               const active = item.code === locale;
@@ -78,11 +78,11 @@ export function LanguageSwitcher() {
                   onClick={() => select(item.code)}
                   className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left text-sm transition-colors ${
                     active
-                      ? "bg-brand-orange/10 text-brand-orange"
-                      : "text-ink/80 hover:bg-ink/5 dark:text-white/80 dark:hover:bg-white/10"
+                      ? "bg-white/10 text-brand-orange"
+                      : "text-white/75 hover:bg-white/10 hover:text-white"
                   }`}
                 >
-                  <span className="grid h-7 w-7 shrink-0 place-items-center overflow-hidden rounded-full border border-ink/10 bg-white">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center overflow-hidden rounded-full border border-white/15 bg-white">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={`/flags/${item.flag}.png`}
@@ -91,7 +91,7 @@ export function LanguageSwitcher() {
                     />
                   </span>
                   <span className="min-w-0 flex-1">{item.name}</span>
-                  <span className="text-[10px] font-semibold tracking-[0.12em] text-ink/35">
+                  <span className="text-[10px] font-semibold tracking-[0.12em] text-white/40">
                     {item.short}
                   </span>
                 </button>

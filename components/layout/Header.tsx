@@ -12,9 +12,14 @@ import { NAV_GROUPS } from "@/lib/data";
 import { fmt, useLocale } from "@/lib/i18n";
 import type { NavGroup } from "@/lib/types";
 
+function pathMatches(href: string, pathname: string): boolean {
+  const base = href.split("#")[0];
+  return pathname === base || pathname.startsWith(`${base}/`);
+}
+
 function isGroupActive(group: NavGroup, pathname: string): boolean {
-  const href = group.href.split("#")[0];
-  return pathname === href || pathname.startsWith(`${href}/`);
+  if (pathMatches(group.href, pathname)) return true;
+  return group.children.some((child) => pathMatches(child.href, pathname));
 }
 
 const HEADER_NAV = NAV_GROUPS.filter((group) => group.label !== "Customers");
@@ -70,17 +75,26 @@ function DesktopGroup({
             transition={{ duration: 0.16 }}
             className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3"
           >
-            <div className="rounded-[1.15rem] border border-ink/[0.08] bg-white/95 p-1.5 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.4)] backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/95">
-              {group.children.map((child) => (
-                <Link
-                  key={child.href + child.label}
-                  href={child.href}
-                  className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-ink/80 transition-colors hover:bg-ink/5 hover:text-ink dark:text-white/80 dark:hover:bg-white/10 dark:hover:text-white"
-                >
-                  {childLabel(child.label)}
-                  <ArrowUpRight className="h-3.5 w-3.5 text-ink/30 dark:text-white/30" />
-                </Link>
-              ))}
+            <div className="rounded-[1.15rem] border border-white/10 bg-[#111] p-1.5 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.65)]">
+              {group.children.map((child) => {
+                const isContact = child.label === "Contact Us";
+                return (
+                  <Link
+                    key={child.href + child.label}
+                    href={child.href}
+                    className={
+                      isContact
+                        ? "mt-1 flex items-center justify-center rounded-xl bg-brand-orange px-3 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-orange/90"
+                        : "flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+                    }
+                  >
+                    {childLabel(child.label)}
+                    {!isContact && (
+                      <ArrowUpRight className="h-3.5 w-3.5 text-white/35" />
+                    )}
+                  </Link>
+                );
+              })}
             </div>
           </motion.div>
         )}
@@ -122,10 +136,10 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 bg-black transition-[border-color,box-shadow] duration-500 ${
         scrolled
-          ? "border-b border-white/[0.08] bg-black/80 shadow-[0_16px_48px_-28px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
-          : "border-b border-transparent bg-black"
+          ? "border-b border-white/[0.08] shadow-[0_16px_48px_-28px_rgba(0,0,0,0.55)]"
+          : "border-b border-transparent"
       }`}
     >
       <div className="section-shell">
@@ -217,17 +231,26 @@ export function Header() {
                         )}
                       </div>
                       {isOpen &&
-                        group.children.map((child) => (
-                          <Link
-                            key={child.href + child.label}
-                            href={child.href}
-                            onClick={closeMenu}
-                            className="ml-3 flex min-h-11 items-center justify-between rounded-xl px-4 py-2 text-sm text-white/70 hover:text-white"
-                          >
-                            {labelOf(child.label)}
-                            <ArrowUpRight className="h-3.5 w-3.5" />
-                          </Link>
-                        ))}
+                        group.children.map((child) => {
+                          const isContact = child.label === "Contact Us";
+                          return (
+                            <Link
+                              key={child.href + child.label}
+                              href={child.href}
+                              onClick={closeMenu}
+                              className={
+                                isContact
+                                  ? "ml-3 mt-1 flex min-h-11 items-center justify-center rounded-xl bg-brand-orange px-4 py-2 text-sm font-semibold text-white"
+                                  : "ml-3 flex min-h-11 items-center justify-between rounded-xl px-4 py-2 text-sm text-white/70 hover:text-white"
+                              }
+                            >
+                              {labelOf(child.label)}
+                              {!isContact && (
+                                <ArrowUpRight className="h-3.5 w-3.5" />
+                              )}
+                            </Link>
+                          );
+                        })}
                     </div>
                   );
                 })}
