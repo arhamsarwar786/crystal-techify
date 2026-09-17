@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { CalendlyCTAButton } from "@/components/ui/CalendlyCTAButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { useLocale } from "@/lib/i18n";
@@ -11,16 +12,9 @@ export function ExpertCta({ index }: { index?: string }) {
   return (
     <section
       id="talk"
-      className="relative scroll-mt-24 overflow-hidden bg-[#0a0a0a] py-20 sm:py-24"
+      className="relative scroll-mt-24 overflow-hidden bg-[#0a0a0a] py-24 sm:py-28 lg:py-32"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 fx-tech-grid-dark opacity-70"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-brand-orange/20 blur-3xl"
-      />
+      <BandDecor tone="dark" />
 
       <div className="section-shell relative">
         <Reveal>

@@ -4,6 +4,7 @@ import { CLIENTS } from "@/lib/data";
 import { useLocale } from "@/lib/i18n";
 import { Marquee } from "@/components/ui/Marquee";
 import { Reveal } from "@/components/ui/Reveal";
+import { BandDecor } from "@/components/ui/BandDecor";
 
 export function Clients() {
   const { t } = useLocale();
@@ -32,6 +33,7 @@ export function Clients() {
       id="clients"
       className="band-canvas relative scroll-mt-24 overflow-hidden border-y border-ink/[0.06] py-12 sm:py-14"
     >
+      <BandDecor />
       <div className="section-shell relative">
         <Reveal>
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-orange">

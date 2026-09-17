@@ -1,18 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { MISSION_POINTS } from "@/lib/data";
 import { useLocale } from "@/lib/i18n";
+import { setSpot } from "@/lib/spot";
 
-export function About({ detailHref }: { detailHref?: string }) {
+export function About({
+  detailHref,
+  pageStart = false,
+}: {
+  detailHref?: string;
+  pageStart?: boolean;
+}) {
   const { t } = useLocale();
   return (
     <section
       id="about"
-      className="band-canvas relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      }`}
     >
+      <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
           title={t.about.title}
@@ -33,12 +44,16 @@ export function About({ detailHref }: { detailHref?: string }) {
             <motion.div
               key={point.index}
               variants={revealItem}
-              className="card-on-canvas relative overflow-hidden"
+              onMouseMove={setSpot}
+              className="card-on-canvas fx-spot"
             >
-              <span className="font-display text-3xl text-ink/15 sm:text-4xl">
+              <span aria-hidden className="index-ghost">
                 {point.index}
               </span>
-              <h3 className="mt-3 font-sans text-base font-semibold text-ink">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
+                {point.index}
+              </span>
+              <h3 className="mt-4 font-sans text-lg font-semibold tracking-tight text-ink">
                 {t.mission[i]?.title ?? point.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-ink/70">

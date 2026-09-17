@@ -6,8 +6,7 @@ import { Presence } from "@/components/sections/Presence";
 export default function AboutPage() {
   return (
     <PageShell>
-      <div className="pt-8" />
-      <About />
+      <About pageStart />
       <Presence />
       <Advantages />
     </PageShell>

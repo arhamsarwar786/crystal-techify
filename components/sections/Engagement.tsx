@@ -11,6 +11,7 @@ import { openCalendly } from "@/lib/calendly";
 import { fmt, useLocale } from "@/lib/i18n";
 import { locEngagement } from "@/lib/i18n/localize";
 import { setSpot } from "@/lib/spot";
+import { BandDecor } from "@/components/ui/BandDecor";
 
 function ModelQualifier({
   slug,
@@ -61,9 +62,11 @@ function ModelQualifier({
 export function Engagement({
   detailHref,
   home = false,
+  pageStart = false,
 }: {
   detailHref?: string;
   home?: boolean;
+  pageStart?: boolean;
 }) {
   const { t } = useLocale();
   const models = locEngagement(t).filter((m) =>
@@ -73,9 +76,12 @@ export function Engagement({
   return (
     <section
       id="solutions"
-      className="band-canvas relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      }`}
     >
-      <div className="section-shell">
+      <BandDecor />
+      <div className="section-shell relative">
         <SectionHeading
           index={home ? "06" : undefined}
           title={t.engagement.title}

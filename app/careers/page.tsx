@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageShell } from "@/components/layout/PageShell";
 import { CareersAccount } from "@/components/careers/CareersAccount";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { excerpt } from "@/lib/jobs";
 import { prisma } from "@/lib/db";
 
@@ -21,15 +22,20 @@ export default async function CareersPage() {
 
   return (
     <PageShell>
-      <section className="relative overflow-hidden pb-20 pt-32 sm:pt-40">
+      <section className="band-canvas relative overflow-hidden pb-20 pt-28 sm:pt-36">
+        <BandDecor />
         <div className="section-shell relative">
-          <p className="font-display text-[10px] uppercase tracking-[0.22em] text-brand-orange">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-orange">
             Careers
           </p>
-          <h1 className="mt-3 max-w-2xl text-3xl sm:text-4xl">
+          <h1 className="mt-3 max-w-2xl font-sans text-[1.85rem] font-semibold tracking-tight text-ink sm:text-[2.5rem]">
             Build with Crystal Techify
           </h1>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-ink/75 sm:text-base">
+          <span
+            aria-hidden
+            className="mt-4 block h-px w-9 bg-brand-orange"
+          />
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-ink/65 sm:text-[15px]">
             Open roles in AI, product engineering, and delivery. Log in to
             apply with your CV.
           </p>
@@ -50,15 +56,17 @@ export default async function CareersPage() {
               <li key={job.id}>
                 <Link
                   href={`/careers/${job.slug}`}
-                  className="card-on-canvas flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
+                  className="card-on-canvas fx-spot flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
                 >
                   <span className="min-w-0">
                     {job.department ? (
-                      <span className="block font-display text-[10px] uppercase tracking-[0.18em] text-brand-orange">
+                      <span className="block font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
                         {job.department}
                       </span>
                     ) : null}
-                    <span className="mt-1 block text-base text-ink">{job.title}</span>
+                    <span className="mt-1 block font-sans text-lg font-semibold tracking-tight text-ink">
+                      {job.title}
+                    </span>
                     <span className="mt-1 block text-sm text-ink/70">
                       {job.location} · {job.employmentType}
                       {job.salaryRange ? ` · ${job.salaryRange}` : ""}

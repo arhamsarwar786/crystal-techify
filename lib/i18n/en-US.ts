@@ -4,9 +4,9 @@ import { englishFromData } from "./from-data";
 const data = englishFromData();
 
 export const enUS: Messages = {
-  heroTitle: "AI-native software",
+  heroTitle: "AI-Native Software",
   heroWords: ["production-ready", "intelligent", "reliable", "built to last"],
-  heroBody: "Product and engineering from Dublin, Ohio.",
+  heroBody: "Intelligent by design. Production-ready by default.",
   bookDemo: "Book a Demo",
   clientsHeadline: "Technology partner to leading brands",
   clientsBody:

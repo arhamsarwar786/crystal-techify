@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { CountUp } from "@/components/ui/CountUp";
 import { Reveal } from "@/components/ui/Reveal";
 import { EASE } from "@/lib/motion";
@@ -18,15 +19,7 @@ export function Snapshot() {
       aria-labelledby="snapshot-heading"
       className="relative scroll-mt-24 overflow-hidden bg-[#0a0a0a] py-20 text-white sm:py-24 lg:py-28"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 fx-tech-grid-dark opacity-80"
-      />
-      <div aria-hidden className="fx-scan motion-safe:animate-scan-line" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-brand-orange/15 blur-3xl"
-      />
+      <BandDecor tone="dark" />
 
       <div className="section-shell relative">
         <Reveal className="max-w-3xl">
@@ -58,7 +51,7 @@ export function Snapshot() {
               transition={{ duration: 0.7, delay: index * 0.1, ease: EASE }}
               className="group bg-[#0a0a0a] px-5 py-9 text-left transition-colors duration-500 hover:bg-white/[0.04] sm:px-7 sm:py-11"
             >
-              <dt className="font-sans text-4xl font-semibold tracking-tight text-white transition-colors duration-500 group-hover:text-brand-orange sm:text-5xl lg:text-[3.25rem]">
+              <dt className="font-sans text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
                 {stat.animate ? (
                   <CountUp value={stat.value} start={shown} />
                 ) : (

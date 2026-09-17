@@ -5,8 +5,7 @@ import { Process } from "@/components/sections/Process";
 export default function ProcessPage() {
   return (
     <PageShell>
-      <div className="pt-8" />
-      <Process />
+      <Process pageStart />
       <Engagement />
     </PageShell>
   );

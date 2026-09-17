@@ -19,7 +19,7 @@ interface CTAButtonProps {
 type MagnetElement = HTMLAnchorElement | HTMLButtonElement;
 
 /** Subtle magnetic pull toward the cursor — reads as premium, not gimmicky. */
-function useMagnetic(strength = 0.28) {
+function useMagnetic(strength = 0.12) {
   const ref = useRef<MagnetElement>(null);
   const x = useSpring(useMotionValue(0), { stiffness: 220, damping: 18 });
   const y = useSpring(useMotionValue(0), { stiffness: 220, damping: 18 });
@@ -61,12 +61,12 @@ export function CTAButton({
 }: CTAButtonProps) {
   const magnet = useMagnetic();
   const base =
-    "group relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold tracking-[0.02em] transition-[background-color,box-shadow,border-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60";
+    "group relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-sans text-sm font-semibold tracking-[0.04em] transition-[background-color,border-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60";
 
   const variantClass =
     variant === "outline"
-      ? `${base} border border-ink/25 bg-transparent text-ink hover:border-brand-orange hover:text-brand-orange ${className ?? ""}`
-      : `${base} overflow-hidden bg-brand-orange text-white hover:bg-brand-orange/90 hover:shadow-glow ${className ?? ""}`;
+      ? `${base} border border-ink/20 bg-transparent text-ink hover:border-ink/50 ${className ?? ""}`
+      : `${base} overflow-hidden bg-brand-orange text-white hover:bg-brand-orange/90 ${className ?? ""}`;
 
   const content =
     variant === "outline" ? (
@@ -75,7 +75,7 @@ export function CTAButton({
       <>
         <span className="relative z-10 flex items-center gap-2">{children}</span>
         {/* sheen sweep — always a light highlight, it rides the orange gradient */}
-        <span className="absolute inset-0 -translate-x-full bg-white/25 transition-transform duration-500 group-hover:translate-x-full" />
+        <span className="absolute inset-0 -translate-x-full bg-white/15 transition-transform duration-700 group-hover:translate-x-full" />
       </>
     );
 

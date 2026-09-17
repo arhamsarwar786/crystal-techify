@@ -8,10 +8,11 @@ import {
   Mail,
   MapPin,
   Phone,
-  ShieldCheck,
   Twitter,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { Logo } from "@/components/Logo";
 import { CalendlyCTAButton } from "@/components/ui/CalendlyCTAButton";
 import { BrandBackdrop } from "@/components/ui/BrandBackdrop";
@@ -31,6 +32,36 @@ const SOCIAL_ICONS = {
   GitHub: Github,
 } as const;
 
+const FOOTER_BADGES = [
+  {
+    id: "clutch" as const,
+    href: "https://clutch.co",
+    mark: "/badges/clutch-mark.png",
+    markW: 180,
+    markH: 204,
+    title: "On Top Charts",
+    year: "2023",
+    body: "Top Blockchain Consulting Company",
+  },
+  {
+    id: "iso" as const,
+    mark: "/badges/iso-mark.png",
+    markW: 152,
+    markH: 152,
+    title: "ISO Certified",
+    year: "27001",
+    body: "ISO 27001: 2013 Certified by: RICI",
+  },
+  {
+    id: "upwork" as const,
+    href: "https://www.upwork.com",
+    mark: "/badges/upwork-mark.svg",
+    title: "Top Rated Plus",
+    year: "2023",
+    body: 'Ranked "Top Rated Plus" on Upwork',
+  },
+];
+
 const COMPANY_LINKS = [
   { label: "About Us", href: "/about" },
   { label: "Case Studies", href: "/case-studies" },
@@ -47,6 +78,50 @@ function FooterHeading({ children }: { children: string }) {
   );
 }
 
+function BadgeShield({
+  variant,
+  children,
+}: {
+  variant: "clutch" | "iso" | "upwork";
+  children: ReactNode;
+}) {
+  if (variant === "upwork") {
+    return (
+      <span className="relative grid h-[4.25rem] w-[3.85rem] shrink-0 place-items-center">
+        <span
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-b from-[#ff7b8a] to-[#d3124a] shadow-[0_8px_18px_rgba(211,18,74,0.28)]"
+          style={{
+            clipPath:
+              "polygon(50% 0, 96% 24%, 96% 76%, 50% 100%, 4% 76%, 4% 24%)",
+          }}
+        />
+        <span className="relative z-10 grid h-8 w-8 place-items-center text-white">
+          {children}
+        </span>
+      </span>
+    );
+  }
+
+  return (
+    <span className="relative grid h-[4.25rem] w-[3.85rem] shrink-0 place-items-center">
+      <span
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-b from-[#f7f7f7] to-[#d8d8d8] shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
+        style={{
+          clipPath:
+            "polygon(14% 0, 86% 0, 100% 16%, 100% 70%, 50% 100%, 0 70%, 0 16%)",
+        }}
+      />
+      <span
+        className="relative z-10 grid h-9 w-9 place-items-center overflow-hidden rounded-lg bg-white"
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
 export function Footer() {
   const { t } = useLocale();
   const labelOf = (raw: string) => t.nav[raw] ?? raw;
@@ -59,11 +134,11 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-black text-white">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-brand-orange" />
-      <div className="pointer-events-none absolute inset-0 opacity-[0.18]">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.1]">
         <BrandBackdrop />
       </div>
 
-      <div className="section-shell relative py-14 sm:py-16">
+      <div className="section-shell relative py-16 sm:py-20">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           <div className="sm:col-span-2 lg:col-span-4">
             <Logo inverted className="w-[168px]" />
@@ -80,7 +155,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${COMPANY.name} on ${s.label}`}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white/75 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-orange/50 hover:text-white"
+                    className="grid h-10 w-10 place-items-center rounded-full border border-white/12 bg-white/[0.04] text-white/70 transition-colors duration-300 hover:border-white/30 hover:text-white"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
@@ -135,7 +210,11 @@ export function Footer() {
             <ul className="mt-4 grid gap-3 text-sm text-white/75">
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
-                {COMPANY.address}
+                <address className="not-italic leading-relaxed">
+                  <span className="block">{COMPANY.street}</span>
+                  <span className="block">{COMPANY.city}</span>
+                  <span className="block">{COMPANY.country}</span>
+                </address>
               </li>
               <li>
                 <a
@@ -159,7 +238,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-5 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-5 sm:flex-row sm:items-center sm:px-7">
+        <div className="mt-14 flex flex-col items-start justify-between gap-5 rounded-[1.35rem] border border-white/[0.08] bg-white/[0.03] px-6 py-6 sm:flex-row sm:items-center sm:px-8 sm:py-7">
           <div>
             <p className="font-sans text-base font-semibold text-white">
               {t.footer.haveProduct}
@@ -170,6 +249,62 @@ export function Footer() {
             <CalendarClock className="h-4 w-4" />
             {t.common.talkToUs}
           </CalendlyCTAButton>
+        </div>
+
+        <div className="mt-10 rounded-[1.35rem] border border-white/10 bg-white px-5 py-6 sm:px-8">
+          <ul className="flex flex-col items-start justify-center gap-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8 lg:gap-12">
+            {FOOTER_BADGES.map((badge) => {
+              const mark =
+                badge.id === "upwork" ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={badge.mark}
+                    alt=""
+                    className="h-6 w-6 brightness-0 invert"
+                  />
+                ) : (
+                  <Image
+                    src={badge.mark}
+                    alt=""
+                    width={"markW" in badge ? badge.markW : 64}
+                    height={"markH" in badge ? badge.markH : 64}
+                    className="h-7 w-7 object-contain"
+                  />
+                );
+
+              const content = (
+                <span className="flex items-center gap-3.5">
+                  <BadgeShield variant={badge.id}>{mark}</BadgeShield>
+                  <span className="min-w-0 text-left">
+                    <span className="block font-sans text-[15px] font-semibold leading-tight text-[#1a1a1a] sm:text-base">
+                      {badge.title}{" "}
+                      <span className="text-brand-orange">{badge.year}</span>
+                    </span>
+                    <span className="mt-0.5 block max-w-[11.5rem] text-[12px] leading-snug text-[#5b5b5b] sm:text-[13px]">
+                      {badge.body}
+                    </span>
+                  </span>
+                </span>
+              );
+
+              return (
+                <li key={badge.id}>
+                  {badge.href ? (
+                    <a
+                      href={badge.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block transition-opacity duration-300 hover:opacity-80"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    content
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center text-sm text-white/50 sm:flex-row sm:text-left">
@@ -186,10 +321,6 @@ export function Footer() {
                 {labelOf(link.label)}
               </Link>
             ))}
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-white/70">
-              <ShieldCheck className="h-3.5 w-3.5 text-brand-orange" />
-              {t.common.iso}
-            </span>
           </div>
         </div>
       </div>

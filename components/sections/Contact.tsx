@@ -12,9 +12,11 @@ import {
   Phone,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { COMPANY } from "@/lib/data";
+import { setSpot } from "@/lib/spot";
 import { fmt, useLocale } from "@/lib/i18n";
 
 const PROJECT_TYPES = [
@@ -61,7 +63,13 @@ interface Composed {
   href: string;
 }
 
-export function Contact({ detailHref }: { detailHref?: string }) {
+export function Contact({
+  detailHref,
+  pageStart = false,
+}: {
+  detailHref?: string;
+  pageStart?: boolean;
+}) {
   const { t } = useLocale();
   const projectTypes = t.contact.projectTypes;
   const [form, setForm] = useState<FormState>(EMPTY);
@@ -200,18 +208,21 @@ export function Contact({ detailHref }: { detailHref?: string }) {
   };
 
   const fieldClass = (field: keyof FormState) =>
-    `peer w-full rounded-xl border bg-ink/[0.03] px-4 pb-2 pt-5 text-sm text-ink outline-none transition-colors placeholder:text-transparent focus:border-brand-orange/60 ${
-      errors[field] ? "border-brand-red/70" : "border-ink/12"
+    `peer w-full rounded-xl border bg-white px-4 pb-2.5 pt-5 text-sm text-ink outline-none transition-colors placeholder:text-transparent focus:border-ink/25 ${
+      errors[field] ? "border-brand-red/70" : "border-ink/[0.1]"
     }`;
 
   const floatingLabelClass =
-    "pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-ink/60 transition-all duration-200 peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:text-brand-orange peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:text-ink/70";
+    "pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-ink/55 transition-all duration-200 peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:text-ink/70 peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:text-ink/55";
 
   return (
     <section
       id="contact"
-      className="band-canvas relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      }`}
     >
+      <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
           title={t.contact.title}
@@ -223,7 +234,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-12">
           {/* Left — the human details */}
           <Reveal className="flex flex-col gap-6">
-            <div className="card-on-canvas">
+            <div className="card-on-canvas fx-spot" onMouseMove={setSpot}>
               <span className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-3 py-1.5 text-xs font-medium text-ink/80">
                 <Clock className="h-3.5 w-3.5 text-brand-orange" />
                 {t.common.free90}
@@ -237,9 +248,10 @@ export function Contact({ detailHref }: { detailHref?: string }) {
               <li>
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="card-on-canvas flex items-center gap-3.5"
+                  onMouseMove={setSpot}
+                  className="card-on-canvas fx-spot flex items-center gap-3.5"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-orange text-white">
+                  <span className="icon-chip">
                     <Mail className="h-5 w-5" />
                   </span>
                   <span>
@@ -255,9 +267,10 @@ export function Contact({ detailHref }: { detailHref?: string }) {
               <li>
                 <a
                   href={COMPANY.phoneHref}
-                  className="card-on-canvas flex items-center gap-3.5"
+                  onMouseMove={setSpot}
+                  className="card-on-canvas fx-spot flex items-center gap-3.5"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-orange text-white">
+                  <span className="icon-chip">
                     <Phone className="h-5 w-5" />
                   </span>
                   <span>
@@ -270,17 +283,24 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   </span>
                 </a>
               </li>
-              <li className="card-on-canvas flex items-center gap-3.5">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ink/5 text-brand-orange">
+              <li
+                onMouseMove={setSpot}
+                className="card-on-canvas fx-spot flex items-start gap-3.5"
+              >
+                <span className="icon-chip">
                   <MapPin className="h-5 w-5" />
                 </span>
                 <span>
-                    <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
-                      {t.contact.where}
-                    </span>
-                  <span className="block text-sm font-medium text-ink">
-                    {COMPANY.location}
+                  <span className="block text-xs font-medium uppercase tracking-wider text-ink/65">
+                    {t.contact.where}
                   </span>
+                  <address className="mt-0.5 block not-italic text-sm font-medium leading-relaxed text-ink">
+                    {COMPANY.street}
+                    <br />
+                    {COMPANY.city}
+                    <br />
+                    {COMPANY.country}
+                  </address>
                 </span>
               </li>
             </ul>
@@ -288,7 +308,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
 
           {/* Right — the form */}
           <Reveal delay={0.05}>
-            <div className="card-on-canvas">
+            <div className="card-on-canvas fx-spot" onMouseMove={setSpot}>
               {status === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
@@ -500,7 +520,7 @@ export function Contact({ detailHref }: { detailHref?: string }) {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="group mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-brand-orange px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-orange/90 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60 disabled:cursor-not-allowed disabled:opacity-70"
+                    className="group mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-brand-orange px-7 py-3.5 text-sm font-semibold tracking-[0.04em] text-white transition-colors duration-300 hover:bg-brand-orange/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/60 disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {status === "submitting" ? "Sending…" : "Send it over"}
                     {status !== "submitting" && (

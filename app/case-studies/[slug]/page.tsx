@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FileText } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { PORTFOLIO_ITEMS } from "@/lib/data";
 
 interface PageProps {
@@ -24,17 +25,24 @@ export default function CaseStudyPage({ params }: PageProps) {
 
   return (
     <PageShell>
-      <section className="band-canvas relative overflow-hidden pb-16 pt-32 sm:pb-24 sm:pt-40">
+      <section className="band-canvas relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-36">
+        <BandDecor />
         <div className="section-shell relative max-w-3xl">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-orange">
             {project.category} · {project.client}
           </p>
-          <h1 className="mt-3 text-[1.75rem] sm:text-4xl">{project.name}</h1>
+          <h1 className="mt-3 font-sans text-[1.85rem] font-semibold tracking-tight text-ink sm:text-[2.5rem]">
+            {project.name}
+          </h1>
+          <span
+            aria-hidden
+            className="mt-4 block h-px w-9 bg-brand-orange"
+          />
           <p className="mt-5 text-sm leading-relaxed text-ink/70 sm:text-base">
             {project.summary}
           </p>
 
-          <div className="card-on-canvas mt-8">
+          <div className="card-on-canvas fx-spot mt-8">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
               Outcome
             </p>

@@ -5,9 +5,9 @@ type Overlay = DeepPartial<Messages>;
 /** Indonesian, Thai, and Arabic UI overlays. */
 export const ASIA_OVERLAYS: Record<string, Overlay> = {
   id: {
-    heroTitle: "Perangkat lunak AI-native yang",
+    heroTitle: "Perangkat lunak AI-native",
     heroWords: ["siap produksi", "cerdas", "andal", "tahan lama"],
-    heroBody: "Produk dan rekayasa dari Amerika Serikat.",
+    heroBody: "Cerdas by design. Siap produksi secara default.",
     bookDemo: "Pesan Demo",
     clientsHeadline: "Merek terkemuka dunia didukung oleh Crystal Techify",
     nav: {
@@ -313,9 +313,9 @@ export const ASIA_OVERLAYS: Record<string, Overlay> = {
     companyTagline: "Perangkat lunak AI-native yang terkirim.",
   },
   th: {
-    heroTitle: "ซอฟต์แวร์ AI-native ที่",
+    heroTitle: "ซอฟต์แวร์ AI-native",
     heroWords: ["พร้อมใช้งานจริง", "ชาญฉลาด", "เชื่อถือได้", "อยู่ได้นาน"],
-    heroBody: "ผลิตภัณฑ์และวิศวกรรมจากสหรัฐอเมริกา",
+    heroBody: "Intelligent by design. Production-ready by default.",
     bookDemo: "จองเดโม",
     clientsHeadline: "แบรนด์ชั้นนำของโลกขับเคลื่อนด้วย Crystal Techify",
     nav: {
@@ -623,7 +623,7 @@ export const ASIA_OVERLAYS: Record<string, Overlay> = {
   ar: {
     heroTitle: "برمجيات أصيلة للذكاء الاصطناعي",
     heroWords: ["جاهزة للإنتاج", "ذكية", "موثوقة", "تدوم"],
-    heroBody: "منتج وهندسة من الولايات المتحدة.",
+    heroBody: "Intelligent by design. Production-ready by default.",
     bookDemo: "احجز عرضًا",
     clientsHeadline: "أقوى العلامات التجارية في العالم تعتمد على Crystal Techify",
     nav: {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { SERVICES, FEATURED_SERVICE_SLUGS, TECH_STACK } from "@/lib/data";
 import { useLocale } from "@/lib/i18n";
 import { locService } from "@/lib/i18n/localize";
@@ -116,9 +117,11 @@ function ServiceCard({
 export function Services({
   detailHref,
   featured = false,
+  pageStart = false,
 }: {
   detailHref?: string;
   featured?: boolean;
+  pageStart?: boolean;
 }) {
   const { t } = useLocale();
   const items = featured
@@ -131,8 +134,11 @@ export function Services({
   return (
     <section
       id="services"
-      className="band-canvas relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      }`}
     >
+      <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
           index={featured ? "03" : undefined}

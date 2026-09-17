@@ -65,7 +65,7 @@ export function LanguageSwitcher() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.16 }}
-            className="absolute right-0 top-full z-50 mt-3 w-60 rounded-2xl border border-ink/10 bg-white p-2 shadow-[0_18px_50px_-24px_rgba(0,0,0,0.45)] dark:border-white/10 dark:bg-[#111]"
+            className="absolute right-0 top-full z-50 mt-3 w-60 rounded-[1.15rem] border border-ink/[0.08] bg-white/95 p-1.5 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.4)] backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/95"
           >
             {LOCALES.map((item) => {
               const active = item.code === locale;

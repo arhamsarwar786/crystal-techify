@@ -4,8 +4,7 @@ import { Portfolio } from "@/components/sections/Portfolio";
 export default function CaseStudiesPage() {
   return (
     <PageShell>
-      <div className="pt-8" />
-      <Portfolio />
+      <Portfolio pageStart />
     </PageShell>
   );
 }

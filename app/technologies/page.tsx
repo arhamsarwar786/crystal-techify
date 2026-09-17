@@ -1,4 +1,5 @@
 import { PageShell } from "@/components/layout/PageShell";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SERVICES, TECH_STACK } from "@/lib/data";
 import Link from "next/link";
@@ -34,8 +35,9 @@ const GROUPS = [
 export default function TechnologiesPage() {
   return (
     <PageShell>
-      <section className="band-canvas relative overflow-hidden pb-16 pt-32 sm:pb-24 sm:pt-40">
-        <div className="section-shell">
+      <section className="band-canvas relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-36">
+        <BandDecor />
+        <div className="section-shell relative">
           <SectionHeading
             title="Technologies"
             description="The stack we ship in production — grouped by the work you already run, or want to."
@@ -46,7 +48,7 @@ export default function TechnologiesPage() {
               <Link
                 key={group.title}
                 href={group.href}
-                className="card-on-canvas"
+                className="card-on-canvas fx-spot"
               >
                 <h2 className="font-sans text-base font-semibold text-ink">
                   {group.title}

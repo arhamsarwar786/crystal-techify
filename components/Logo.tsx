@@ -92,7 +92,7 @@ export function Logo({
           height={130}
           priority={priority}
           unoptimized
-          className="h-8 w-auto max-w-[140px] sm:h-9 sm:max-w-[164px]"
+          className="h-10 w-auto max-w-[176px] sm:h-12 sm:max-w-[220px]"
         />
       </span>
     );
@@ -107,7 +107,7 @@ export function Logo({
         height={130}
         priority={priority}
         unoptimized
-        className="h-8 w-auto max-w-[140px] dark:hidden sm:h-9 sm:max-w-[164px]"
+        className="h-10 w-auto max-w-[176px] dark:hidden sm:h-12 sm:max-w-[220px]"
       />
       <Image
         src="/brand/logo2.svg"
@@ -116,7 +116,7 @@ export function Logo({
         height={130}
         priority={priority}
         unoptimized
-        className="hidden h-8 w-auto max-w-[140px] dark:block sm:h-9 sm:max-w-[164px]"
+        className="hidden h-10 w-auto max-w-[176px] dark:block sm:h-12 sm:max-w-[220px]"
       />
     </span>
   );

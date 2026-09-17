@@ -10,7 +10,7 @@ interface CountUpProps {
 }
 
 /**
- * Animates the leading number in a value like "100+" or "ISO 27001:2013"
+ * Animates the leading number in a value like " or "ISO 27001:2013"
  * from 0 up to its target once `start` flips true, keeping any prefix/suffix
  * text static. Values with no leading number render unchanged.
  */

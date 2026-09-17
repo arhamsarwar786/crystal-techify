@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { Reveal, revealItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PARTNERSHIPS } from "@/lib/data";
@@ -13,9 +14,10 @@ export function Partnerships() {
   return (
     <section
       id="recognition"
-      className="band-canvas relative py-16 sm:py-20 lg:py-24"
+      className="band-canvas relative overflow-hidden py-20 sm:py-24 lg:py-28"
     >
-      <div className="section-shell">
+      <BandDecor />
+      <div className="section-shell relative">
         <SectionHeading
           index="08"
           title={t.partnerships.title}

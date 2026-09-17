@@ -45,7 +45,7 @@ export const OVERLAYS: Record<string, Overlay> = {
   ...MORE_OVERLAYS,
   ...ASIA_OVERLAYS,
   "en-GB": {
-    heroBody: "Product and engineering from the United States.",
+    heroBody: "Intelligent by design. Production-ready by default.",
     clientsHeadline: "Technology partner to leading brands",
     common: {
       exploreMore: "Explore more",
@@ -74,9 +74,9 @@ export const OVERLAYS: Record<string, Overlay> = {
     },
   },
   de: {
-    heroTitle: "KI-native Software, die",
+    heroTitle: "KI-native Software",
     heroWords: ["produktionsreif", "intelligent", "zuverlässig", "langlebig"],
-    heroBody: "Produkt und Engineering aus den Vereinigten Staaten.",
+    heroBody: "Intelligent by Design. Produktionsreif von Haus aus.",
     bookDemo: "Demo buchen",
     clientsHeadline: "Technologiepartner führender Marken",
     nav: navDe,

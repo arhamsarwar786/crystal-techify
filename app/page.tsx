@@ -8,12 +8,10 @@ import { Industries } from "@/components/sections/Industries";
 import { Partnerships } from "@/components/sections/Partnerships";
 import { Services } from "@/components/sections/Services";
 import { Snapshot } from "@/components/sections/Snapshot";
-import { HomeScrollFX } from "@/components/ui/HomeScrollFX";
 
 export default function HomePage() {
   return (
     <PageShell expertCta={false}>
-      <HomeScrollFX />
       <Hero />
       <Clients />
       <Snapshot />

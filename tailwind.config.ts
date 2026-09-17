@@ -37,8 +37,8 @@ const config: Config = {
           "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
       },
       boxShadow: {
-        glow: "0 0 40px -10px rgba(255,90,40,0.55)",
-        "glow-sm": "0 0 20px -6px rgba(255,120,40,0.5)",
+        glow: "0 16px 40px -20px rgba(255,107,26,0.35)",
+        "glow-sm": "0 10px 24px -16px rgba(255,107,26,0.3)",
       },
       keyframes: {
         marquee: {

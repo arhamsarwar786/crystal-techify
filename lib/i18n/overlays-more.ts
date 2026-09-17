@@ -10,9 +10,9 @@ function authErrors(
 
 export const MORE_OVERLAYS: Record<string, Overlay> = {
   es: {
-    heroTitle: "Software nativo de IA que es",
+    heroTitle: "Software nativo de IA",
     heroWords: ["listo para producción", "inteligente", "fiable", "duradero"],
-    heroBody: "Producto e ingeniería desde Estados Unidos.",
+    heroBody: "Inteligente por diseño. Listo para producción por defecto.",
     bookDemo: "Reservar una demo",
     clientsHeadline: "Las marcas líderes del mundo confían en Crystal Techify",
     nav: {
@@ -333,7 +333,7 @@ export const MORE_OVERLAYS: Record<string, Overlay> = {
   fr: {
     heroTitle: "Logiciel natif IA",
     heroWords: ["prêt pour la prod", "intelligent", "fiable", "fait pour durer"],
-    heroBody: "Produit et ingénierie depuis les États-Unis.",
+    heroBody: "Intelligent by design. Prêt pour la prod par défaut.",
     bookDemo: "Réserver une démo",
     clientsHeadline: "Les plus grandes marques du monde s’appuient sur Crystal Techify",
     nav: {
@@ -644,9 +644,9 @@ export const MORE_OVERLAYS: Record<string, Overlay> = {
     companyTagline: "Logiciel natif IA qui se livre.",
   },
   zh: {
-    heroTitle: "原生 AI 软件，",
+    heroTitle: "原生 AI 软件",
     heroWords: ["可上线", "智能", "可靠", "经久耐用"],
-    heroBody: "来自美国的产品与工程。",
+    heroBody: "智能源于设计。默认即可上线。",
     bookDemo: "预约演示",
     clientsHeadline: "全球领先品牌由 Crystal Techify 赋能",
     nav: {

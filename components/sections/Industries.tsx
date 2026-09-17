@@ -9,8 +9,15 @@ import { INDUSTRIES } from "@/lib/data";
 import { useLocale } from "@/lib/i18n";
 import { locIndustry } from "@/lib/i18n/localize";
 import { setSpot } from "@/lib/spot";
+import { BandDecor } from "@/components/ui/BandDecor";
 
-export function Industries({ detailHref }: { detailHref?: string }) {
+export function Industries({
+  detailHref,
+  pageStart = false,
+}: {
+  detailHref?: string;
+  pageStart?: boolean;
+}) {
   const { t } = useLocale();
   const items = INDUSTRIES.map((i) => locIndustry(t, i));
   const indexed = detailHref ? "05" : undefined;
@@ -18,8 +25,11 @@ export function Industries({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="industries"
-      className="band-canvas relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      }`}
     >
+      <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
           index={indexed}

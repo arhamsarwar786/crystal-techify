@@ -1,5 +1,6 @@
 "use client";
 
+import { BandDecor } from "@/components/ui/BandDecor";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { InViewCard } from "@/components/ui/InViewCard";
 import { PORTFOLIO_ITEMS } from "@/lib/data";
@@ -17,12 +18,9 @@ export function FeaturedCases({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="case-studies"
-      className="band-muted relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className="band-muted relative scroll-mt-24 overflow-hidden py-20 sm:py-24 lg:py-28"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 fx-tech-grid opacity-50"
-      />
+      <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
           index="04"

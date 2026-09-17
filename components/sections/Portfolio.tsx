@@ -4,11 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { PORTFOLIO_CATEGORIES, PORTFOLIO_ITEMS } from "@/lib/data";
 import { CaseCard } from "@/components/sections/CaseCard";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useLocale } from "@/lib/i18n";
 import { locCase } from "@/lib/i18n/localize";
 
-export function Portfolio() {
+export function Portfolio({ pageStart = false }: { pageStart?: boolean }) {
   const { t } = useLocale();
   const [active, setActive] = useState<(typeof PORTFOLIO_CATEGORIES)[number]>(
     "All",
@@ -24,8 +25,11 @@ export function Portfolio() {
   return (
     <section
       id="case-studies"
-      className="band-muted relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      className={`band-muted relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      }`}
     >
+      <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
           title={t.cases.title}

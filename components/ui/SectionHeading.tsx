@@ -30,7 +30,7 @@ export function SectionHeading({
         <div className="max-w-2xl">
           {index ? (
             <p
-              className={`font-sans text-[11px] font-semibold uppercase tracking-[0.24em] ${
+              className={`font-sans text-[11px] font-semibold uppercase tracking-[0.28em] ${
                 dark ? "text-brand-orange" : "text-brand-orange"
               }`}
             >
@@ -38,7 +38,7 @@ export function SectionHeading({
             </p>
           ) : null}
           <h2
-            className={`font-sans text-[1.85rem] font-semibold tracking-tight sm:text-[2.35rem] ${
+            className={`font-sans text-[1.9rem] font-semibold tracking-[-0.03em] sm:text-[2.45rem] ${
               index ? "mt-2" : ""
             } ${dark ? "text-white" : "text-ink"}`}
           >
@@ -47,7 +47,7 @@ export function SectionHeading({
           <span aria-hidden className="heading-accent" />
           {description ? (
             <p
-              className={`mt-4 max-w-xl text-sm leading-relaxed sm:text-[15px] ${
+              className={`mt-5 max-w-xl text-[15px] leading-[1.75] ${
                 dark ? "text-white/65" : "text-ink/65"
               }`}
             >

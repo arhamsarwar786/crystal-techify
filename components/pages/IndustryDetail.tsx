@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Contact } from "@/components/sections/Contact";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { CalendlyCTAButton } from "@/components/ui/CalendlyCTAButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -10,6 +11,7 @@ import { INDUSTRIES } from "@/lib/data";
 import { INDUSTRY_PAGES } from "@/lib/industry-pages";
 import { fmt, useLocale } from "@/lib/i18n";
 import { locIndustry } from "@/lib/i18n/localize";
+import { setSpot } from "@/lib/spot";
 
 export function IndustryDetail({ slug }: { slug: string }) {
   const { t } = useLocale();
@@ -28,14 +30,19 @@ export function IndustryDetail({ slug }: { slug: string }) {
 
   return (
     <>
-      <section className="band-canvas relative scroll-mt-24 overflow-hidden pb-14 pt-32 sm:pb-16 sm:pt-40">
+      <section className="band-canvas relative scroll-mt-24 overflow-hidden pb-20 pt-28 sm:pb-24 sm:pt-36">
+        <BandDecor />
         <div className="section-shell relative max-w-3xl">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-orange">
             {t.common.industry}
           </p>
-          <h1 className="mt-3 text-[1.75rem] leading-[1.2] sm:text-[2.5rem]">
+          <h1 className="mt-3 font-sans text-[1.85rem] font-semibold leading-[1.2] tracking-tight text-ink sm:text-[2.5rem]">
             {industry.name}
           </h1>
+          <span
+            aria-hidden
+            className="mt-4 block h-px w-9 bg-brand-orange"
+          />
           <p className="mt-5 text-sm leading-relaxed text-ink/70 sm:text-base">
             {overview}
           </p>
@@ -47,8 +54,9 @@ export function IndustryDetail({ slug }: { slug: string }) {
 
       {page ? (
         <>
-          <section className="band-muted relative py-16 sm:py-20">
-            <div className="section-shell">
+          <section className="band-muted relative overflow-hidden py-20 sm:py-24">
+            <BandDecor />
+            <div className="section-shell relative">
               <SectionHeading
                 title={t.common.problemsWeSee}
                 description={fmt(t.common.problemsWeSeeBody, {
@@ -56,9 +64,16 @@ export function IndustryDetail({ slug }: { slug: string }) {
                 })}
               />
               <Reveal stagger className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-3">
-                {(challenges ?? []).map((item) => (
-                  <div key={item.title} className="card-on-muted">
-                    <h3 className="font-sans text-base font-semibold text-ink">
+                {(challenges ?? []).map((item, i) => (
+                  <div
+                    key={item.title}
+                    onMouseMove={setSpot}
+                    className="card-on-muted fx-spot"
+                  >
+                    <span aria-hidden className="index-ghost">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="font-sans text-lg font-semibold tracking-tight text-ink">
                       {item.title}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-ink/70">
@@ -70,36 +85,52 @@ export function IndustryDetail({ slug }: { slug: string }) {
             </div>
           </section>
 
-          <section className="band-canvas relative py-16 sm:py-20">
-            <div className="section-shell">
+          <section className="band-canvas relative overflow-hidden py-20 sm:py-24">
+            <BandDecor />
+            <div className="section-shell relative">
               <SectionHeading
                 title={t.common.howWeWork}
                 description={t.common.howWeWorkIndustry}
               />
               <Reveal stagger className="mt-8 grid gap-4 sm:mt-10 lg:grid-cols-3">
-                {(approach ?? []).map((item, i) => (
-                  <div key={item.title} className="card-on-canvas">
-                    <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="mt-3 font-sans text-base font-semibold text-ink">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink/70">
-                      {item.body}
-                    </p>
-                  </div>
-                ))}
+                {(approach ?? []).map((item, i) => {
+                  const n = String(i + 1).padStart(2, "0");
+                  return (
+                    <div
+                      key={item.title}
+                      onMouseMove={setSpot}
+                      className="card-on-canvas fx-spot"
+                    >
+                      <span aria-hidden className="index-ghost">
+                        {n}
+                      </span>
+                      <span className="font-sans text-[11px] font-semibold tracking-[0.18em] text-ink/30">
+                        {n}
+                      </span>
+                      <h3 className="mt-6 font-sans text-lg font-semibold tracking-tight text-ink">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                        {item.body}
+                      </p>
+                    </div>
+                  );
+                })}
               </Reveal>
             </div>
           </section>
 
-          <section className="band-muted relative py-16 sm:py-20">
-            <div className="section-shell">
+          <section className="band-muted relative overflow-hidden py-20 sm:py-24">
+            <BandDecor />
+            <div className="section-shell relative">
               <SectionHeading title={t.common.outcomesAim} />
               <ul className="mt-8 grid gap-4 sm:grid-cols-2">
                 {(outcomes ?? []).map((item) => (
-                  <li key={item} className="card-on-muted text-sm text-ink/75">
+                  <li
+                    key={item}
+                    onMouseMove={setSpot}
+                    className="card-on-muted fx-spot text-sm text-ink/75"
+                  >
                     {item}
                   </li>
                 ))}
@@ -109,15 +140,17 @@ export function IndustryDetail({ slug }: { slug: string }) {
         </>
       ) : null}
 
-      <section className="band-muted relative py-16 sm:py-20">
-        <div className="section-shell">
+      <section className="band-muted relative overflow-hidden py-20 sm:py-24">
+        <BandDecor />
+        <div className="section-shell relative">
           <SectionHeading title={t.common.otherIndustries} />
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {others.map((item) => (
               <li key={item.slug}>
                 <Link
                   href={`/industries/${item.slug}`}
-                  className="card-on-muted group flex items-center justify-between gap-3"
+                  onMouseMove={setSpot}
+                  className="card-on-muted fx-spot group flex items-center justify-between gap-3"
                 >
                   <span className="font-sans text-sm font-semibold text-ink">
                     {item.name}

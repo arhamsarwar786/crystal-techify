@@ -44,7 +44,7 @@ function DesktopGroup({
         href={group.href}
         aria-expanded={hasMenu ? open : undefined}
         aria-haspopup={hasMenu ? "menu" : undefined}
-        className={`relative inline-flex items-center gap-0.5 px-2.5 py-1.5 font-sans text-[12px] font-medium tracking-[0.02em] transition-colors lg:px-3 ${
+        className={`relative inline-flex items-center gap-0.5 px-2.5 py-1.5 font-sans text-[13px] font-medium tracking-[0.04em] transition-colors lg:px-3.5 ${
           active ? "text-white" : "text-white/70 hover:text-white"
         }`}
       >
@@ -68,9 +68,9 @@ function DesktopGroup({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.16 }}
-            className="absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-3"
+            className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3"
           >
-            <div className="rounded-2xl border border-ink/[0.08] bg-white p-2 shadow-[0_18px_50px_-24px_rgba(0,0,0,0.45)] dark:border-white/10 dark:bg-[#111]">
+            <div className="rounded-[1.15rem] border border-ink/[0.08] bg-white/95 p-1.5 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.4)] backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/95">
               {group.children.map((child) => (
                 <Link
                   key={child.href + child.label}
@@ -124,12 +124,12 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ${
         scrolled
-          ? "border-b border-white/10 bg-black/75 shadow-[0_12px_40px_-24px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+          ? "border-b border-white/[0.08] bg-black/80 shadow-[0_16px_48px_-28px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
           : "border-b border-transparent bg-black"
       }`}
     >
       <div className="section-shell">
-        <div className="relative flex items-center gap-3 py-3 text-white sm:py-3.5">
+        <div className="relative flex items-center gap-3 py-3.5 text-white sm:py-4">
           <Link
             href="/"
             aria-label={t.common.homeAria}

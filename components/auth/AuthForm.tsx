@@ -4,12 +4,13 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { PageShell } from "@/components/layout/PageShell";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { fetchRetry } from "@/lib/fetch-retry";
 import { validateLogin, validateSignup, type FieldErrors } from "@/lib/auth-validate";
 import { useLocale } from "@/lib/i18n";
 
 const inputClass =
-  "mt-1.5 w-full rounded-xl border bg-ink/[0.04] px-3 py-3 outline-none focus:border-brand-orange/60";
+  "mt-1.5 w-full rounded-xl border bg-white px-3.5 py-3 outline-none transition-colors focus:border-ink/30";
 
 function fieldClass(invalid?: string) {
   return `${inputClass} ${invalid ? "border-brand-red/50" : "border-ink/20"}`;
@@ -81,8 +82,10 @@ export function AuthForm({
   }
 
   const form = (
-      <section className="section-shell mx-auto max-w-md pb-24 pt-36">
-        <h1 className="text-3xl">
+    <section className="band-canvas relative overflow-hidden pb-24 pt-28 sm:pt-36">
+      <BandDecor />
+      <div className="section-shell relative mx-auto max-w-md">
+        <h1 className="font-sans text-[1.85rem] font-semibold tracking-tight text-ink">
           {mode === "login"
             ? audience === "admin"
               ? t.auth.adminLogin
@@ -201,7 +204,7 @@ export function AuthForm({
           <button
             type="submit"
             disabled={pending}
-            className="w-full rounded-full bg-brand-orange py-3 font-sans text-sm font-semibold text-white disabled:opacity-60"
+            className="w-full rounded-full bg-brand-orange py-3.5 font-sans text-sm font-semibold tracking-[0.04em] text-white transition-colors hover:bg-brand-orange/90 disabled:opacity-60"
           >
             {pending
               ? t.auth.wait
@@ -235,7 +238,8 @@ export function AuthForm({
           )}
         </p>
         ) : null}
-      </section>
+      </div>
+    </section>
   );
 
   if (!withShell) return form;

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageShell } from "@/components/layout/PageShell";
 import { ApplyForm } from "@/components/careers/ApplyForm";
+import { BandDecor } from "@/components/ui/BandDecor";
 import { splitLines } from "@/lib/jobs";
 import { parseQuestions } from "@/lib/job-questions";
 import { prisma } from "@/lib/db";
@@ -17,7 +18,7 @@ function Section({ title, items }: { title: string; items: string[] }) {
   if (items.length === 0) return null;
   return (
     <div className="mt-10">
-      <h2 className="text-xl">{title}</h2>
+      <h2 className="font-sans text-xl font-semibold tracking-tight text-ink">{title}</h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-ink/80">
         {items.map((item) => (
           <li key={item}>{item}</li>
@@ -63,7 +64,8 @@ export default async function JobPage({ params }: PageProps) {
 
   return (
     <PageShell>
-      <section className="relative overflow-hidden pb-20 pt-32 sm:pt-40">
+      <section className="band-canvas relative overflow-hidden pb-20 pt-28 sm:pt-36">
+        <BandDecor />
         <div className="section-shell relative mx-auto max-w-3xl">
           <Link href="/careers" className="text-sm font-medium text-ink/80 hover:text-ink">
             ← All roles
@@ -73,7 +75,13 @@ export default async function JobPage({ params }: PageProps) {
               {job.department}
             </p>
           ) : null}
-          <h1 className="mt-3 text-3xl sm:text-4xl">{job.title}</h1>
+          <h1 className="mt-3 font-sans text-[1.85rem] font-semibold tracking-tight text-ink sm:text-[2.5rem]">
+            {job.title}
+          </h1>
+          <span
+            aria-hidden
+            className="mt-4 block h-px w-9 bg-brand-orange"
+          />
           <div className="mt-4 flex flex-wrap gap-2 text-sm text-ink/75">
             <span className="rounded-full border border-ink/15 px-3 py-1">
               {job.location}
@@ -102,8 +110,8 @@ export default async function JobPage({ params }: PageProps) {
           <Section title="Nice to have" items={splitLines(job.niceToHave)} />
           <Section title="Benefits" items={splitLines(job.benefits)} />
 
-          <div className="mt-12 rounded-2xl border border-ink/15 bg-ink/[0.04] p-5 sm:p-6">
-            <h2 className="text-xl">Apply</h2>
+          <div className="card-on-canvas mt-12">
+            <h2 className="font-sans text-xl font-semibold tracking-tight text-ink">Apply</h2>
             <p className="mt-2 text-sm leading-relaxed text-ink/75">
               Logged-in candidates can submit a CV for this role
               {questions.length
