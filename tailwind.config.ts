@@ -88,6 +88,7 @@ const config: Config = {
       animation: {
         marquee: "marquee 32s linear infinite",
         "marquee-slow": "marquee 60s linear infinite",
+        "marquee-cards": "marquee 40s linear infinite",
         "glow-pulse": "glow-pulse 6s ease-in-out infinite",
         float: "float 7s ease-in-out infinite",
         "gradient-x": "gradient-x 6s ease infinite",

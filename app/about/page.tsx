@@ -5,7 +5,7 @@ import { Presence } from "@/components/sections/Presence";
 
 export default function AboutPage() {
   return (
-    <PageShell>
+    <PageShell expertBand="muted">
       <About pageStart />
       <Presence />
       <Advantages />

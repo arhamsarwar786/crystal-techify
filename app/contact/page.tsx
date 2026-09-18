@@ -3,7 +3,7 @@ import { Contact } from "@/components/sections/Contact";
 
 export default function ContactPage() {
   return (
-    <PageShell expertCta={false}>
+    <PageShell expertBand="muted">
       <Contact pageStart />
     </PageShell>
   );

@@ -76,14 +76,14 @@ export function Engagement({
   return (
     <section
       id="solutions"
-      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
-        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      className={`band-muted relative scroll-mt-24 overflow-hidden pb-16 sm:pb-20 lg:pb-24 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-10 sm:pt-12 lg:pt-14"
       }`}
     >
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
-          index={home ? "06" : undefined}
+          kicker="Engagement"
           title={t.engagement.title}
           description={t.engagement.description}
           detailHref={detailHref}
@@ -101,30 +101,21 @@ export function Engagement({
               home ? "lg:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-4"
             }`}
           >
-            {models.map((model, index) => {
-              const n = String(index + 1).padStart(2, "0");
+            {models.map((model) => {
               return (
                 <motion.div key={model.title} variants={revealItem}>
                   <div
                     onMouseMove={setSpot}
                     className="card-on-canvas fx-spot flex h-full flex-col"
                   >
-                    <span aria-hidden className="index-ghost">
-                      {n}
+                    <span className="icon-chip">
+                      <model.icon className="h-5 w-5" />
                     </span>
-                    <div className="flex items-start justify-between gap-3">
-                      <span className="icon-chip">
-                        <model.icon className="h-5 w-5" />
-                      </span>
-                      <span className="font-sans text-[11px] font-semibold tracking-[0.18em] text-ink/30">
-                        {n}
-                      </span>
-                    </div>
-                    <h3 className="mt-6 font-sans text-lg font-semibold tracking-tight text-ink">
+                    <h3 className="mt-6 font-sans text-[1.35rem] font-semibold leading-snug tracking-tight text-ink">
                       {model.title}
                     </h3>
                     {model.points?.length ? (
-                      <ul className="mt-3 grid gap-1.5 text-sm text-ink/70">
+                      <ul className="mt-3 grid gap-1.5 text-[14px] text-ink/55">
                         {model.points.map((point) => (
                           <li key={point} className="flex gap-2">
                             <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand-orange" />
@@ -133,7 +124,7 @@ export function Engagement({
                         ))}
                       </ul>
                     ) : (
-                      <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/70">
+                      <p className="mt-2 flex-1 text-[14px] leading-relaxed text-ink/55">
                         {model.description}
                       </p>
                     )}
@@ -165,7 +156,7 @@ export function Engagement({
               <Clock className="h-3.5 w-3.5 shrink-0" />
               {t.engagement.auditKicker}
             </span>
-            <h3 className="mt-4 font-sans text-xl font-semibold text-ink sm:text-2xl">
+            <h3 className="mt-4 font-sans text-[1.35rem] font-semibold leading-snug tracking-tight text-ink sm:text-2xl">
               {t.engagement.auditTitle}
             </h3>
             <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink/70">

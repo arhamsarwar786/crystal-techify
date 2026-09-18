@@ -79,7 +79,7 @@ import type {
 export const COMPANY = {
   name: "Crystal Techify",
   tagline:
-    "AI-native software that ships.",
+    "AI-Native Software That Ships.",
   about:
     "Crystal Techify is a premier technology company based in Dublin, Ohio, with a strong focus on Artificial Intelligence and advanced software solutions. We specialize in turning complex challenges into intelligent, data-driven digital products that help businesses innovate, operate smarter, and scale faster.",
   location: "Dublin, Ohio",
@@ -510,6 +510,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "e-commerce",
     icon: ShoppingCart,
     name: "E-Commerce",
+    image: "/industries/e-commerce.jpg",
     description:
       "Empowering industries from technology to manufacture with our expert services.",
   },
@@ -517,6 +518,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "healthcare",
     icon: HeartPulse,
     name: "Healthcare",
+    image: "/industries/healthcare.jpg",
     description:
       "Offering comprehensive healthcare IT solutions from secure data storage.",
   },
@@ -524,6 +526,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "edtech",
     icon: GraduationCap,
     name: "EdTech",
+    image: "/industries/edtech.jpg",
     description:
       "Delivering tailored EdTech solutions for seamless online learning.",
   },
@@ -531,6 +534,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "food-grocery",
     icon: UtensilsCrossed,
     name: "Food & Grocery",
+    image: "/industries/food-grocery.jpg",
     description:
       "Enhancing the food and grocery sector with efficient supply chain management.",
   },
@@ -538,6 +542,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "real-estate",
     icon: Building2,
     name: "Real Estate",
+    image: "/industries/real-estate.jpg",
     description:
       "Empowering real estate professionals with cutting-edge tools for lead generation.",
   },
@@ -545,6 +550,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "retail",
     icon: Store,
     name: "Retail",
+    image: "/industries/retail.jpg",
     description:
       "We empower the retail industry through seamless e-commerce solutions and innovative digital strategies.",
   },
@@ -552,6 +558,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "blockchain",
     icon: Blocks,
     name: "Blockchain",
+    image: "/industries/blockchain.jpg",
     description:
       "Delivering innovative blockchain services including private and public development.",
   },
@@ -559,6 +566,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "on-demand-services",
     icon: Smartphone,
     name: "On Demand Services",
+    image: "/industries/on-demand-services.jpg",
     description:
       "Providing comprehensive on-demand services for efficient booking systems and customer interaction.",
   },
@@ -577,6 +585,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tags: ["AI", "Automation", "Real Estate"],
     timeline: "Specialist engagement",
     teamSize: "Small team",
+    image: "/cases/ai-automation-real-estate.jpg",
   },
   {
     slug: "ai-automation-marketing",
@@ -590,6 +599,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tags: ["AI", "Automation", "Marketing"],
     timeline: "Specialist engagement",
     teamSize: "Small team",
+    image: "/cases/ai-automation-marketing.jpg",
   },
   {
     slug: "ev-last-mile-mobility",
@@ -603,6 +613,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tags: ["EV Solutions", "Transportation", "Mobility"],
     timeline: "1 Month (2024–2025)",
     teamSize: "2 Specialists",
+    image: "/cases/ev-last-mile-mobility.jpg",
   },
   {
     slug: "visas-pt-legal",
@@ -616,6 +627,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tags: ["Immigration", "Relocation", "Legal Services"],
     timeline: "1 Month",
     teamSize: "2 Specialists",
+    image: "/cases/visas-pt-legal.jpg",
   },
   {
     slug: "parker-co-real-estate",
@@ -629,6 +641,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tags: ["Real Estate", "Property Search", "Home Valuation"],
     timeline: "1 Month (2025)",
     teamSize: "2 Specialists",
+    image: "/cases/parker-co-real-estate.jpg",
   },
   {
     slug: "ptva-transit-dashboard",
@@ -642,6 +655,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tags: ["Data Visualization", "Transportation", "Environmental Analysis"],
     timeline: "3 Month",
     teamSize: "3 Specialists",
+    image: "/cases/ptva-transit-dashboard.jpg",
   },
   {
     slug: "serreva-glass-house",
@@ -655,6 +669,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tags: ["Architecture", "Construction", "Design Services"],
     timeline: "15 Days",
     teamSize: "1 Specialist",
+    image: "/cases/serreva-glass-house.png",
   },
 ];
 

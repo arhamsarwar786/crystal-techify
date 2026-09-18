@@ -66,9 +66,11 @@ interface Composed {
 export function Contact({
   detailHref,
   pageStart = false,
+  band = "canvas",
 }: {
   detailHref?: string;
   pageStart?: boolean;
+  band?: "canvas" | "muted";
 }) {
   const { t } = useLocale();
   const projectTypes = t.contact.projectTypes;
@@ -208,7 +210,7 @@ export function Contact({
   };
 
   const fieldClass = (field: keyof FormState) =>
-    `peer w-full rounded-xl border bg-white px-4 pb-2.5 pt-5 text-sm text-ink outline-none transition-colors placeholder:text-transparent focus:border-ink/25 ${
+    `peer w-full rounded-xl border bg-white px-4 pb-2.5 pt-5 text-sm text-ink outline-none transition-colors placeholder:text-transparent focus:border-ink/25 dark:bg-white/[0.06] ${
       errors[field] ? "border-brand-red/70" : "border-ink/[0.1]"
     }`;
 
@@ -218,13 +220,14 @@ export function Contact({
   return (
     <section
       id="contact"
-      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
-        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      className={`${band === "muted" ? "band-muted" : "band-canvas"} relative scroll-mt-24 overflow-hidden pb-16 sm:pb-20 lg:pb-24 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-16 sm:pt-20 lg:pt-24"
       }`}
     >
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
+          kicker="Contact"
           title={t.contact.title}
           description={t.contact.description}
           detailHref={detailHref}
@@ -308,7 +311,7 @@ export function Contact({
 
           {/* Right — the form */}
           <Reveal delay={0.05}>
-            <div className="card-on-canvas fx-spot" onMouseMove={setSpot}>
+            <div className="card-on-canvas card-static fx-spot" onMouseMove={setSpot}>
               {status === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}

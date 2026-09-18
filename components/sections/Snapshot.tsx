@@ -2,15 +2,12 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
-import { ArrowUpRight, Calendar, Layers, ShieldCheck, Users } from "lucide-react";
+import { useInView } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { BandDecor } from "@/components/ui/BandDecor";
 import { CountUp } from "@/components/ui/CountUp";
-import { Reveal, revealItem } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
 import { useLocale } from "@/lib/i18n";
-import { setSpot } from "@/lib/spot";
-
-const STAT_ICONS = [Calendar, Layers, Users, ShieldCheck] as const;
 
 function splitTitle(title: string): [string, string] | [string] {
   const at = title.toLowerCase().lastIndexOf(" to ");
@@ -28,98 +25,80 @@ export function Snapshot() {
     <section
       id="snapshot"
       aria-labelledby="snapshot-heading"
-      className="band-muted relative scroll-mt-24 overflow-hidden py-20 sm:py-24 lg:py-28"
+      className="band-canvas relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
       <BandDecor />
 
       <div className="section-shell relative">
-        <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="lg:col-span-7">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.28em] text-brand-orange">
-              02 · {t.snapshot.kicker}
-            </p>
+        <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-14">
+          <Reveal className="lg:col-span-8">
             <h2
               id="snapshot-heading"
-              className="mt-3 font-sans text-[1.9rem] font-semibold tracking-[-0.03em] text-ink sm:text-[2.55rem] sm:leading-[1.12]"
+              className="font-sans text-[1.9rem] font-semibold tracking-[-0.03em] text-ink sm:text-[2.75rem] sm:leading-[1.08]"
             >
               {titleParts.length === 2 ? (
                 <>
                   <span className="block">{titleParts[0]}</span>
-                  <span className="mt-1 block text-ink/45">{titleParts[1]}</span>
+                  <span className="mt-1 block text-brand-orange">
+                    {titleParts[1]}
+                  </span>
                 </>
               ) : (
                 titleParts[0]
               )}
             </h2>
-            <span aria-hidden className="heading-accent" />
           </Reveal>
 
-          <Reveal delay={0.08} className="lg:col-span-5">
-            <p className="text-[15px] leading-[1.75] text-ink/65">
+          <Reveal delay={0.08} className="lg:col-span-4">
+            <p className="text-[15px] leading-[1.75] text-ink/60">
               {t.snapshot.description}
             </p>
             <Link
               href="/about"
-              className="group mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-orange transition-colors hover:text-ink"
+              className="group mt-6 inline-flex items-center gap-2 rounded-full border border-brand-orange px-4 py-2.5 text-sm font-medium text-brand-orange transition-colors hover:bg-brand-orange hover:text-white"
             >
               {t.common.exploreMore}
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
           </Reveal>
         </div>
 
-        <div ref={statsRef}>
-          <Reveal
-            stagger
-            className="mt-14 grid gap-4 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4"
-          >
-            {t.snapshot.stats.map((stat, index) => {
-              const Icon = STAT_ICONS[index] ?? Layers;
-              const n = String(index + 1).padStart(2, "0");
-              return (
-                <motion.div
+        <div ref={statsRef} className="mt-12 sm:mt-14">
+          <Reveal>
+            <dl className="grid overflow-hidden rounded-[1.75rem] bg-[#0c0c0c] ring-1 ring-white/10 dark:bg-white/[0.07] sm:grid-cols-2 lg:grid-cols-4">
+              {t.snapshot.stats.map((stat, index) => (
+                <div
                   key={stat.label}
-                  variants={revealItem}
-                  onMouseMove={setSpot}
-                  className="card-on-muted fx-spot"
+                  className={`relative px-6 py-8 sm:px-8 sm:py-10 ${
+                    index > 0 ? "border-t border-white/10 lg:border-t-0 lg:border-l" : ""
+                  } ${index % 2 === 1 ? "sm:border-l" : ""} ${
+                    index === 1 ? "sm:border-t-0" : ""
+                  }`}
                 >
-                  <span aria-hidden className="index-ghost">
-                    {n}
-                  </span>
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="icon-chip">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <span className="font-sans text-[11px] font-semibold tracking-[0.18em] text-ink/30">
-                      {n}
-                    </span>
-                  </div>
-                  <p className="mt-8 font-sans text-[2.35rem] font-semibold tracking-tight text-ink sm:text-[2.75rem]">
+                  <dt className="font-sans text-[2.4rem] font-semibold leading-none tracking-tight text-white tabular-nums sm:text-[2.85rem]">
                     {stat.animate ? (
                       <CountUp value={stat.value} start={shown} />
                     ) : (
-                      stat.value
+                      <span className="text-brand-orange">{stat.value}</span>
                     )}
-                  </p>
-                  <p className="mt-3 max-w-[11rem] text-sm leading-snug text-ink/55">
+                  </dt>
+                  <dd className="mt-3 max-w-[10.5rem] text-sm leading-snug text-white/55">
                     {stat.label}
-                  </p>
-                </motion.div>
-              );
-            })}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </Reveal>
         </div>
 
-        <Reveal delay={0.12} className="mt-14 max-w-3xl sm:mt-16">
-          <blockquote className="border-l border-brand-orange pl-6 sm:pl-8">
-            <p className="text-[15px] leading-[1.8] text-ink/70">
-              {t.snapshot.commitment}
-            </p>
-            <p className="mt-4 text-[15px] leading-[1.8] text-ink/70">
-              {t.snapshot.closing}
-            </p>
-          </blockquote>
-        </Reveal>
+        <div className="mt-10 grid gap-8 sm:mt-12 lg:grid-cols-2 lg:gap-14">
+          <p className="text-[15px] leading-[1.8] text-ink/65">
+            {t.snapshot.commitment}
+          </p>
+          <p className="text-[15px] leading-[1.8] text-ink/65">
+            {t.snapshot.closing}
+          </p>
+        </div>
       </div>
     </section>
   );

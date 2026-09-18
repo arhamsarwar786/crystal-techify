@@ -2,53 +2,55 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 
 interface SectionHeadingProps {
+  kicker?: string;
   title: ReactNode;
   description?: ReactNode;
   detailHref?: string;
   detailLabel?: string;
-  index?: string;
   tone?: "light" | "dark";
+  titleClassName?: string;
 }
 
 export function SectionHeading({
+  kicker,
   title,
   description,
   detailHref,
   detailLabel = "Explore more",
-  index,
   tone = "light",
+  titleClassName,
 }: SectionHeadingProps) {
   const dark = tone === "dark";
 
   return (
     <Reveal>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="max-w-2xl">
-          {index ? (
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="max-w-xl">
+          {kicker ? (
             <p
-              className={`font-sans text-[11px] font-semibold uppercase tracking-[0.28em] ${
+              className={`inline-flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[0.22em] ${
                 dark ? "text-brand-orange" : "text-brand-orange"
               }`}
             >
-              {index}
+              <span aria-hidden className="h-px w-6 bg-brand-orange" />
+              {kicker}
             </p>
           ) : null}
           <h2
-            className={`font-sans text-[1.9rem] font-semibold tracking-[-0.03em] sm:text-[2.45rem] ${
-              index ? "mt-2" : ""
-            } ${dark ? "text-white" : "text-ink"}`}
+            className={`font-sans text-[1.9rem] font-semibold tracking-[-0.03em] sm:text-[2.35rem] sm:leading-[1.12] ${
+              kicker ? "mt-3" : ""
+            } ${dark ? "text-white" : "text-ink"} ${titleClassName ?? ""}`}
           >
             {title}
           </h2>
-          <span aria-hidden className="heading-accent" />
           {description ? (
             <p
-              className={`mt-5 max-w-xl text-[15px] leading-[1.75] ${
-                dark ? "text-white/65" : "text-ink/65"
+              className={`mt-4 max-w-md text-[15px] leading-[1.75] ${
+                dark ? "text-white/65" : "text-ink/60"
               }`}
             >
               {description}
@@ -58,14 +60,14 @@ export function SectionHeading({
         {detailHref ? (
           <Link
             href={detailHref}
-            className={`group inline-flex shrink-0 items-center gap-1.5 text-sm font-medium transition-colors ${
+            className={`inline-flex shrink-0 items-center gap-2 self-start rounded-full border px-4 py-2.5 text-sm font-medium transition-colors sm:self-auto ${
               dark
-                ? "text-white/70 hover:text-white"
-                : "text-brand-orange hover:text-ink dark:hover:text-white"
+                ? "border-white/35 text-white hover:border-brand-orange hover:bg-brand-orange hover:text-white"
+                : "border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white"
             }`}
           >
             {detailLabel}
-            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <ArrowRight className="h-4 w-4" />
           </Link>
         ) : null}
       </div>

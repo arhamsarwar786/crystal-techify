@@ -25,13 +25,14 @@ export function Portfolio({ pageStart = false }: { pageStart?: boolean }) {
   return (
     <section
       id="case-studies"
-      className={`band-muted relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
-        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      className={`band-muted relative scroll-mt-24 overflow-hidden pb-16 sm:pb-20 lg:pb-24 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-16 sm:pt-20 lg:pt-24"
       }`}
     >
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
+          kicker="Case studies"
           title={t.cases.title}
           description={t.cases.description}
         />
@@ -74,7 +75,7 @@ export function Portfolio({ pageStart = false }: { pageStart?: boolean }) {
                 exit={{ opacity: 0, y: 16 }}
                 transition={{ duration: 0.65, delay: (index % 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
               >
-                <CaseCard {...project} index={index} />
+                <CaseCard {...project} />
               </motion.div>
             ))}
           </AnimatePresence>

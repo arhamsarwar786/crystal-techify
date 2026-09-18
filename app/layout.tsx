@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Crystal Techify — AI & Advanced Software Solutions",
     description:
-      "AI-native software that ships.",
+      "AI-Native Software That Ships.",
     type: "website",
     locale: "en_US",
     siteName: COMPANY.name,

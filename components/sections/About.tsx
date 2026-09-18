@@ -19,13 +19,14 @@ export function About({
   return (
     <section
       id="about"
-      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-20 sm:pb-24 lg:pb-28 ${
-        pageStart ? "pt-28 sm:pt-36" : "pt-20 sm:pt-24 lg:pt-28"
+      className={`band-canvas relative scroll-mt-24 overflow-hidden pb-16 sm:pb-20 lg:pb-24 ${
+        pageStart ? "pt-28 sm:pt-36" : "pt-16 sm:pt-20 lg:pt-24"
       }`}
     >
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
+          kicker="About us"
           title={t.about.title}
           description={t.companyAbout}
           detailHref={detailHref}
@@ -47,16 +48,10 @@ export function About({
               onMouseMove={setSpot}
               className="card-on-canvas fx-spot"
             >
-              <span aria-hidden className="index-ghost">
-                {point.index}
-              </span>
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
-                {point.index}
-              </span>
-              <h3 className="mt-4 font-sans text-lg font-semibold tracking-tight text-ink">
+              <h3 className="font-sans text-[1.35rem] font-semibold leading-snug tracking-tight text-ink">
                 {t.mission[i]?.title ?? point.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/70">
+              <p className="mt-2 text-[14px] leading-relaxed text-ink/55">
                 {t.mission[i]?.description ?? point.description}
               </p>
             </motion.div>

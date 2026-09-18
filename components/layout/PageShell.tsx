@@ -7,16 +7,18 @@ import { HomeScrollFX } from "@/components/ui/HomeScrollFX";
 export function PageShell({
   children,
   expertCta = true,
+  expertBand = "canvas",
 }: {
   children: ReactNode;
   expertCta?: boolean;
+  expertBand?: "canvas" | "muted";
 }) {
   return (
     <>
       <Header />
       <HomeScrollFX />
       <main className="relative">{children}</main>
-      {expertCta && <ExpertCta />}
+      {expertCta && <ExpertCta band={expertBand} />}
       <Footer />
     </>
   );

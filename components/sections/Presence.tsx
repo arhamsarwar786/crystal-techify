@@ -27,18 +27,19 @@ export function Presence({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="presence"
-      className="band-muted relative scroll-mt-24 overflow-hidden py-20 sm:py-24 lg:py-28"
+      className="band-muted relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
+          kicker="Presence"
           title={t.presence.title}
           description={t.presence.description}
           detailHref={detailHref}
           detailLabel={t.common.exploreMore}
         />
 
-        <div className="card-on-muted fx-spot relative mt-8 overflow-hidden sm:mt-10">
+        <div className="card-on-muted card-static fx-spot relative mt-8 overflow-hidden sm:mt-10">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 fx-node-map opacity-90"
@@ -82,7 +83,6 @@ export function Presence({ detailHref }: { detailHref?: string }) {
           className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {JOURNEY.map((step, i) => {
-            const n = String(i + 1).padStart(2, "0");
             return (
               <motion.div
                 key={step.title}
@@ -90,16 +90,13 @@ export function Presence({ detailHref }: { detailHref?: string }) {
                 onMouseMove={setSpot}
                 className="card-on-muted fx-spot"
               >
-                <span aria-hidden className="index-ghost">
-                  {n}
-                </span>
                 <span className="icon-chip">
                   <step.icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-6 font-sans text-lg font-semibold tracking-tight text-ink">
+                <h3 className="mt-6 font-sans text-[1.35rem] font-semibold leading-snug tracking-tight text-ink">
                   {t.journey[i]?.title ?? step.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                <p className="mt-2 text-[14px] leading-relaxed text-ink/55">
                   {t.journey[i]?.description ?? step.description}
                 </p>
               </motion.div>

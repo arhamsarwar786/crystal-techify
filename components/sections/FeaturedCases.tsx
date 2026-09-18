@@ -18,12 +18,12 @@ export function FeaturedCases({ detailHref }: { detailHref?: string }) {
   return (
     <section
       id="case-studies"
-      className="band-muted relative scroll-mt-24 overflow-hidden py-20 sm:py-24 lg:py-28"
+      className="band-muted relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
-          index="04"
+          kicker="Case studies"
           title={t.cases.title}
           description={t.cases.description}
           detailHref={detailHref}
@@ -34,14 +34,14 @@ export function FeaturedCases({ detailHref }: { detailHref?: string }) {
           <div className="grid gap-4 lg:grid-cols-2">
             {featuredTop.map((project, index) => (
               <InViewCard key={project.slug} delay={index * 0.1}>
-                <CaseCard {...project} index={index} />
+                <CaseCard {...project} />
               </InViewCard>
             ))}
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {featuredMid.map((project, index) => (
               <InViewCard key={project.slug} delay={index * 0.08}>
-                <CaseCard {...project} index={index + 2} />
+                <CaseCard {...project} />
               </InViewCard>
             ))}
           </div>
@@ -49,7 +49,7 @@ export function FeaturedCases({ detailHref }: { detailHref?: string }) {
             <div className="grid gap-4 sm:grid-cols-2">
               {featuredBottom.map((project, index) => (
                 <InViewCard key={project.slug} delay={index * 0.08}>
-                  <CaseCard {...project} index={index + 5} />
+                  <CaseCard {...project} />
                 </InViewCard>
               ))}
             </div>

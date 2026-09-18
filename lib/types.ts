@@ -43,6 +43,16 @@ export interface ServicePageContent {
   stack: string[];
 }
 
+/** Extra sections rendered on `/case-studies/[slug]`. */
+export interface CasePageContent {
+  brief: string;
+  context: string;
+  challenges: ServiceDetailBlock[];
+  approach: ServiceDetailBlock[];
+  shipped: string[];
+  stack: string[];
+}
+
 export interface ProcessStep {
   index: number;
   title: string;
@@ -107,6 +117,7 @@ export interface Industry {
   icon: LucideIcon;
   name: string;
   description: string;
+  image: string;
 }
 
 export interface IndustryPageContent {

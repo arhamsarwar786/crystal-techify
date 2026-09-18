@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PageShell } from "@/components/layout/PageShell";
 import { IndustryDetail } from "@/components/pages/IndustryDetail";
 import { INDUSTRIES } from "@/lib/data";
+import { INDUSTRY_PAGES } from "@/lib/industry-pages";
 
 interface IndustryPageProps {
   params: { slug: string };
@@ -26,7 +27,7 @@ export default function IndustryPage({ params }: IndustryPageProps) {
   if (!industry) notFound();
 
   return (
-    <PageShell>
+    <PageShell expertBand={INDUSTRY_PAGES[params.slug] ? "canvas" : "muted"}>
       <IndustryDetail slug={params.slug} />
     </PageShell>
   );

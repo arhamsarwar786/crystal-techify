@@ -12,11 +12,12 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="band-muted relative scroll-mt-24 overflow-hidden py-20 sm:py-24 lg:py-28"
+      className="band-muted relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
+          kicker="Testimonials"
           title={t.testimonials.title}
           description={t.testimonials.description}
         />
@@ -28,11 +29,8 @@ export function Testimonials() {
               onMouseMove={setSpot}
               className="card-on-muted fx-spot"
             >
-              <span aria-hidden className="index-ghost">
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <Quote className="h-5 w-5 text-brand-orange" />
-              <p className="mt-3 text-sm leading-relaxed text-ink/80">
+              <p className="mt-3 text-[14px] leading-relaxed text-ink/55">
                 “{t.testimonialsItems[i]?.quote ?? item.quote}”
               </p>
               <footer className="mt-5">

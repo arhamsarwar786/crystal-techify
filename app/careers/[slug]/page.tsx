@@ -10,6 +10,8 @@ import { getSession } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
+const HERO = "/careers/hero.jpg";
+
 interface PageProps {
   params: { slug: string };
 }
@@ -18,7 +20,9 @@ function Section({ title, items }: { title: string; items: string[] }) {
   if (items.length === 0) return null;
   return (
     <div className="mt-10">
-      <h2 className="font-sans text-xl font-semibold tracking-tight text-ink">{title}</h2>
+      <h2 className="font-sans text-xl font-semibold tracking-tight text-ink">
+        {title}
+      </h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-ink/80">
         {items.map((item) => (
           <li key={item}>{item}</li>
@@ -35,7 +39,7 @@ export default async function JobPage({ params }: PageProps) {
   } catch (err) {
     console.error(err);
     return (
-      <PageShell>
+      <PageShell expertBand="muted">
         <section className="section-shell pb-20 pt-32">
           <p className="text-sm text-ink/80">
             This role could not load because the database is unreachable.
@@ -62,41 +66,55 @@ export default async function JobPage({ params }: PageProps) {
     .map((p) => p.trim())
     .filter(Boolean);
 
+  const loginHref = `/login?next=${encodeURIComponent(`/careers/${job.slug}`)}`;
+
   return (
     <PageShell>
-      <section className="band-canvas relative overflow-hidden pb-20 pt-28 sm:pt-36">
-        <BandDecor />
-        <div className="section-shell relative mx-auto max-w-3xl">
-          <Link href="/careers" className="text-sm font-medium text-ink/80 hover:text-ink">
-            ← All roles
-          </Link>
+      <section className="relative isolate min-h-[22rem] overflow-hidden bg-black sm:min-h-[26rem]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={HERO}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/25" />
+        <div className="section-shell relative flex min-h-[22rem] flex-col justify-end pb-12 pt-28 sm:min-h-[26rem] sm:pb-16 sm:pt-36">
           {job.department ? (
-            <p className="mt-6 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-brand-orange">
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-brand-orange">
               {job.department}
             </p>
           ) : null}
-          <h1 className="mt-3 font-sans text-[1.85rem] font-semibold tracking-tight text-ink sm:text-[2.5rem]">
+          <h1 className="mt-2 max-w-3xl font-sans text-[1.85rem] font-semibold tracking-tight text-white sm:text-[2.6rem] sm:leading-[1.1]">
             {job.title}
           </h1>
-          <span
-            aria-hidden
-            className="mt-4 block h-px w-9 bg-brand-orange"
-          />
-          <div className="mt-4 flex flex-wrap gap-2 text-sm text-ink/75">
-            <span className="rounded-full border border-ink/15 px-3 py-1">
+          <div className="mt-4 flex flex-wrap gap-2 text-sm text-white/80">
+            <span className="rounded-full border border-white/20 px-3 py-1">
               {job.location}
             </span>
-            <span className="rounded-full border border-ink/15 px-3 py-1">
+            <span className="rounded-full border border-white/20 px-3 py-1">
               {job.employmentType}
             </span>
             {job.salaryRange ? (
-              <span className="rounded-full border border-ink/15 px-3 py-1">
+              <span className="rounded-full border border-white/20 px-3 py-1">
                 {job.salaryRange}
               </span>
             ) : null}
           </div>
+          {!session || !alreadyApplied ? (
+            <Link
+              href={session ? "#apply" : loginHref}
+              className="mt-8 inline-flex w-fit items-center rounded-full bg-brand-orange px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-orange/90"
+            >
+              Apply now
+            </Link>
+          ) : null}
+        </div>
+      </section>
 
-          <div className="mt-8 space-y-4 text-sm leading-relaxed text-ink/80 sm:text-base">
+      <section className="band-muted relative overflow-hidden pb-20 pt-14 sm:pt-16">
+        <BandDecor />
+        <div className="section-shell relative mx-auto max-w-3xl">
+          <div className="space-y-4 text-sm leading-relaxed text-ink/80 sm:text-base">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -110,8 +128,10 @@ export default async function JobPage({ params }: PageProps) {
           <Section title="Nice to have" items={splitLines(job.niceToHave)} />
           <Section title="Benefits" items={splitLines(job.benefits)} />
 
-          <div className="card-on-canvas mt-12">
-            <h2 className="font-sans text-xl font-semibold tracking-tight text-ink">Apply</h2>
+          <div id="apply" className="card-on-muted card-static mt-12 scroll-mt-28">
+            <h2 className="font-sans text-xl font-semibold tracking-tight text-ink">
+              Apply
+            </h2>
             <p className="mt-2 text-sm leading-relaxed text-ink/75">
               Logged-in candidates can submit a CV for this role
               {questions.length
@@ -129,22 +149,12 @@ export default async function JobPage({ params }: PageProps) {
             ) : session ? (
               <ApplyForm jobId={job.id} questions={questions} />
             ) : (
-              <p className="mt-3 text-sm leading-relaxed text-ink/75">
-                <Link
-                  href={`/login?next=${encodeURIComponent(`/careers/${job.slug}`)}`}
-                  className="text-brand-orange"
-                >
-                  Log in
-                </Link>{" "}
-                or{" "}
-                <Link
-                  href={`/signup?next=${encodeURIComponent(`/careers/${job.slug}`)}`}
-                  className="text-brand-orange"
-                >
-                  sign up
-                </Link>{" "}
-                to submit your CV and details.
-              </p>
+              <Link
+                href={loginHref}
+                className="mt-5 inline-flex items-center rounded-full bg-brand-orange px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-orange/90"
+              >
+                Apply now
+              </Link>
             )}
           </div>
         </div>

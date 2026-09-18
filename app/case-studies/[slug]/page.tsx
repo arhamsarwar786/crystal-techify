@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { FileText } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
-import { BandDecor } from "@/components/ui/BandDecor";
+import { CaseDetail } from "@/components/pages/CaseDetail";
 import { PORTFOLIO_ITEMS } from "@/lib/data";
 
 interface PageProps {
@@ -25,68 +24,7 @@ export default function CaseStudyPage({ params }: PageProps) {
 
   return (
     <PageShell>
-      <section className="band-canvas relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-36">
-        <BandDecor />
-        <div className="section-shell relative max-w-3xl">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-orange">
-            {project.category} · {project.client}
-          </p>
-          <h1 className="mt-3 font-sans text-[1.85rem] font-semibold tracking-tight text-ink sm:text-[2.5rem]">
-            {project.name}
-          </h1>
-          <span
-            aria-hidden
-            className="mt-4 block h-px w-9 bg-brand-orange"
-          />
-          <p className="mt-5 text-sm leading-relaxed text-ink/70 sm:text-base">
-            {project.summary}
-          </p>
-
-          <div className="card-on-canvas fx-spot mt-8">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
-              Outcome
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-ink/70 sm:text-base">
-              {project.outcome}
-            </p>
-            <p className="mt-4 text-xs text-ink/45">
-              {project.timeline} · {project.teamSize}
-            </p>
-          </div>
-
-          {project.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={project.image}
-              alt={project.name}
-              className="mt-8 w-full rounded-2xl"
-            />
-          ) : null}
-
-          {project.pdf ? (
-            <a
-              href={project.pdf}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-brand-orange hover:text-ink"
-            >
-              <FileText className="h-4 w-4" />
-              Open case-study PDF
-            </a>
-          ) : null}
-
-          <ul className="mt-8 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <li
-                key={tag}
-                className="rounded-full bg-[#F3F4F6] px-3 py-1 text-xs text-ink/60 dark:bg-white/[0.06]"
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <CaseDetail slug={params.slug} />
     </PageShell>
   );
 }

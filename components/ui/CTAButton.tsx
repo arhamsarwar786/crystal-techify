@@ -65,7 +65,7 @@ export function CTAButton({
 
   const variantClass =
     variant === "outline"
-      ? `${base} border border-ink/20 bg-transparent text-ink hover:border-ink/50 ${className ?? ""}`
+      ? `${base} border border-ink/20 bg-transparent text-ink hover:border-ink/50 dark:border-white/25 dark:hover:border-white/55 ${className ?? ""}`
       : `${base} overflow-hidden bg-brand-orange text-white hover:bg-brand-orange/90 ${className ?? ""}`;
 
   const content =

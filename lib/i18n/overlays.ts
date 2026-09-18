@@ -53,7 +53,7 @@ export const OVERLAYS: Record<string, Overlay> = {
         "Our core expertise includes AI-driven software development, machine learning, natural language processing, and automation, along with SaaS, mobile and web development, UI/UX design, Web3, e-commerce, and digital marketing. To support growing demand, we also offer staff augmentation — experienced AI engineers, developers, and digital professionals so you can scale with agility.",
     },
     services: {
-      title: "Services that empower you",
+      title: "Our Services",
       description: "Access services that drive growth and fuel success.",
     },
     cases: {

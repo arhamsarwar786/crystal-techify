@@ -1,9 +1,12 @@
+"use client";
+
 import type { ReactNode } from "react";
 
 interface MarqueeProps {
   items: ReactNode[];
-  speed?: "normal" | "slow";
+  speed?: "normal" | "slow" | "cards";
   reverse?: boolean;
+  fade?: boolean;
   /** Overrides the default text-chip styling per item (e.g. for icon tiles). */
   itemClassName?: string;
   /**
@@ -22,21 +25,37 @@ export function Marquee({
   items,
   speed = "normal",
   reverse = false,
+  fade = true,
   itemClassName,
   wrapperClassName,
 }: MarqueeProps) {
   const doubled = [...items, ...items];
   return (
-    <div className={`group mask-fade-x w-full overflow-x-hidden ${wrapperClassName ?? ""}`}>
+    <div
+      className={`group/marquee w-full overflow-x-hidden ${fade ? "mask-fade-x" : ""} ${wrapperClassName ?? ""}`}
+      onMouseEnter={(event) => {
+        const track = event.currentTarget.querySelector<HTMLElement>("[data-marquee-track]");
+        if (track) track.style.animationPlayState = "paused";
+      }}
+      onMouseLeave={(event) => {
+        const track = event.currentTarget.querySelector<HTMLElement>("[data-marquee-track]");
+        if (track) track.style.animationPlayState = "";
+      }}
+    >
       <div
-        className={`flex w-max items-center gap-3 py-3 group-hover:[animation-play-state:paused] sm:gap-4 ${
-          speed === "slow" ? "animate-marquee-slow" : "animate-marquee"
+        data-marquee-track
+        className={`flex w-max items-stretch gap-3 py-3 sm:gap-4 ${
+          speed === "cards"
+            ? "ct-marquee-track"
+            : speed === "slow"
+              ? "animate-marquee-slow"
+              : "animate-marquee"
         } ${reverse ? "[animation-direction:reverse]" : ""}`}
       >
         {doubled.map((item, i) => (
-          <span key={i} className={itemClassName ?? DEFAULT_ITEM_CLASS}>
+          <div key={i} className={itemClassName ?? DEFAULT_ITEM_CLASS}>
             {item}
-          </span>
+          </div>
         ))}
       </div>
     </div>

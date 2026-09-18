@@ -10,7 +10,7 @@ import { validateLogin, validateSignup, type FieldErrors } from "@/lib/auth-vali
 import { useLocale } from "@/lib/i18n";
 
 const inputClass =
-  "mt-1.5 w-full rounded-xl border bg-white px-3.5 py-3 outline-none transition-colors focus:border-ink/30";
+  "mt-1.5 w-full rounded-xl border bg-white px-3.5 py-3 outline-none transition-colors focus:border-ink/30 dark:bg-white/[0.06]";
 
 function fieldClass(invalid?: string) {
   return `${inputClass} ${invalid ? "border-brand-red/50" : "border-ink/20"}`;

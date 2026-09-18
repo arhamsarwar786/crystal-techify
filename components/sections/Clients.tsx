@@ -31,32 +31,24 @@ export function Clients() {
   return (
     <section
       id="clients"
-      className="band-canvas relative scroll-mt-24 overflow-hidden border-y border-ink/[0.06] py-12 sm:py-14"
+      className="band-muted relative scroll-mt-24 overflow-hidden py-12 sm:py-14"
     >
       <BandDecor />
       <div className="section-shell relative">
         <Reveal>
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-orange">
-            01
+          <p className="inline-flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-orange">
+            <span aria-hidden className="h-px w-6 bg-brand-orange" />
+            Clients
           </p>
-          <h2 className="mt-2 font-sans text-xl font-semibold tracking-tight text-ink sm:text-2xl">
+          <h2 className="mt-3 font-sans text-[1.9rem] font-semibold tracking-[-0.03em] text-ink sm:text-[2.35rem] sm:leading-[1.12]">
             {t.clientsHeadline}
           </h2>
-          <span aria-hidden className="heading-accent" />
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink/60">
+          <p className="mt-4 max-w-md text-[15px] leading-[1.75] text-ink/60">
             {t.clientsBody}
           </p>
         </Reveal>
 
         <Reveal delay={0.08} className="relative mt-8">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent dark:from-bg sm:w-24"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent dark:from-bg sm:w-24"
-          />
           <Marquee
             items={items}
             speed="slow"

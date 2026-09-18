@@ -4,9 +4,23 @@ import { englishFromData } from "./from-data";
 const data = englishFromData();
 
 export const enUS: Messages = {
-  heroTitle: "AI-Native Software",
+  heroTitle: "AI-Native Software That Ships",
   heroWords: ["production-ready", "intelligent", "reliable", "built to last"],
   heroBody: "Intelligent by design. Production-ready by default.",
+  heroSlides: [
+    {
+      title: "Software That Ships",
+      body: "From Dublin, Ohio — measured by what reaches production.",
+    },
+    {
+      title: "AI-Native Software",
+      body: "Intelligent by design. Production-ready by default.",
+    },
+    {
+      title: "From Idea to Production",
+      body: "AI, SaaS, mobile, and the specialists to staff the work.",
+    },
+  ],
   bookDemo: "Book a Demo",
   clientsHeadline: "Technology partner to leading brands",
   clientsBody:
@@ -54,6 +68,8 @@ export const enUS: Messages = {
     getInTouch: "Get in touch",
     viewDetails: "View details",
     viewRole: "View role",
+    applyNow: "Apply now",
+    viewOpenRoles: "View open roles",
     allRoles: "All roles",
     allRights: "All rights reserved.",
     builtIn: "Built in {location}",
@@ -88,6 +104,19 @@ export const enUS: Messages = {
     problemsWeSeeBody: "Where teams get stuck in {name}.",
     howWeWorkIndustry: "A delivery path for this domain.",
     outcomesAim: "Outcomes we aim for",
+    whereWeFocus: "Where we focus",
+    caseStudy: "Case study",
+    client: "Client",
+    engagement: "Engagement",
+    team: "Team",
+    theBrief: "The brief",
+    theBriefBody: "What this engagement had to solve.",
+    theContext: "The engagement",
+    howWeDelivered: "How we delivered",
+    howWeDeliveredBody: "The work, in the order it actually happened.",
+    whatShipped: "What shipped",
+    theStack: "What we used",
+    otherCases: "More case studies",
     lookingServices: "Looking for a service instead?",
     browseServices: "Browse all {count} services",
     companyAboutExtra:
@@ -117,8 +146,25 @@ export const enUS: Messages = {
     ],
   },
   services: {
-    title: "Services That Empower You",
-    description: "Gain access to services that drive growth and fuel success.",
+    title: "Our Services",
+    kicker: "Our services",
+    headline: "Build. Scale.",
+    headlineAccent: "Succeed.",
+    description:
+      "We create custom digital solutions that help businesses work smarter, grow faster, and stay ahead.",
+    discoverCapabilities: "Discover our full capabilities",
+    exploreAll: "Explore all services",
+    kickers: {
+      "artificial-intelligence": "AI",
+      saas: "SaaS",
+      "mobile-development": "Mobile apps",
+      design: "Design",
+      ecommerce: "Commerce",
+      "web3-development": "Web3",
+      cms: "CMS",
+      "digital-marketing": "Marketing",
+      "staff-augmentation": "Talent",
+    },
   },
   cases: {
     title: "Be the next success story",
@@ -234,8 +280,98 @@ export const enUS: Messages = {
   },
   careers: {
     kicker: "Careers",
-    title: "Build with Crystal Techify",
-    body: "Open roles in AI, product engineering, and delivery. Log in to apply with your CV.",
+    title: "Take your career to the next level",
+    body: "Open roles in AI, product engineering, and delivery — teams that ship software people actually use.",
+    storyKicker: "Working here",
+    storyTitle: "The work has to hold up after launch",
+    story:
+      "Crystal Techify is based in Dublin, Ohio. Product, AI, and the specialists we embed share one engineering standard, measured by what reaches production. We hire people who want to own the work, not sit in a slide-deck culture.",
+    highlights: [
+      {
+        title: "AI-native delivery",
+        body: "Engineers, designers, and delivery leads work on products where models, data, and UX have to hold up after launch.",
+      },
+      {
+        title: "Real production work",
+        body: "You will ship with US-based teams — SaaS, mobile, platforms, and staffed squads inside client organisations.",
+      },
+      {
+        title: "One security bar",
+        body: "ISO/IEC 27001-aligned practice is part of how we build. Responsible AI and measurable outcomes are the default.",
+      },
+    ],
+    facts: [
+      { value: "Dublin, Ohio", label: "Home office" },
+      { value: "2021", label: "Founded" },
+      { value: "ISO 27001", label: "Information security" },
+      { value: "100+", label: "Projects delivered in the US" },
+    ],
+    teamsKicker: "Practices",
+    teamsTitle: "Who we hire",
+    teamsBody:
+      "Listings change. The work sits in these practices — the same ones we run for clients.",
+    teams: [
+      {
+        title: "Artificial intelligence",
+        body: "Applied ML and LLM work inside live products: retrieval, evaluation, inference, and the operations that keep quality and cost honest after launch.",
+      },
+      {
+        title: "Product engineering",
+        body: "TypeScript, SaaS, and platforms shipped with design in the same loop — schema, API, UI, and the operational bits, not a hand-off over the wall.",
+      },
+      {
+        title: "Design",
+        body: "Flows, systems, and interface craft for software operators actually use. Visual quality matters; so does sitting with the person who has to run the tool.",
+      },
+      {
+        title: "Delivery teams",
+        body: "Engineers and specialists embedded with US clients under the same standard we use in-house. You are accountable for what ships, not for filling a seat.",
+      },
+    ],
+    cultureKicker: "How we work",
+    cultureTitle: "What the job is actually like",
+    cultureBody:
+      "Dublin is home. Pay, location, and benefits are written on each role so they stay accurate to that listing.",
+    culture: [
+      {
+        title: "Production is the measure",
+        body: "The work is judged by what reaches users: quality, latency, cost, and whether someone can run it next quarter — not by a deck.",
+      },
+      {
+        title: "One engineering bar",
+        body: "Product, AI, and staffed squads share the same standard. There is no second-class track for people we embed with clients.",
+      },
+      {
+        title: "Security is part of the build",
+        body: "ISO/IEC 27001-aligned practice is how we ship: access, data, and the habits that keep client systems boring in the best way.",
+      },
+      {
+        title: "You own the slice",
+        body: "Teams stay small. You will see the work in production instead of writing tickets for someone else to finish.",
+      },
+    ],
+    hiringKicker: "Apply",
+    hiringTitle: "How hiring works",
+    hiringBody:
+      "Applications go through this site so your CV and the answers for that role stay attached to you.",
+    hiring: [
+      {
+        title: "Browse open roles",
+        body: "Each listing has location, type, and what the work actually is. Benefits and compensation sit on the role, not in a generic footer.",
+      },
+      {
+        title: "Create an account",
+        body: "Sign up so we can keep one application per role, tied to you. We use it to review — not to add you to a marketing list.",
+      },
+      {
+        title: "Submit your CV",
+        body: "Attach a PDF or Word CV, a short note, and any questions on the listing. That is the application.",
+      },
+      {
+        title: "We review",
+        body: "If there is a fit we will be in touch. If not, you will not hear a pitch for something you did not apply to.",
+      },
+    ],
     dbDown:
       "Careers could not load because the database is unreachable. Confirm DATABASE_URL and try again.",
     empty: "No open roles right now. Check back soon.",

@@ -3,7 +3,7 @@ import { Industries } from "@/components/sections/Industries";
 
 export default function IndustriesPage() {
   return (
-    <PageShell>
+    <PageShell expertBand="muted">
       <Industries pageStart />
     </PageShell>
   );

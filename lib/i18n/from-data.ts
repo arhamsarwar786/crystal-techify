@@ -14,6 +14,7 @@ import {
   TESTIMONIALS,
   TRUST_METRICS,
 } from "@/lib/data";
+import { CASE_PAGES } from "@/lib/case-pages";
 import { INDUSTRY_PAGES } from "@/lib/industry-pages";
 import { SERVICE_PAGES } from "@/lib/service-pages";
 import type { Messages } from "./types";
@@ -76,18 +77,27 @@ export function englishFromData(): Pick<
       }),
     ),
     caseItems: Object.fromEntries(
-      PORTFOLIO_ITEMS.map((p) => [
-        p.slug,
-        {
-          name: p.name,
-          category: p.category,
-          summary: p.summary,
-          outcome: p.outcome,
-          timeline: p.timeline,
-          teamSize: p.teamSize,
-          tags: p.tags,
-        },
-      ]),
+      PORTFOLIO_ITEMS.map((p) => {
+        const page = CASE_PAGES[p.slug];
+        return [
+          p.slug,
+          {
+            name: p.name,
+            category: p.category,
+            summary: p.summary,
+            outcome: p.outcome,
+            timeline: p.timeline,
+            teamSize: p.teamSize,
+            tags: p.tags,
+            brief: page?.brief,
+            context: page?.context,
+            challenges: page?.challenges,
+            approach: page?.approach,
+            shipped: page?.shipped,
+            stack: page?.stack,
+          },
+        ];
+      }),
     ),
     categories: {
       All: "All",

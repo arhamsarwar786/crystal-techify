@@ -29,6 +29,12 @@ export type CaseCopy = {
   timeline: string;
   teamSize: string;
   tags: string[];
+  brief?: string;
+  context?: string;
+  challenges?: Block[];
+  approach?: Block[];
+  shipped?: string[];
+  stack?: string[];
 };
 
 export type Titled = { title: string; description: string };
@@ -38,6 +44,7 @@ export type Messages = {
   heroTitle: string;
   heroWords: readonly string[];
   heroBody: string;
+  heroSlides: readonly { title: string; body: string }[];
   bookDemo: string;
   clientsHeadline: string;
   clientsBody: string;
@@ -50,6 +57,8 @@ export type Messages = {
     getInTouch: string;
     viewDetails: string;
     viewRole: string;
+    applyNow: string;
+    viewOpenRoles: string;
     allRoles: string;
     allRights: string;
     builtIn: string;
@@ -84,6 +93,19 @@ export type Messages = {
     problemsWeSeeBody: string;
     howWeWorkIndustry: string;
     outcomesAim: string;
+    whereWeFocus: string;
+    caseStudy: string;
+    client: string;
+    engagement: string;
+    team: string;
+    theBrief: string;
+    theBriefBody: string;
+    theContext: string;
+    howWeDelivered: string;
+    howWeDeliveredBody: string;
+    whatShipped: string;
+    theStack: string;
+    otherCases: string;
     lookingServices: string;
     browseServices: string;
     companyAboutExtra: string;
@@ -109,6 +131,12 @@ export type Messages = {
   services: {
     title: string;
     description: string;
+    discoverCapabilities: string;
+    kicker: string;
+    headline: string;
+    headlineAccent: string;
+    exploreAll: string;
+    kickers: Record<string, string>;
   };
 
   cases: {
@@ -212,6 +240,23 @@ export type Messages = {
     kicker: string;
     title: string;
     body: string;
+    storyKicker: string;
+    storyTitle: string;
+    story: string;
+    highlights: TitleBody[];
+    facts: { value: string; label: string }[];
+    teamsKicker: string;
+    teamsTitle: string;
+    teamsBody: string;
+    teams: TitleBody[];
+    cultureKicker: string;
+    cultureTitle: string;
+    cultureBody: string;
+    culture: TitleBody[];
+    hiringKicker: string;
+    hiringTitle: string;
+    hiringBody: string;
+    hiring: TitleBody[];
     dbDown: string;
     empty: string;
     jobDbDown: string;

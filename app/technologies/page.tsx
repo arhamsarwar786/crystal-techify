@@ -34,11 +34,12 @@ const GROUPS = [
 
 export default function TechnologiesPage() {
   return (
-    <PageShell>
+    <PageShell expertBand="muted">
       <section className="band-canvas relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-36">
         <BandDecor />
         <div className="section-shell relative">
           <SectionHeading
+            kicker="Stack"
             title="Technologies"
             description="The stack we ship in production — grouped by the work you already run, or want to."
           />

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PageShell } from "@/components/layout/PageShell";
 import { ServiceDetail } from "@/components/pages/ServiceDetail";
 import { SERVICES } from "@/lib/data";
+import { SERVICE_PAGES } from "@/lib/service-pages";
 
 interface ServicePageProps {
   params: { slug: string };
@@ -26,7 +27,7 @@ export default function ServicePage({ params }: ServicePageProps) {
   if (!service) notFound();
 
   return (
-    <PageShell>
+    <PageShell expertBand={SERVICE_PAGES[params.slug] ? "muted" : "canvas"}>
       <ServiceDetail slug={params.slug} />
     </PageShell>
   );

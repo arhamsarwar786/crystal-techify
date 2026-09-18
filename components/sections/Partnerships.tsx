@@ -14,12 +14,12 @@ export function Partnerships() {
   return (
     <section
       id="recognition"
-      className="band-canvas relative overflow-hidden py-20 sm:py-24 lg:py-28"
+      className="band-canvas relative overflow-hidden py-16 sm:py-20 lg:py-24"
     >
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
-          index="08"
+          kicker="Partnerships"
           title={t.partnerships.title}
           description={t.partnerships.description}
         />
@@ -28,7 +28,6 @@ export function Partnerships() {
           className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {PARTNERSHIPS.map((item, index) => {
-            const n = String(index + 1).padStart(2, "0");
             return (
               <motion.div
                 key={item.title}
@@ -36,21 +35,13 @@ export function Partnerships() {
                 onMouseMove={setSpot}
                 className="card-on-canvas fx-spot flex flex-col"
               >
-                <span aria-hidden className="index-ghost">
-                  {n}
+                <span className="icon-chip">
+                  <item.icon className="h-5 w-5" />
                 </span>
-                <div className="flex items-start justify-between gap-3">
-                  <span className="icon-chip">
-                    <item.icon className="h-5 w-5" />
-                  </span>
-                  <span className="font-sans text-[11px] font-semibold tracking-[0.18em] text-ink/30">
-                    {n}
-                  </span>
-                </div>
-                <h3 className="mt-6 font-sans text-lg font-semibold tracking-tight text-ink">
+                <h3 className="mt-6 font-sans text-[1.35rem] font-semibold leading-snug tracking-tight text-ink">
                   {t.partnerships.items[index]?.title ?? item.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                <p className="mt-2 text-[14px] leading-relaxed text-ink/55">
                   {t.partnerships.items[index]?.body ?? item.body}
                 </p>
               </motion.div>
