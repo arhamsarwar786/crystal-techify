@@ -83,7 +83,6 @@ export function Services({
       <BandDecor />
       <div className="section-shell relative">
         <SectionHeading
-          kicker={t.services.kicker ?? t.services.title}
           title={
             <>
               {headline}{" "}

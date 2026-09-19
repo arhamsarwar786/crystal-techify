@@ -6,6 +6,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Industries } from "@/components/sections/Industries";
 import { Services } from "@/components/sections/Services";
 import { Snapshot } from "@/components/sections/Snapshot";
+import { Testimonials } from "@/components/sections/Testimonials";
 
 export default function HomePage() {
   return (
@@ -16,7 +17,8 @@ export default function HomePage() {
       <Services featured detailHref="/services" />
       <Industries detailHref="/industries" />
       <Engagement home detailHref="/process" />
-      <ExpertCta />
+      <Testimonials band="canvas" />
+      <ExpertCta band="muted" />
     </PageShell>
   );
 }

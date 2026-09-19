@@ -148,8 +148,8 @@ export const enUS: Messages = {
   services: {
     title: "Our Services",
     kicker: "Our services",
-    headline: "Build. Scale.",
-    headlineAccent: "Succeed.",
+    headline: "Our",
+    headlineAccent: "Services",
     description:
       "We create custom digital solutions that help businesses work smarter, grow faster, and stay ahead.",
     discoverCapabilities: "Discover our full capabilities",

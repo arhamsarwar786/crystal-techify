@@ -415,6 +415,15 @@
   animation-play-state: paused;
 }
 
+.testimonial-marquee-track {
+  animation: ct-marquee 45s linear infinite;
+  will-change: transform;
+}
+
+.group\/testimonials:hover .testimonial-marquee-track {
+  animation-play-state: paused;
+}
+
 .industry-scan {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
@@ -423,7 +432,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .service-marquee-track {
+  .service-marquee-track,
+  .testimonial-marquee-track {
     animation: none;
   }
 }
